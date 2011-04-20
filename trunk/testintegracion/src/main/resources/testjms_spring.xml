@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	
+	
+	<bean id="datasource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:hsql://localhost/target/testjsm" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+<!--			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />-->
+<!--			<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />-->
+<!--			<property name="username" value="xe" />-->
+<!--			<property name="password" value="password" />-->
+	</bean>
+	
+	
+	
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="datasource" />
+		</property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.jpmorgan.testjms.model.Person</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.connection.pool_size">10</prop>
+				<prop key="hibernate.show_sql">true</prop>
+<!--				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>-->
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+			</props>
+		</property>
+	</bean>
+	
+<!--	<bean id="sessionFactory"-->
+<!--		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">-->
+<!--		<property name="dataSource">-->
+<!--			<ref bean="datasource" />-->
+<!--		</property>-->
+<!--		<property name="mappingLocations">-->
+<!--			<list>-->
+<!--				<value>classpath:com/jpmorgan/testjms/model/*.hbm.xml</value>-->
+<!--			</list>-->
+<!--		</property>-->
+<!--		<property name="hibernateProperties">-->
+<!--			<props>-->
+<!--				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>-->
+<!--				<prop key="hibernate.show_sql">true</prop>-->
+<!--			</props>-->
+<!--		</property>-->
+<!--	</bean>-->
+	
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="transactionTemplate"
+		class="org.springframework.transaction.support.TransactionTemplate">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+	</bean>
+
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="attributeSource"
+		class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+		<property name="properties">
+			<props>
+				<prop key="save">
+					PROPAGATION_REQUIRES_NEW
+				</prop>
+				<prop key="*">
+					PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+				</prop>
+				<prop key="get*">
+					PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+				</prop>
+				<prop key="load*">
+					PROPAGATION_REQUIRED,ISOLATION_DEFAULT
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="abstractDaoTarget" class="com.jpmorgan.testjms.dao.GenericDaoHibernateImpl"
+		abstract="true">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="abstractDao" class="org.springframework.aop.framework.ProxyFactoryBean"
+		abstract="true">
+	</bean>
+
+	<bean id="personDao" parent="abstractDao">
+		<property name="proxyInterfaces">
+			<value>com.jpmorgan.testjms.dao.PersonDAO</value>
+		</property>
+		<property name="target">
+			<bean parent="abstractDaoTarget">
+				<constructor-arg>
+					<value>com.jpmorgan.testjms.model.Person</value>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+	
+	<bean id="abstractTransactionalService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		 abstract="true">
+		<property name="transactionManager">
+			<ref bean="transactionManager"/>
+		</property>
+		<property name="transactionAttributeSource">
+			<ref bean="attributeSource"/>
+		</property>
+	</bean>
+	
+	<bean id="personService" parent="abstractTransactionalService">
+		<property name="proxyInterfaces">
+			<list>
+				<value>com.jpmorgan.testjms.service.ServicePerson</value>
+			</list>
+		</property>
+		<property name="target">
+			<bean id="servicePersonTarget" class="com.jpmorgan.testjms.service.ServicePersonImpl">
+				<property name="personDao">
+					<ref bean="personDao"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	  
+	
+	<bean id="wrapperService" parent="abstractTransactionalService">
+		<property name="proxyInterfaces">
+			<list>
+				<value>com.jpmorgan.testjms.service.WrapperService</value>
+			</list>
+		</property>
+		<property name="target">
+			<bean id="wrapperServiceTarget" class="com.jpmorgan.testjms.service.WrapperServiceImpl">
+				<property name="servicePerson">
+					<ref bean="personService"/>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+<!--	<bean id="personServicePelado" class="com.jpmorgan.testjms.service.ServicePersonPelado">-->
+<!--		<property name="personDao">-->
+<!--			<ref bean="personDao"/>-->
+<!--		</property>-->
+<!--	</bean>-->
+<tx:annotation-driven />
+	<context:component-scan base-package="com.jpmorgan.testjms" />
+
+</beans>
