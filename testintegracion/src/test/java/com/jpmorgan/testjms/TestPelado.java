@@ -6,7 +6,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.jpmorgan.testjms.model.Person;
-import com.jpmorgan.testjms.service.WrapperService;
+import com.jpmorgan.testjms.service.ServicePerson;
 
 public class TestPelado extends TestCase {
 
@@ -14,12 +14,12 @@ public class TestPelado extends TestCase {
 		try {
 			BeanFactory bf = new ClassPathXmlApplicationContext(
 					"classpath:testjms_spring.xml");
-			WrapperService ps = (WrapperService) bf.getBean("wrapperService");
+			ServicePerson ps = (ServicePerson) bf.getBean("servicePerson");
 			// WrapperService ps = (WrapperService)
 			// bf.getBean("personServicePelado");
 			Person p = new Person();
 			p.setName("yo");
-			ps.savePerson(p);
+			ps.save(p);
 			p.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
