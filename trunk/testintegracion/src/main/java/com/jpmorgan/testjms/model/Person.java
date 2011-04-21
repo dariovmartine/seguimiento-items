@@ -32,6 +32,18 @@ public class Person implements Serializable {
     @Column(name = "NAME")
 	String name;
 
+	@Basic
+    @Column(name = "EMAIL")
+	String email;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	/**
 	 * @return the id
 	 */
