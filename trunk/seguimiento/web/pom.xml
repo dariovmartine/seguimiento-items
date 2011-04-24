@@ -1,15 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>edu.unlp.informatica.postgrado.seguimiento</groupId>
-	<artifactId>seguimientoWeb</artifactId>
+	<groupId>edu.unlp.informatica.postgrado.seguimiento.web</groupId>
+	<artifactId>web</artifactId>
 	<packaging>war</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>seguimientoWeb</name>
+	<name>web</name>
 	<url>http://maven.apache.org</url>
 	<parent>
 		<groupId>edu.unlp.informatica.postgrado.seguimiento</groupId>
-		<artifactId>seguimiento-items</artifactId>
+		<artifactId>seguimiento</artifactId>
+		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<properties>
 		<org.richfaces.bom.version>4.0.0.Final</org.richfaces.bom.version>
@@ -40,8 +41,9 @@
 	</repositories>
 	<dependencies>
 		<dependency>
-			<groupId>edu.unlp.informatica.postgrado.seguimiento</groupId>
+			<groupId>edu.unlp.informatica.postgrado.seguimiento.item</groupId>
 			<artifactId>item</artifactId>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
