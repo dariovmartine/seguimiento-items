@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.unlp.informatica.postgrado.seguimiento</groupId>
 	<artifactId>seguimiento</artifactId>
-	<name>seguimiento-items</name>
+	<name>seguimiento</name>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<modules>
 		<module>item</module>
-		<module>seguimientoWeb</module>
+		<module>web</module>
 	</modules>
 </project>
