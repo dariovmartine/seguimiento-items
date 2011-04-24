@@ -22,7 +22,6 @@ public class Person implements Serializable {
 
 	  
 	@Id 
-//	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false, insertable = true, updatable = true)
 	@GeneratedValue(generator="EXAMPLE_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="EXAMPLE_ID_GEN", sequenceName="SEQ_PERSON_ID")
