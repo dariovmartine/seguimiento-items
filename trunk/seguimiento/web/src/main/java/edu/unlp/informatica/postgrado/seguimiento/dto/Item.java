@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.validation.constraints.Size;
 
+import edu.unlp.informatica.postgrado.item.validators.ValidUserName;
+
 @ManagedBean
 @RequestScoped
 public class Item {
@@ -23,7 +25,8 @@ public class Item {
 		return result;
 	}
 
-	@Size(min = 3, max = 12, message = "Must be between 3 and 12 chars")
+	//@Size(min = 3, max = 12, message = "Must be between 3 and 12 chars")
+	@ValidUserName
 	private String name;
 
 	private String state;
@@ -32,6 +35,7 @@ public class Item {
 		return state;
 	}
 
+	
 	public String getName() {
 		return name;
 	}
