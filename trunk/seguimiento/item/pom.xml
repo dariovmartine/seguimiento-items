@@ -127,6 +127,112 @@
 					<target>${maven.compiler.target}</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>sql-maven-plugin</artifactId>
+				<version>1.4</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.hsqldb</groupId>
+						<artifactId>hsqldb-j5</artifactId>
+						<version>2.0.0</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<phase>pre-clean</phase>
+						<goals>
+							<goal>execute</goal>
+						</goals>
+						<configuration>
+							<driver>org.hsqldb.jdbcDriver</driver>
+							<url>jdbc:hsqldb:hsql://localhost/target/itemdb</url>
+							<username>sa</username>
+							<password></password>
+							<onError>continue</onError>
+							<autocommit>true</autocommit>
+							<skipOnConnectionError>true</skipOnConnectionError>
+							<sqlCommand>SHUTDOWN</sqlCommand>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>start</id>
+						<phase>test-compile</phase>
+						<configuration>
+							<target name="build">
+								<property name="plugin_classpath" refid="maven.plugin.classpath" />
+								<java fork="true" failonerror="false" maxmemory="512m"
+									spawn="true" classname="org.hsqldb.Server">
+									<arg line="-database.0 file:target/itemdb -dbname.0 itemdb" />
+									<classpath>
+										<pathelement path="${plugin_classpath}" />
+									</classpath>
+								</java>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.hsqldb</groupId>
+						<artifactId>hsqldb-j5</artifactId>
+						<version>2.0.0</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>hibernate3-maven-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>hbm2ddl</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<components>
+						<component>
+							<name>hbm2ddl</name>
+							<implementation>annotationconfiguration</implementation>
+						</component>
+					</components>
+					<componentProperties>
+						<jdk5>true</jdk5>
+						<drop>true</drop>
+						<configurationfile>src/main/resources/hibernate.cfg.xml</configurationfile>
+						<propertyfile>/src/main/resources/item.properties</propertyfile>
+					</componentProperties>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.hsqldb</groupId>
+						<artifactId>hsqldb-j5</artifactId>
+						<version>2.0.0</version>
+					</dependency>
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-core</artifactId>
+						<version>${org.hibernate-core.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-annotations</artifactId>
+						<version>${org.hibernate-annotations.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
 </project>
