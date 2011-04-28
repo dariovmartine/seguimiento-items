@@ -9,11 +9,11 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
-@ImportResource("classpath:/com/acme/properties-config.xml")
+@ImportResource("classpath:item.properties")
 public class AppConfig {
-  private @Value("${jdbc.url}") String url;
-  private @Value("${jdbc.username}") String username;
-  private @Value("${jdbc.password}") String password;
+  private @Value("${hibernate.connection.url}") String url;
+  private @Value("${hibernate.connection.username}") String username;
+  private @Value("${hibernate.connection.password}") String password;
 
   public @Bean DataSource dataSource() {
       return new DriverManagerDataSource(url, username, password);
