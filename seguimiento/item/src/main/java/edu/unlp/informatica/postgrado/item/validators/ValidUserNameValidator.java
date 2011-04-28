@@ -14,7 +14,7 @@ public class ValidUserNameValidator implements
 
 	@Override
 	public void initialize(ValidUserName firstUpper) {
-		// See JSR 303 Section 2.4.1 for sample implementation.
+		log.info("Inicializando...");
 	}
 
 	@Override
