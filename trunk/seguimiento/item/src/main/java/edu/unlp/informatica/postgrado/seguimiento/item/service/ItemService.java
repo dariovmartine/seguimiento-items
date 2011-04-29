@@ -11,14 +11,22 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.ItemRepository;
 
 @Service("itemService")
-@Transactional(propagation=Propagation.SUPPORTS, readOnly=true)
+@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 public class ItemService {
 
 	@Autowired
 	private ItemRepository itemRepository;
-	
-	public List<Item> findItems() {
+
 		
-		return itemRepository.findItems();
+	public Item save(Item entity) {
+		
+		itemRepository.save(entity);
+		return entity;
 	}
+	
+	public List<Item> find() {
+		
+		return itemRepository.find();
+	}	
+	
 }
