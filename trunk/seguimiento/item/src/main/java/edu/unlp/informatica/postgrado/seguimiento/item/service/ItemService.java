@@ -11,7 +11,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.ItemRepository;
 
 @Service("itemService")
-@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+@Transactional(propagation = Propagation.SUPPORTS)
 public class ItemService {
 
 	@Autowired

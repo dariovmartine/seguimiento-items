@@ -11,6 +11,13 @@ public class AbstractRepository<E, K> {
 	@Autowired
 	HibernateTemplate hibernateTemplate;
 	
+	private final Class<E> clazz  ;
+
+	
+	public AbstractRepository(Class<E> clazz) {
+		this.clazz = clazz;
+	}
+	
 	public E save(E entity) {
 		
 		hibernateTemplate.save(entity);
@@ -19,8 +26,8 @@ public class AbstractRepository<E, K> {
 	
 	@SuppressWarnings("unchecked")
 	public List<E> find() {
-		
-		return hibernateTemplate.find("");
+		 
+		return hibernateTemplate.loadAll(clazz);
 	}
 
 }
