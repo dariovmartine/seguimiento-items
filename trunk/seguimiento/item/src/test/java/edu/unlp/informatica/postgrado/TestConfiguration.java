@@ -1,7 +1,8 @@
 package edu.unlp.informatica.postgrado;
 
+import junit.framework.Assert;
+
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
@@ -21,6 +22,6 @@ public class TestConfiguration {
 		Item i = new Item();
 		i.setName("dario");
 		myService.save(i);
-		assert (myService.find().size() == 1);
+		Assert.assertTrue("Debería haberse grabado algo.", myService.find().size() == 1);
 	}
 }
