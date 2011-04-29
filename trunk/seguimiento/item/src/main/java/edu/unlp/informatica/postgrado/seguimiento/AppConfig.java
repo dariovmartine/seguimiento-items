@@ -1,10 +1,12 @@
 package edu.unlp.informatica.postgrado.seguimiento;
 
+import java.sql.Driver;
 import java.util.Properties;
 
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
@@ -12,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
@@ -38,23 +40,33 @@ public class AppConfig {
 @Configuration
 class RepositoryConfig {
 
-    @Value("${hibernate.connection.driver_class}")     private String driverClassName;
-    @Value("${hibernate.connection.url}")                 private String url;
-    @Value("${hibernate.connection.username}")             private String username;
-    @Value("${hibernate.connection.password}")             private String password;
-    @Value("${hibernate.dialect}")         private String hibernateDialect;
-    @Value("${hibernate.show_sql}")     private String hibernateShowSql;
-        
+    @Value("${hibernate.connection.driver_class}")
+    private String driverClassName;
+    
+    @Value("${hibernate.connection.url}")                 
+    private String url;
+    
+    @Value("${hibernate.connection.username}")             
+    private String username;
+    
+    @Value("${hibernate.connection.password}")             
+    private String password;
+    
+    @Value("${hibernate.dialect}")         
+    private String hibernateDialect;
+    
+    @Value("${hibernate.show_sql}")     
+    private String hibernateShowSql;
         
     @Bean()    
     public DataSource getDataSource()
     {
-        DriverManagerDataSource ds = new DriverManagerDataSource();        
-        ds.setDriverClassName(driverClassName);
-        ds.setUrl(url);
-        ds.setUsername(username);
-        ds.setPassword(password);        
-        return ds;
+    	try {
+    		return new SimpleDriverDataSource((Driver)BeanUtils.instantiateClass(Class.forName(driverClassName)), url, username, password);	
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+        return null;
     }
     
     @Bean
@@ -90,7 +102,6 @@ class RepositoryConfig {
         Properties properties = new Properties();
         properties.put("hibernate.dialect", hibernateDialect);
         properties.put("hibernate.show_sql", hibernateShowSql);
-        //properties.put("hibernate.hbm2ddl.auto", hibernateHbm2ddlAuto);
         
         return properties;
     }
