@@ -30,10 +30,10 @@ public class ItemBeanValidationTest {
 
 		Set<ConstraintViolation<Item>> constraintViolations = validator
 				.validate(bean);
-		assertEquals(0, constraintViolations.size());
-		if (constraintViolations.size() >0) {
-			System.out.println(constraintViolations.iterator().next().getMessage());
-		}
+		assertEquals(1, constraintViolations.size());
+		
+		System.out.println(constraintViolations.iterator().next().getMessage());
+		
 	}
 }
 

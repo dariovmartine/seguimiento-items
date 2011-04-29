@@ -17,7 +17,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-		<org.springframework.version>2.5.6.SEC02</org.springframework.version>
+		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
 		<org.hibernate-core.version>3.3.2.GA</org.hibernate-core.version>
 		<org.hibernate-annotations.version>3.4.0.GA</org.hibernate-annotations.version>
 		<org.hibernate-entitymanager.version>3.4.0.GA</org.hibernate-entitymanager.version>
@@ -58,28 +58,53 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
+			<artifactId>spring-core</artifactId>
 			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>3.0.5.RELEASE</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>3.0.5.RELEASE</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>3.0.5.RELEASE</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.javaconfig</groupId>
-			<artifactId>spring-javaconfig</artifactId>
-			<version>1.0.0.m3</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-asm</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId>
+			<version>2.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -95,6 +120,16 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${org.hibernate-entitymanager.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb-j5</artifactId>
+			<version>2.0.0</version>
 		</dependency>
 	</dependencies>
 	<repositories>

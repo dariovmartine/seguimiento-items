@@ -11,7 +11,7 @@
 		<property name="dialect">{hibernate.dialect}</property>
 		<property name="current_session_context_class">thread</property>
 		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
-		<property name="show_sql">true</property>
+		<property name="hibernate.show_sql">{hibernate.show_sql}</property>
 			
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Item" />
 	</session-factory>
