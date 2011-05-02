@@ -22,6 +22,6 @@ public class TestConfiguration {
 		Item i = new Item();
 		i.setName("dario");
 		myService.save(i);
-		Assert.assertTrue("Debería haberse grabado algo.", myService.find().size() == 1);
+		Assert.assertTrue("Debería haberse grabado algo.", myService.find().size() > 1);
 	}
 }
