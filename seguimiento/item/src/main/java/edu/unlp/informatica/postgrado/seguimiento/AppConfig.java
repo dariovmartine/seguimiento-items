@@ -58,7 +58,7 @@ class RepositoryConfig {
     @Value("${hibernate.show_sql}")     
     private String hibernateShowSql;
         
-    @Bean()    
+    @Bean    
     public DataSource getDataSource()
     {
     	try {
@@ -105,5 +105,13 @@ class RepositoryConfig {
         
         return properties;
     }
+    
+    @Bean
+    @Autowired
+    public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory)
+    {
+    	return new HibernateTransactionManager(sessionFactory);
+    }
+    
     
 }
