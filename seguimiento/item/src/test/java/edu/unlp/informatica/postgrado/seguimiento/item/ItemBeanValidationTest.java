@@ -1,4 +1,4 @@
-package edu.unlp.informatica.postgrado;
+package edu.unlp.informatica.postgrado.seguimiento.item;
 
 import static org.junit.Assert.assertEquals;
 

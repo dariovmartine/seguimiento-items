@@ -151,6 +151,9 @@
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
+			<resource>
+				<directory>src/test/resources</directory>
+			</resource>
 		</resources>
 		<plugins>
 			<plugin>
@@ -247,7 +250,7 @@
 						<jdk5>true</jdk5>
 						<drop>true</drop>
 						<configurationfile>src/main/resources/hibernate.cfg.xml</configurationfile>
-						<propertyfile>/src/main/resources/item.properties</propertyfile>
+						<propertyfile>/src/test/resources/item.properties</propertyfile>
 					</componentProperties>
 				</configuration>
 				<dependencies>
