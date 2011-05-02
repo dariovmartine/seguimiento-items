@@ -6,7 +6,7 @@
     xmlns:rich="http://richfaces.org/rich">
 	<h:form>
 		<f:view>
-			<h:head></h:head>
+			<h:head>Hola! Este es el head</h:head>
 			<h:body>
 
 				<rich:panel header="Richfaces sample validation and auto-completion">
@@ -24,8 +24,16 @@
 							autocompleteMethod="#{item.autocomplete}" />
 
 					</h:form>
+					<h:panelGrid columns="2">
+         				<a4j:commandButton value="+" action="#{bean.add}" reRender="list" />
+	 					<a4j:commandButton value="-" action="#{bean.remove}" reRender="list" />
+      				</h:panelGrid>
+      				<rich:dataTable id="list" value="#{bean.list}" var="item" width="60px">
+         				<rich:column>
+	    					<h:outputText value="#{item}" />
+	 					</rich:column>
+      				</rich:dataTable>
 				</rich:panel>
-
 			</h:body>
 		</f:view>
 	</h:form>
