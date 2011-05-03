@@ -6,7 +6,7 @@
 	<version>1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>item</name>
-	<url>http://maven.apache.org</url>
+	<url>http://code.google.com/p/seguimiento-items/</url>
 	<parent>
 		<groupId>edu.unlp.informatica.postgrado.seguimiento</groupId>
 		<artifactId>seguimiento</artifactId>
