@@ -19,7 +19,7 @@
 		<jsf.version>2.1.0</jsf.version>
 		<slf4j.version>1.5.6</slf4j.version>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
-		<org.springwebflow.version>2.2.0.BUILD-SNAPSHOT</org.springwebflow.version>
+		<org.springwebflow.version>2.2.0.RELEASE</org.springwebflow.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
