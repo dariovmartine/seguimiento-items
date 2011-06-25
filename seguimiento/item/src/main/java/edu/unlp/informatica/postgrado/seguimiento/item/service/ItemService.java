@@ -29,4 +29,13 @@ public class ItemService {
 		return itemRepository.find();
 	}	
 	
+	public List<Item> find(int first, int count, String sortParam ) {
+		
+		return itemRepository.find();
+	}
+	
+	public int getCount() {
+		return itemRepository.find().size();
+	}
+	
 }
