@@ -209,11 +209,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- HIBERNATE -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId>
-			<version>${hibernate-base.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.hibernate</groupId> -->
+<!-- 			<artifactId>hibernate</artifactId> -->
+<!-- 			<version>${hibernate-base.version}</version> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
@@ -229,11 +229,12 @@
 			<artifactId>hsqldb-j5</artifactId>
 			<version>2.0.0</version>
 		</dependency>
+		
 	</dependencies>
 	<properties>
 		<slf4j.version>1.5.8</slf4j.version>
 		<jetty.version>6.1.25</jetty.version>
-		<wicket.version>1.4.15</wicket.version>
+		<wicket.version>1.5-RC1</wicket.version>
 		<log4j.version>1.2.14</log4j.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<hibernate-base.version>3.2.5.ga</hibernate-base.version>
