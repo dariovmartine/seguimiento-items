@@ -1,4 +1,4 @@
-package edu.unlp.informatica.postgrado.seguimiento.view;
+package edu.unlp.informatica.postgrado.seguimiento;
 
 
 import java.sql.Driver;
