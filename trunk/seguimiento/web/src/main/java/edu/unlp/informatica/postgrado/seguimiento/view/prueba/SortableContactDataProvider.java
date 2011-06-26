@@ -14,20 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.unlp.informatica.postgrado.seguimiento.view.listado;
+package edu.unlp.informatica.postgrado.seguimiento.view.prueba;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 
 
 /**
@@ -36,48 +29,28 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
  * @author igor
  * 
  */
-@Component("sortableItemDataProvider")
-public class SortableItemDataProvider extends SortableDataProvider<Item>  
+public class SortableContactDataProvider extends SortableDataProvider<Contact>
 {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7831455860632228103L;
-	
-	@Autowired
-	ItemService itemService;
-	
-	public ItemService getItemService() {
-		return itemService;
-	}
-
-	public void setItemService(ItemService itemService) {
-		this.itemService = itemService;
-	}
-
 	/**
 	 * constructor
 	 */
-	public SortableItemDataProvider()
+	public SortableContactDataProvider()
 	{
 		// set default sort
-		setSort("firstName", SortOrder.DESCENDING);
-	}	
+		setSort("firstName", SortOrder.ASCENDING);
+	}
+
+	protected ContactsDatabase getContactsDB()
+	{
+		return DatabaseLocator.getDatabase();
+	}
 
 	/**
 	 * @see org.apache.wicket.markup.repeater.data.IDataProvider#iterator(int, int)
 	 */
-	public Iterator<Item> iterator(int first, int count)
+	public Iterator<Contact> iterator(int first, int count)
 	{
-//		List<Item> items = new ArrayList<Item>();
-//		for (edu.unlp.informatica.postgrado.seguimiento.item.model.Item 
-//				item : getItemService().find(first, count, getSort().toString())) {
-//			items.add(new Item(item));
-//			
-//		}
-//		return items.iterator();
-		return getItemService().find(first, count, getSort().toString()).iterator();
+		return getContactsDB().find(first, count, getSort()).iterator();
 	}
 
 	/**
@@ -85,15 +58,15 @@ public class SortableItemDataProvider extends SortableDataProvider<Item>
 	 */
 	public int size()
 	{
-		return getItemService().getCount();
+		return getContactsDB().getCount();
 	}
 
 	/**
 	 * @see org.apache.wicket.markup.repeater.data.IDataProvider#model(java.lang.Object)
 	 */
-	public IModel<Item> model(Item object)
+	public IModel<Contact> model(Contact object)
 	{
-		return new DetachableItemtModel(object);
+		return new DetachableContactModel(object);
 	}
 
 }

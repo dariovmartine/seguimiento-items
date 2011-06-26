@@ -14,18 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.unlp.informatica.postgrado.seguimiento.view.listado;
+package edu.unlp.informatica.postgrado.seguimiento.view.prueba;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.spring.injection.annot.SpringBean;
-
 
 /**
  * page that demonstrates dataview and sorting
@@ -33,53 +30,47 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  * @author igor
  * 
  */
-public class SortingPage extends WebPage
+public class SortingPage extends BasePage
 {
 	private static final long serialVersionUID = 1L;
 
-	@SpringBean(name="sortableItemDataProvider")
-	SortableItemDataProvider sortableItemDataProvider;
-
-	
 	/**
 	 * constructor
 	 */
 	public SortingPage()
 	{
-		
-		final DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView 
-			= new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider())
+		SortableContactDataProvider dp = new SortableContactDataProvider();
+		final DataView<Contact> dataView = new DataView<Contact>("sorting", dp)
 		{
 			private static final long serialVersionUID = 1L;
 
-			
 			@Override
-			protected void populateItem(final Item<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> item)
+			protected void populateItem(final Item<Contact> item)
 			{
-				edu.unlp.informatica.postgrado.seguimiento.item.model.Item itemSel = item.getModelObject();
-				//item.add(new ActionPanel("actions", item.getModel()));
-				item.add(new Label("contactid", String.valueOf(itemSel.getId())));
-				item.add(new Label("firstname", itemSel.getName()));
-				item.add(new Label("lastname", itemSel.getName()));
-				item.add(new Label("homephone", itemSel.getName()));
-				item.add(new Label("cellphone", itemSel.getState()));
+				Contact contact = item.getModelObject();
+				item.add(new ActionPanel("actions", item.getModel()));
+				item.add(new Label("contactid", String.valueOf(contact.getId())));
+				item.add(new Label("firstname", contact.getFirstName()));
+				item.add(new Label("lastname", contact.getLastName()));
+				item.add(new Label("homephone", contact.getHomePhone()));
+				item.add(new Label("cellphone", contact.getCellPhone()));
 
-//				item.add(AttributeModifier.replace("class", new AbstractReadOnlyModel<String>()
-//				{
-//					private static final long serialVersionUID = 1L;
-//
-//					@Override
-//					public String getObject()
-//					{
-//						return (item.getIndex() % 2 == 1) ? "even" : "odd";
-//					}
-//				}));
+				item.add(AttributeModifier.replace("class", new AbstractReadOnlyModel<String>()
+				{
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public String getObject()
+					{
+						return (item.getIndex() % 2 == 1) ? "even" : "odd";
+					}
+				}));
 			}
 		};
 
 		dataView.setItemsPerPage(8);
 
-		add(new OrderByBorder("orderByFirstName", "firstName", getSortableItemDataProvider())
+		add(new OrderByBorder("orderByFirstName", "firstName", dp)
 		{
 			private static final long serialVersionUID = 1L;
 
@@ -90,7 +81,7 @@ public class SortingPage extends WebPage
 			}
 		});
 
-		add(new OrderByBorder("orderByLastName", "lastName", getSortableItemDataProvider())
+		add(new OrderByBorder("orderByLastName", "lastName", dp)
 		{
 			private static final long serialVersionUID = 1L;
 
@@ -105,16 +96,4 @@ public class SortingPage extends WebPage
 
 		add(new PagingNavigator("navigator", dataView));
 	}
-
-	public SortableItemDataProvider getSortableItemDataProvider() {
-		return sortableItemDataProvider;
-	}
-
-	public void setSortableItemDataProvider(
-			SortableItemDataProvider sortableItemDataProvider) {
-		this.sortableItemDataProvider = sortableItemDataProvider;
-	}
-	
-	
-	
 }

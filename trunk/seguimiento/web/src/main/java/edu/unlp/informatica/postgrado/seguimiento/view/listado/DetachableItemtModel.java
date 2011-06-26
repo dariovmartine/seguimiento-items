@@ -2,7 +2,7 @@ package edu.unlp.informatica.postgrado.seguimiento.view.listado;
 
 import org.apache.wicket.model.LoadableDetachableModel;
 
-import edu.unlp.informatica.postgrado.seguimiento.view.Item;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 
 public class DetachableItemtModel extends LoadableDetachableModel<Item> {
 
@@ -10,15 +10,17 @@ public class DetachableItemtModel extends LoadableDetachableModel<Item> {
 	 * 
 	 */
 	private static final long serialVersionUID = 2628005817209019922L;
+	
+	private edu.unlp.informatica.postgrado.seguimiento.view.Item item;
 
-	public DetachableItemtModel(Item object) {
-		// TODO Auto-generated constructor stub
+	public DetachableItemtModel(Item item) {
+		this.item = new edu.unlp.informatica.postgrado.seguimiento.view.Item(item);
 	}
 
 	@Override
-	protected Item load() {
+	protected edu.unlp.informatica.postgrado.seguimiento.view.Item load() {
 		// TODO Auto-generated method stub
-		return null;
+		return item;
 	}
 
 	
