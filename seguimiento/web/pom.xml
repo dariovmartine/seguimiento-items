@@ -79,7 +79,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket</artifactId>
+			<artifactId>wicket-core</artifactId>
 			<version>${wicket.version}</version>
 		</dependency>
 		<dependency>
@@ -244,7 +244,7 @@
 	<properties>
 		<slf4j.version>1.5.8</slf4j.version>
 		<jetty.version>6.1.25</jetty.version>
-		<wicket.version>1.5-RC1</wicket.version>
+		<wicket.version>1.5-RC5.1</wicket.version>
 		<log4j.version>1.2.14</log4j.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<hibernate-base.version>3.2.5.ga</hibernate-base.version>
