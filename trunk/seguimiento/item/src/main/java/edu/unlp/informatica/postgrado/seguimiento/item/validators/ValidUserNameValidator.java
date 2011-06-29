@@ -12,12 +12,12 @@ public class ValidUserNameValidator implements
 	private String[] forbiddenNames = { "Michal", "Mikey", "Mickey", "M1key",
 			"M1ckey" };
 
-	@Override
+	
 	public void initialize(ValidUserName firstUpper) {
 		log.info("Inicializando...");
 	}
 
-	@Override
+	
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		log.info("Validating");
 
