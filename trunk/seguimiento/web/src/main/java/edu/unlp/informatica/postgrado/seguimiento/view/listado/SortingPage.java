@@ -41,11 +41,13 @@ public class SortingPage extends WebPage
 	SortableItemDataProvider sortableItemDataProvider;
 
 	
+	
 	/**
 	 * constructor
 	 */
 	public SortingPage()
 	{
+	
 		
 		final DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView 
 			= new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider())
@@ -64,16 +66,16 @@ public class SortingPage extends WebPage
 				item.add(new Label("homephone", itemSel.getName()));
 				item.add(new Label("cellphone", itemSel.getState()));
 
-//				item.add(AttributeModifier.replace("class", new AbstractReadOnlyModel<String>()
-//				{
-//					private static final long serialVersionUID = 1L;
-//
-//					@Override
-//					public String getObject()
-//					{
-//						return (item.getIndex() % 2 == 1) ? "even" : "odd";
-//					}
-//				}));
+				item.add(AttributeModifier.replace("class", new AbstractReadOnlyModel<String>()
+				{
+					private static final long serialVersionUID = 1L;
+
+					@Override
+					public String getObject()
+					{
+						return (item.getIndex() % 2 == 1) ? "even" : "odd";
+					}
+				}));
 			}
 		};
 
