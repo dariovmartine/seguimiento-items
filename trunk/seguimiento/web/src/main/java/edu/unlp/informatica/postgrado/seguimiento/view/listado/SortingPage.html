@@ -9,6 +9,9 @@
 <br />
 		<br />
 		<span wicket:id="navigator">[dataview navigator]</span>
+		Last modal window result: <span wicket:id="result"></span>
+		
+		<div wicket:id="modal2"></div><br/>
 		<table cellspacing="0" class="dataview">
 			<tr>
 				<th>Actions</th>
@@ -20,8 +23,8 @@
 			</tr>
 			<tr wicket:id="sorting">
 <!-- 				<td><span wicket:id="actions">[actions]</span></td> -->
-				<td><span wicket:id="contactid">[contactid]</span>
-				</td>
+		<td><a wicket:id="showModal2">Edit</a></td>		
+				<td><a wicket:id="contactid">[contactid]</a></td>
 				<td><span wicket:id="firstname">[firstname]</span></td>
 				<td><span wicket:id="lastname">[lastname]</span></td>
 				<td><span wicket:id="homephone">[homephone]</span></td>
