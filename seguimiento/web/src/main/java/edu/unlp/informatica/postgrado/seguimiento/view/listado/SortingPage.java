@@ -17,6 +17,9 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.listado;
 
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -24,8 +27,8 @@ import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
 
 /**
  * page that demonstrates dataview and sorting
@@ -33,72 +36,111 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  * @author igor
  * 
  */
-public class SortingPage extends WebPage
-{
+public class SortingPage extends WebPage {
 	private static final long serialVersionUID = 1L;
 
-	@SpringBean(name="sortableItemDataProvider")
+	@SpringBean(name = "sortableItemDataProvider")
 	SortableItemDataProvider sortableItemDataProvider;
 
-	
-	
+	final ModalWindow modal2;
+
 	/**
 	 * constructor
 	 */
-	public SortingPage()
-	{
-	
+	public SortingPage() {
+		final Label result;
+		add(result = new Label("result", new PropertyModel<String>(this,
+				"result")));
+		result.setOutputMarkupId(true);
+
+		add(modal2 = new ModalWindow("modal2"));
+
+		modal2.setContent(new ModalPanel1(modal2.getContentId()));
+		modal2.setTitle("This is modal window with panel content.");
+		modal2.setCookieName("modal-2");
+
+		modal2.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 8779902619698219539L;
+
+			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
+				setResult("Modal window 2 - close button");
+				return true;
+			}
+		});
+
+		modal2.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 3646057969858558792L;
+
+			public void onClose(AjaxRequestTarget target) {
+				target.add(result);
+			}
+		});
 		
-		final DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView 
-			= new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider())
-		{
+		
+
+		final DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView = new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>(
+				"sorting", getSortableItemDataProvider()) {
 			private static final long serialVersionUID = 1L;
 
-			
 			@Override
-			protected void populateItem(final Item<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> item)
-			{
-				edu.unlp.informatica.postgrado.seguimiento.item.model.Item itemSel = item.getModelObject();
-				//item.add(new ActionPanel("actions", item.getModel()));
+			protected void populateItem(
+					final Item<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> item) {
+				edu.unlp.informatica.postgrado.seguimiento.item.model.Item itemSel = item
+						.getModelObject();
+				// item.add(new ActionPanel("actions", item.getModel()));
 				item.add(new Label("contactid", String.valueOf(itemSel.getId())));
 				item.add(new Label("firstname", itemSel.getName()));
 				item.add(new Label("lastname", itemSel.getName()));
 				item.add(new Label("homephone", itemSel.getName()));
 				item.add(new Label("cellphone", itemSel.getState()));
 
-				item.add(AttributeModifier.replace("class", new AbstractReadOnlyModel<String>()
-				{
-					private static final long serialVersionUID = 1L;
+				item.add(AttributeModifier.replace("class",
+						new AbstractReadOnlyModel<String>() {
+							private static final long serialVersionUID = 1L;
+
+							@Override
+							public String getObject() {
+								return (item.getIndex() % 2 == 1) ? "even"
+										: "odd";
+							}
+						}));
+				item.add(new AjaxLink<Void>("showModal2") {
+					
+					private static final long serialVersionUID = -8563436483693662304L;
 
 					@Override
-					public String getObject()
-					{
-						return (item.getIndex() % 2 == 1) ? "even" : "odd";
+					public void onClick(AjaxRequestTarget target) {
+						modal2.show(target);
 					}
-				}));
+				});
+
 			}
 		};
 
 		dataView.setItemsPerPage(8);
 
-		add(new OrderByBorder("orderByFirstName", "firstName", getSortableItemDataProvider())
-		{
+		add(new OrderByBorder("orderByFirstName", "firstName",
+				getSortableItemDataProvider()) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void onSortChanged()
-			{
+			protected void onSortChanged() {
 				dataView.setCurrentPage(0);
 			}
 		});
 
-		add(new OrderByBorder("orderByLastName", "lastName", getSortableItemDataProvider())
-		{
+		add(new OrderByBorder("orderByLastName", "lastName",
+				getSortableItemDataProvider()) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void onSortChanged()
-			{
+			protected void onSortChanged() {
 				dataView.setCurrentPage(0);
 			}
 		});
@@ -106,7 +148,25 @@ public class SortingPage extends WebPage
 		add(dataView);
 
 		add(new PagingNavigator("navigator", dataView));
+
 	}
+
+	/**
+	 * @return the result
+	 */
+	public String getResult() {
+		return result;
+	}
+
+	/**
+	 * @param result
+	 *            the result to set
+	 */
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+	private String result;
 
 	public SortableItemDataProvider getSortableItemDataProvider() {
 		return sortableItemDataProvider;
@@ -116,7 +176,5 @@ public class SortingPage extends WebPage
 			SortableItemDataProvider sortableItemDataProvider) {
 		this.sortableItemDataProvider = sortableItemDataProvider;
 	}
-	
-	
-	
+
 }

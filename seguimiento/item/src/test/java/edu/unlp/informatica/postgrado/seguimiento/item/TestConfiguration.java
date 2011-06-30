@@ -22,6 +22,10 @@ public class TestConfiguration {
 		Item i = new Item();
 		i.setName("dario");
 		myService.save(i);
+		i = new Item();
+		i.setName("lu");
+		myService.save(i);
+		
 		Assert.assertTrue("Debería haberse grabado algo.", myService.find().size() > 0);
 	}
 }
