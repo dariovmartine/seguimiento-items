@@ -5,26 +5,43 @@ import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 
-public class FormInput extends Form {
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 
-	private static final long serialVersionUID = 7499289901011022854L;
+public class FormInput extends Form<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> {
+
+	private static final long serialVersionUID = 7499289901011022854L;	
+
+	private FormComponent<String> textField = null;
 	
-	private String itemId;
+	public FormInput() {
+		super("inputForm" );// , new CompoundPropertyModel<FormInputModel>(new FormInputModel()));
 
-	
-	public FormInput(String name) {
-		super(name);// , new CompoundPropertyModel<FormInputModel>(new
-					// FormInputModel()));
-
-		FormComponent<String> textField = new TextField<String>("firstname").setRequired(true).setLabel(
+		textField = new TextField<String>("firstname").setRequired(true).setLabel(
 				new Model<String>("String"));
-		//textField.getModel().setObject(itemId);
+		
 		add(textField);
 	}
 
-	public void setItemId(String id2) {
-		this.itemId = id2;
+	/**
+	 * @return the textField
+	 */
+	public FormComponent<String> getTextField() {
+		return textField;
+	}
+
+	/**
+	 * @param textField the textField to set
+	 */
+	public void setTextField(FormComponent<String> textField) {
+		this.textField = textField;
+	}
+
+	public void setItemSel(Item itemSel) {
+		this.textField.setModel(new Model<String>());
+		this.textField.getModel().setObject(itemSel.getName());
 		
 	}
+	
 
 }

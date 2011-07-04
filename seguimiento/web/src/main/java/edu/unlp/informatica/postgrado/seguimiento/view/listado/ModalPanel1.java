@@ -4,13 +4,19 @@ import java.util.Map;
 
 import org.apache.wicket.extensions.yui.calendar.DateTimeField;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.springframework.stereotype.Component;
+
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 
 public class ModalPanel1 extends Panel {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3342982114735537862L;
+	
+	private FormInput formInput = new FormInput();
+
 
 	/**
 	 * @param id
@@ -18,9 +24,8 @@ public class ModalPanel1 extends Panel {
 	public ModalPanel1(String id)
 	{
 		super(id);
-		FormInput formInput = new FormInput("inputForm");
-		formInput.setItemId(id);
-		add(formInput);
+		
+		add(getFormInput());
 		formInput.add(new DateTimeField("dateTimeField")
 		{
 			/**
@@ -39,6 +44,23 @@ public class ModalPanel1 extends Panel {
 				widgetProperties.put("iframe", false);
 			}
 		});
-		
+	}	
+
+	/**
+	 * @return the formInput
+	 */
+	public FormInput getFormInput() {
+		return formInput;
+	}
+
+	/**
+	 * @param formInput the formInput to set
+	 */
+	public void setFormInput(FormInput formInput) {
+		this.formInput = formInput;
+	}
+
+	public void setItemSel(Item itemSel) {
+		this.getFormInput().setItemSel(itemSel);
 	}
 }
