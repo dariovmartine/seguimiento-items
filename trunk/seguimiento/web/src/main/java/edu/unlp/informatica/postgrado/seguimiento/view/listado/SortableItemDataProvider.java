@@ -16,9 +16,7 @@
  */
 package edu.unlp.informatica.postgrado.seguimiento.view.listado;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
@@ -26,14 +24,14 @@ import org.apache.wicket.model.IModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 
 
 /**
  * implementation of IDataProvider for contacts that keeps track of sort information
  * 
- * @author igor
+ * @author dariovmartine
  * 
  */
 @Component("sortableItemDataProvider")
@@ -61,6 +59,7 @@ public class SortableItemDataProvider extends SortableDataProvider<Item>
 	 */
 	public SortableItemDataProvider()
 	{
+		super();
 		// set default sort
 		setSort("firstName", SortOrder.DESCENDING);
 	}	

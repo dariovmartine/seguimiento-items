@@ -33,29 +33,34 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 /**
  * page that demonstrates dataview and sorting
  * 
- * @author igor
+ * @author dariovmartine
  * 
  */
 public class SortingPage extends WebPage {
 	private static final long serialVersionUID = 1L;
 
-	@SpringBean(name = "sortableItemDataProvider")
+	@SpringBean(name="sortableItemDataProvider")
 	SortableItemDataProvider sortableItemDataProvider;
-
-	final ModalWindow modal2;
+	
+	private ModalWindow modal2;
+		
+	private ModalPanel1 modalPanel1;
 
 	/**
 	 * constructor
 	 */
 	public SortingPage() {
+
 		final Label result;
 		add(result = new Label("result", new PropertyModel<String>(this,
 				"result")));
 		result.setOutputMarkupId(true);
 
-		add(modal2 = new ModalWindow("modal2"));
 
-		modal2.setContent(new ModalPanel1(modal2.getContentId()));
+		add(modal2 = new ModalWindow("modal2"));
+		modalPanel1 = new ModalPanel1(modal2.getContentId());
+
+		modal2.setContent(getModalPanel1());
 		modal2.setTitle("This is modal window with panel content.");
 		modal2.setCookieName("modal-2");
 
@@ -91,7 +96,7 @@ public class SortingPage extends WebPage {
 			@Override
 			protected void populateItem(
 					final Item<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> item) {
-				edu.unlp.informatica.postgrado.seguimiento.item.model.Item itemSel = item
+				final edu.unlp.informatica.postgrado.seguimiento.item.model.Item itemSel = item
 						.getModelObject();
 				// item.add(new ActionPanel("actions", item.getModel()));
 				item.add(new Label("contactid", String.valueOf(itemSel.getId())));
@@ -116,6 +121,7 @@ public class SortingPage extends WebPage {
 
 					@Override
 					public void onClick(AjaxRequestTarget target) {
+						modalPanel1.setItemSel(itemSel);
 						modal2.show(target);
 					}
 				});
@@ -148,7 +154,6 @@ public class SortingPage extends WebPage {
 		add(dataView);
 
 		add(new PagingNavigator("navigator", dataView));
-
 	}
 
 	/**
@@ -175,6 +180,13 @@ public class SortingPage extends WebPage {
 	public void setSortableItemDataProvider(
 			SortableItemDataProvider sortableItemDataProvider) {
 		this.sortableItemDataProvider = sortableItemDataProvider;
+	}
+
+	/**
+	 * @return the modalPanel1
+	 */
+	public ModalPanel1 getModalPanel1() {
+		return modalPanel1;
 	}
 
 }
