@@ -29,5 +29,9 @@ public class AbstractRepository<E, K> {
 		 
 		return hibernateTemplate.loadAll(clazz);
 	}
+	
+	public E getById(Long id) {
+		return hibernateTemplate.load(clazz, id);
+	}
 
 }
