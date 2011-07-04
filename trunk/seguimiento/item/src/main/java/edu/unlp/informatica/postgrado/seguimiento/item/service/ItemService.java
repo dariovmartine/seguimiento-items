@@ -38,4 +38,9 @@ public class ItemService {
 		return itemRepository.find().size();
 	}
 	
+	public Item getById(Long id) {
+		return itemRepository.getById(id);
+		
+	}
+	
 }
