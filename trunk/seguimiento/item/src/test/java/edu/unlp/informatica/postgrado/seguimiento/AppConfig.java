@@ -19,6 +19,9 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
+import org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource;
+import org.springframework.transaction.interceptor.TransactionAttribute;
+import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * @author dariovmartine
@@ -68,16 +71,7 @@ class RepositoryConfig {
 			e.printStackTrace();
 		}
         return null;
-    }
-    
-    @Bean
-    @Autowired
-    public HibernateTransactionManager transactionManager(SessionFactory sessionFactory)
-    {
-        HibernateTransactionManager htm = new HibernateTransactionManager();
-        htm.setSessionFactory(sessionFactory);
-        return htm;
-    }
+    }   
     
     @Bean
     @Autowired
@@ -92,8 +86,11 @@ class RepositoryConfig {
     {
         AnnotationSessionFactoryBean asfb = new AnnotationSessionFactoryBean();
         asfb.setDataSource(getDataSource());
-        asfb.setHibernateProperties(getHibernateProperties());        
-        asfb.setPackagesToScan(new String[]{"edu.unlp.informatica.postgrado.seguimiento.item.model"});
+        asfb.setHibernateProperties(getHibernateProperties());
+     
+        asfb.setPackagesToScan(new String[]{"edu.unlp.informatica.postgrado.seguimiento.item.model"
+        		,"edu.unlp.informatica.postgrado.seguimiento.item.service"
+        });
         return asfb;
     }
 
@@ -111,7 +108,63 @@ class RepositoryConfig {
     @Autowired
     public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory)
     {
-    	return new HibernateTransactionManager(sessionFactory);
+    	HibernateTransactionManager hibTransMgr = new HibernateTransactionManager(sessionFactory);
+    	//hibTransMgr.setDataSource(getDataSource());
+    	return hibTransMgr;
+    }
+    
+    @Bean
+    @Autowired
+    public TransactionTemplate getTransactionTemplate(SessionFactory sessionFactory) {
+    	
+    	TransactionTemplate r = new TransactionTemplate();
+    	r.setTransactionManager(getTransactionManager(sessionFactory));
+    	return r;
+    	
+    }
+    
+    @Bean
+    @Autowired
+    public NameMatchTransactionAttributeSource getNameMatchTransactionAttributeSource() {
+    	NameMatchTransactionAttributeSource nmt = new NameMatchTransactionAttributeSource();
+    	nmt.addTransactionalMethod("*", new TransactionAttribute() {
+			
+			public boolean isReadOnly() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			public int getTimeout() {
+				// TODO Auto-generated method stub
+				return 0;
+			}
+			
+			public int getPropagationBehavior() {
+				// TODO Auto-generated method stub
+				return PROPAGATION_REQUIRED;
+			}
+			
+			public String getName() {
+				// TODO Auto-generated method stub
+				return "default";
+			}
+			
+			public int getIsolationLevel() {
+				// TODO Auto-generated method stub
+				return ISOLATION_DEFAULT;
+			}
+			
+			public boolean rollbackOn(Throwable ex) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+			
+			public String getQualifier() {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		});
+    	return nmt;
     }
     
     @Bean
