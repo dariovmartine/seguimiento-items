@@ -5,6 +5,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.dozer.DozerBeanMapper;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,5 +114,11 @@ class RepositoryConfig {
     	return new HibernateTransactionManager(sessionFactory);
     }
     
+    @Bean
+    @Autowired
+    public DozerBeanMapper getDozerBeanMapper()
+    {
+    	return new DozerBeanMapper();
+    }
     
 }

@@ -159,6 +159,8 @@
 				<version>2.8</version>
 				<configuration>
 					<downloadSources>true</downloadSources>
+					<wtpversion>1.5</wtpversion>
+					<useProjectReferences>false</useProjectReferences>
 				</configuration>
 			</plugin>
 		</plugins>
