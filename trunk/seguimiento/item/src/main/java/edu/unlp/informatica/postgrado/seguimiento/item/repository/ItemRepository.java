@@ -10,4 +10,6 @@ public class ItemRepository extends AbstractRepository<Item, Long> {
 	public ItemRepository() {
 		super(Item.class);
 	}
+
+	
 }

@@ -2,6 +2,8 @@ package edu.unlp.informatica.postgrado.seguimiento.item.repository;
 
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -32,6 +34,10 @@ public class AbstractRepository<E, K> {
 	
 	public E getById(Long id) {
 		return hibernateTemplate.load(clazz, id);
+	}
+	
+	public int getCount() {
+		return (Integer)hibernateTemplate.findByCriteria(DetachedCriteria.forClass(clazz).setProjection(	Projections.rowCount())).get(0);
 	}
 
 }

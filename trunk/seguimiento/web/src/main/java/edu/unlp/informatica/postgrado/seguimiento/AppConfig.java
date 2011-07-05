@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
+import org.dozer.DozerBeanMapper;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -93,7 +94,10 @@ class RepositoryConfig {
         AnnotationSessionFactoryBean asfb = new AnnotationSessionFactoryBean();
         asfb.setDataSource(getDataSource());
         asfb.setHibernateProperties(getHibernateProperties());        
-        asfb.setPackagesToScan(new String[]{"edu.unlp.informatica.postgrado.seguimiento.item.model"});
+        asfb.setPackagesToScan(new String[]{
+        		"edu.unlp.informatica.postgrado.seguimiento.item.model",
+        		"edu.unlp.informatica.postgrado.seguimiento.item.service"
+        });
         return asfb;
     }
 
@@ -113,6 +117,11 @@ class RepositoryConfig {
     {
     	return new HibernateTransactionManager(sessionFactory);
     }
-    
+    @Bean
+    @Autowired
+    public DozerBeanMapper getDozerBeanMapper()
+    {
+    	return new DozerBeanMapper();
+    }    
     
 }

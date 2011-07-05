@@ -1,7 +1,9 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,32 +17,36 @@ import edu.unlp.informatica.postgrado.seguimiento.item.repository.ItemRepository
 public class ItemService {
 
 	@Autowired
+	private DozerBeanMapper mapper; 
+		
+	@Autowired
 	private ItemRepository itemRepository;
-
 		
 	public Item save(Item entity) {
 		
-		itemRepository.save(entity);
-		return entity;
+		return mapper.map(itemRepository.save(entity), Item.class);
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
 	public List<Item> find() {
 		
-		return itemRepository.find();
+		return mapper.map(itemRepository.find(), ArrayList.class);
 	}	
 	
+	@Transactional(readOnly=true)
 	public List<Item> find(int first, int count, String sortParam ) {
-		
-		return itemRepository.find();
+	
+		return find();
 	}
 	
+	@Transactional(readOnly=true)
 	public int getCount() {
-		return itemRepository.find().size();
+		return itemRepository.getCount();
 	}
 	
+	@Transactional(readOnly=true)
 	public Item getById(Long id) {
-		return itemRepository.getById(id);
-		
+		return mapper.map(itemRepository.getById(id),Item.class);
 	}
-	
 }

@@ -23,6 +23,7 @@
 		<org.springwebflow.version>2.2.0.RELEASE</org.springwebflow.version>
 		<maven.compiler.source>1.5</maven.compiler.source>
 		<maven.compiler.target>1.5</maven.compiler.target>
+		<dozer.version>5.3.2</dozer.version>
 	</properties>
 	<repositories>
 		<repository>
@@ -61,11 +62,13 @@
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
+		<!-- JDBC -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb-j5</artifactId>
 			<version>2.0.0</version>
 		</dependency>	
+		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -100,6 +103,12 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
 			<version>${org.springframework.version}</version>
+		</dependency>
+		<!-- DOZER -->
+		<dependency>
+   			<groupId>net.sf.dozer</groupId>
+   			<artifactId>dozer</artifactId>
+   			<version>${dozer.version}</version>
 		</dependency>
 	</dependencies>		
 	<modules>
