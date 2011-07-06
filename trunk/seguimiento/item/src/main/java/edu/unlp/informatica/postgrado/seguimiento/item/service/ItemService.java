@@ -28,24 +28,20 @@ public class ItemService {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Transactional(readOnly=true)
 	public List<Item> find() {
 		
 		return mapper.map(itemRepository.find(), ArrayList.class);
 	}	
 	
-	@Transactional(readOnly=true)
 	public List<Item> find(int first, int count, String sortParam ) {
 	
 		return find();
 	}
 	
-	@Transactional(readOnly=true)
 	public int getCount() {
 		return itemRepository.getCount();
 	}
 	
-	@Transactional(readOnly=true)
 	public Item getById(Long id) {
 		return mapper.map(itemRepository.getById(id),Item.class);
 	}
