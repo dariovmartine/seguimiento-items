@@ -15,7 +15,17 @@ public class FormInput extends Form<edu.unlp.informatica.postgrado.seguimiento.i
 
 	private FormComponent<String> textField = null;
 	
-	
+	/*
+	 * ojo con esto: The 'subject' instance of the MyVeryLargeObjectDao class 
+	 * will be serialized into the session with each page version. 
+	 * This can get out of hand, because with some business object models, 
+	 * the attached object can become very large. For this we 
+	 * introduced DetachableModels, which will retrieve the data 
+	 * from the database when needed, and will 
+	 * clean up when the data is not needed 
+	 * (at the end of the request for instance).
+	 **/
+
 	@SpringBean(name="itemService")
 	ItemService itemService;
 	
