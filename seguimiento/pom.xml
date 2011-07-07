@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.unlp.informatica.postgrado.seguimiento</groupId>
 	<artifactId>seguimiento</artifactId>
-	<name>seguimiento</name>
+	<name>Proyecto Seguimiento</name>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<licenses>
@@ -103,6 +103,16 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-expression</artifactId>
 			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>aopalliance</groupId>
+			<artifactId>aopalliance</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<!-- DOZER -->
 		<dependency>
