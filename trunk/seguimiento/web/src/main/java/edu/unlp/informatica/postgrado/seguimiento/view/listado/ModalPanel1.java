@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.apache.wicket.extensions.yui.calendar.DateTimeField;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.springframework.stereotype.Component;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 
