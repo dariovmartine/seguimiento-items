@@ -1,5 +1,9 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.listado;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.behavior.Behavior;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.TextField;
@@ -29,6 +33,8 @@ public class FormInput extends Form<edu.unlp.informatica.postgrado.seguimiento.i
 	@SpringBean(name="itemService")
 	ItemService itemService;
 	
+	private Item item;
+	
 	public FormInput() {
 		super("inputForm" );// , new CompoundPropertyModel<FormInputModel>(new FormInputModel()));
 
@@ -36,6 +42,37 @@ public class FormInput extends Form<edu.unlp.informatica.postgrado.seguimiento.i
 				new Model<String>("String"));
 		
 		add(textField);
+		
+		
+		
+		add(new AjaxButton("saveButton", this)
+		{
+			@Override
+			protected void onSubmit(AjaxRequestTarget target, Form<?> form)
+			{
+				item.setName(textField.getModel().getObject());
+				item = getItemService().save(item);
+				// repaint the feedback panel so that it is hidden
+				//target.add("");
+			}
+
+			@Override
+			protected void onError(AjaxRequestTarget target, Form<?> form)
+			{
+				// repaint the feedback panel so errors are shown
+				//target.add("");
+			}
+		});
+
+		add(new Button("resetButton")
+		{
+			@Override
+			public void onSubmit()
+			{
+				// just set a new instance of the page
+				//setResponsePage(SortingPane.class);
+			}
+		}.setDefaultFormProcessing(false));
 	}
 
 	/**
@@ -56,8 +93,10 @@ public class FormInput extends Form<edu.unlp.informatica.postgrado.seguimiento.i
 		this.textField.setModel(new Model<String>());
 		Item i = this.getItemService().getById(itemSel.getId());
 		this.textField.getModel().setObject(i.getName());
-		
+		this.item = itemSel;
 	}
+	
+	
 
 	/**
 	 * @return the itemService
@@ -72,6 +111,8 @@ public class FormInput extends Form<edu.unlp.informatica.postgrado.seguimiento.i
 	public void setItemService(ItemService itemService) {
 		this.itemService = itemService;
 	}
+
+
 	
 
 }

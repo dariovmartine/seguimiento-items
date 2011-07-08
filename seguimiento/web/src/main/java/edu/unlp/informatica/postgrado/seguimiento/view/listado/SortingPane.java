@@ -22,11 +22,13 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -38,18 +40,14 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  * 
  */
 public class SortingPane extends Panel {
-	private static final long serialVersionUID = 1L;
 	
-	/*
-	 * ojo con esto: The 'subject' instance of the MyVeryLargeObjectDao class 
-	 * will be serialized into the session with each page version. 
-	 * This can get out of hand, because with some business object models, 
-	 * the attached object can become very large. For this we 
-	 * introduced DetachableModels, which will retrieve the data 
-	 * from the database when needed, and will 
-	 * clean up when the data is not needed 
-	 * (at the end of the request for instance).
-	 **/
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6639795032464660258L;
+
+	
+	
 	@SpringBean(name="sortableItemDataProvider")
 	SortableItemDataProvider sortableItemDataProvider;
 	
@@ -98,7 +96,7 @@ public class SortingPane extends Panel {
 			}
 		});
 		
-		
+
 
 		final DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView = new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>(
 				"sorting", getSortableItemDataProvider()) {
@@ -109,7 +107,7 @@ public class SortingPane extends Panel {
 					final Item<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> item) {
 				final edu.unlp.informatica.postgrado.seguimiento.item.model.Item itemSel = item
 						.getModelObject();
-				// item.add(new ActionPanel("actions", item.getModel()));
+				
 				item.add(new Label("contactid", String.valueOf(itemSel.getId())));
 				item.add(new Label("firstname", itemSel.getName()));
 				item.add(new Label("lastname", itemSel.getName()));
@@ -199,5 +197,7 @@ public class SortingPane extends Panel {
 	public ModalPanel1 getModalPanel1() {
 		return modalPanel1;
 	}
+
+
 
 }
