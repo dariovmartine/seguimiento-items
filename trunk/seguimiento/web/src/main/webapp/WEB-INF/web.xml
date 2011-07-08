@@ -33,39 +33,23 @@
 	</filter-mapping>
 
 	<filter>
-		<filter-name>NavomaticApplication</filter-name>
+		<filter-name>MenuApplication</filter-name>
 		<filter-class>org.apache.wicket.protocol.http.WicketFilter
 		</filter-class>
 		<init-param>
 			<param-name>applicationClassName</param-name>
-			<param-value>edu.unlp.informatica.postgrado.seguimiento.view.menu.NavomaticApplication</param-value>
+			<param-value>edu.unlp.informatica.postgrado.seguimiento.view.menu.MenuApplication</param-value>
 		</init-param>
 	</filter>	
 
 	<filter-mapping>
-		<filter-name>NavomaticApplication</filter-name>
-		<url-pattern>/navomatic/*</url-pattern>
+		<filter-name>MenuApplication</filter-name>
+		<url-pattern>/menu/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
 
 
-	<filter>
-		<filter-name>ListadoApplication</filter-name>
-		<filter-class>org.apache.wicket.protocol.http.WicketFilter
-		</filter-class>
-		<init-param>
-			<param-name>applicationClassName</param-name>
-			<param-value>edu.unlp.informatica.postgrado.seguimiento.view.listado.ListadoApplication</param-value>
-		</init-param>
-	</filter>	
-
-	<filter-mapping>
-		<filter-name>ListadoApplication</filter-name>
-		<url-pattern>/listado/*</url-pattern>
-		<dispatcher>REQUEST</dispatcher>
-		<dispatcher>INCLUDE</dispatcher>
-	</filter-mapping>
 	
 	<filter>
 		<filter-name>RepeaterExamplesApplication</filter-name>

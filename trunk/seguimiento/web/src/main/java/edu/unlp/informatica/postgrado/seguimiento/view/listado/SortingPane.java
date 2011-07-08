@@ -21,14 +21,15 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
+import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
 
 /**
  * page that demonstrates dataview and sorting
@@ -36,7 +37,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  * @author dariovmartine
  * 
  */
-public class SortingPage extends WebPage {
+public class SortingPane extends Panel {
 	private static final long serialVersionUID = 1L;
 	
 	/*
@@ -59,8 +60,8 @@ public class SortingPage extends WebPage {
 	/**
 	 * constructor
 	 */
-	public SortingPage() {
-
+	public SortingPane(String id) {
+		super(id);
 		final Label result;
 		add(result = new Label("result", new PropertyModel<String>(this,
 				"result")));

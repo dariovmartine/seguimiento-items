@@ -16,26 +16,38 @@
  */
 package edu.unlp.informatica.postgrado.seguimiento.view.menu;
 
-import org.apache.wicket.markup.html.WebPage;
-
+import org.apache.wicket.Page;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 /**
- * Trivial page.
+ * Application class.
  * 
  * @author Jonathan Locke
  */
-public class Page1 extends WebPage
+public class MenuApplication extends WebApplication
 {
 	/**
-	 * 
+	 * Constructor.
 	 */
-	private static final long serialVersionUID = 456201442331773062L;
+	public MenuApplication()
+	{
+	}
+	
+	@Override
+	public void init() {
+		super.init();
+		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
+	}
 
 	/**
-	 * Constructor
+	 * @see org.apache.wicket.Application#getHomePage()
 	 */
-	public Page1()
+	@Override
+	public Class< ? extends Page> getHomePage()
 	{
-		add(new NavomaticBorder("navomaticBorder"));
+		return TabbedPanelPage.class;
 	}
+
+
 }
