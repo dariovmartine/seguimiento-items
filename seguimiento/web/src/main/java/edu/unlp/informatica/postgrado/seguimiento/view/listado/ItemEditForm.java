@@ -13,7 +13,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 
-public class FormInput extends Form<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> {
+public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> {
 
 	private static final long serialVersionUID = 7499289901011022854L;	
 
@@ -35,7 +35,7 @@ public class FormInput extends Form<edu.unlp.informatica.postgrado.seguimiento.i
 	
 	private Item item;
 	
-	public FormInput() {
+	public ItemEditForm() {
 		super("inputForm" );// , new CompoundPropertyModel<FormInputModel>(new FormInputModel()));
 
 		textField = new TextField<String>("firstname").setRequired(true).setLabel(

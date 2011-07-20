@@ -39,7 +39,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
  * @author dariovmartine
  * 
  */
-public class SortingPane extends Panel {
+public class ItemListadoPanel extends Panel {
 	
 	/**
 	 * 
@@ -49,16 +49,16 @@ public class SortingPane extends Panel {
 	
 	
 	@SpringBean(name="sortableItemDataProvider")
-	SortableItemDataProvider sortableItemDataProvider;
+	ItemSortableDataProvider sortableItemDataProvider;
 	
 	private ModalWindow modal2;
 		
-	private ModalPanel1 modalPanel1;
+	private ItemEditPanel modalPanel1;
 
 	/**
 	 * constructor
 	 */
-	public SortingPane(String id) {
+	public ItemListadoPanel(String id) {
 		super(id);
 		final Label result;
 		add(result = new Label("result", new PropertyModel<String>(this,
@@ -67,7 +67,7 @@ public class SortingPane extends Panel {
 
 
 		add(modal2 = new ModalWindow("modal2"));
-		modalPanel1 = new ModalPanel1(modal2.getContentId());
+		modalPanel1 = new ItemEditPanel(modal2.getContentId());
 
 		modal2.setContent(getModalPanel1());
 		modal2.setTitle("This is modal window with panel content.");
@@ -182,19 +182,19 @@ public class SortingPane extends Panel {
 
 	private String result;
 
-	public SortableItemDataProvider getSortableItemDataProvider() {
+	public ItemSortableDataProvider getSortableItemDataProvider() {
 		return sortableItemDataProvider;
 	}
 
 	public void setSortableItemDataProvider(
-			SortableItemDataProvider sortableItemDataProvider) {
+			ItemSortableDataProvider sortableItemDataProvider) {
 		this.sortableItemDataProvider = sortableItemDataProvider;
 	}
 
 	/**
 	 * @return the modalPanel1
 	 */
-	public ModalPanel1 getModalPanel1() {
+	public ItemEditPanel getModalPanel1() {
 		return modalPanel1;
 	}
 

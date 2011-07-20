@@ -26,7 +26,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
-import edu.unlp.informatica.postgrado.seguimiento.view.listado.SortingPane;
+import edu.unlp.informatica.postgrado.seguimiento.view.listado.ItemListadoPanel;
 
 
 
@@ -60,7 +60,7 @@ public class TabbedPanelPage extends WebPage
 			@Override
 			public Panel getPanel(String panelId)
 			{
-				return new SortingPane(panelId);
+				return new ItemListadoPanel(panelId);
 			}
 		});
 		

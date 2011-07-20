@@ -7,20 +7,20 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 
-public class ModalPanel1 extends Panel {
+public class ItemEditPanel extends Panel {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3342982114735537862L;
 	
-	private FormInput formInput = new FormInput();
+	private ItemEditForm formInput = new ItemEditForm();
 
 
 	/**
 	 * @param id
 	 */
-	public ModalPanel1(String id)
+	public ItemEditPanel(String id)
 	{
 		super(id);
 		
@@ -48,14 +48,14 @@ public class ModalPanel1 extends Panel {
 	/**
 	 * @return the formInput
 	 */
-	public FormInput getFormInput() {
+	public ItemEditForm getFormInput() {
 		return formInput;
 	}
 
 	/**
 	 * @param formInput the formInput to set
 	 */
-	public void setFormInput(FormInput formInput) {
+	public void setFormInput(ItemEditForm formInput) {
 		this.formInput = formInput;
 	}
 

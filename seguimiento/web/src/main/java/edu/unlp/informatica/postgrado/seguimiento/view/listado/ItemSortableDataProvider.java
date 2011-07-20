@@ -35,7 +35,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
  * 
  */
 @Component("sortableItemDataProvider")
-public class SortableItemDataProvider extends SortableDataProvider<Item>  
+public class ItemSortableDataProvider extends SortableDataProvider<Item>  
 {
 	
 	/**
@@ -57,7 +57,7 @@ public class SortableItemDataProvider extends SortableDataProvider<Item>
 	/**
 	 * constructor
 	 */
-	public SortableItemDataProvider()
+	public ItemSortableDataProvider()
 	{
 		super();
 		// set default sort
@@ -92,7 +92,7 @@ public class SortableItemDataProvider extends SortableDataProvider<Item>
 	 */
 	public IModel<Item> model(Item object)
 	{
-		return new DetachableItemtModel(object);
+		return new ItemtDetachableModel(object);
 	}
 
 }
