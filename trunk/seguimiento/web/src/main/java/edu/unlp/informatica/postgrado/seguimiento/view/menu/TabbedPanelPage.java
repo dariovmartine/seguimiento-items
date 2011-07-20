@@ -26,7 +26,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
-import edu.unlp.informatica.postgrado.seguimiento.view.listado.ItemListadoPanel;
+import edu.unlp.informatica.postgrado.seguimiento.view.item.ItemListadoPanel;
 
 
 
