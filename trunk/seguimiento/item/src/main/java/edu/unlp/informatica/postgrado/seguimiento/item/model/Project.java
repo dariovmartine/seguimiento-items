@@ -1,6 +1,13 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
-public class Project {
+import java.io.Serializable;
+
+public class Project implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6774599877348543348L;
 
 	Long id;
 	

@@ -9,35 +9,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.validators.ValidUserName;
 
 @Entity
-@Table(name = "ITEM")
-public class Item implements Serializable {
-
+@Table(name = "ESTADO")
+public class Estado implements Serializable {
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -5039797189743799468L;
+	private static final long serialVersionUID = 5351658617930139784L;
 
 	@Id 
 	@Column(name = "ID", unique = true, nullable = false, insertable = true, updatable = true)
 	@GeneratedValue(generator="EXAMPLE_ID_GEN", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="EXAMPLE_ID_GEN", sequenceName="SEQ_PERSON_ID")
+	@SequenceGenerator(name="EXAMPLE_ID_GEN", sequenceName="SEQ_ESTADO_ID")
 	Long id;
 	
 	@ValidUserName
 	@Size(min = 3, max = 12, message = "Must be between 3 and 12 chars")
 	@Column(name = "NAME")
 	private String name;
-
-	@NotNull
-	@Column(name = "STATE")
-	private String state;
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -54,13 +49,13 @@ public class Item implements Serializable {
 		this.name = name;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Estado [name=" + name + "]";
 	}
 	
-	public String getState() {
-		return state;
-	}
 	
-
 }
