@@ -21,6 +21,7 @@ import java.util.Iterator;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,25 +36,13 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
  * 
  */
 @Component("sortableItemDataProvider")
-public class ItemSortableDataProvider extends SortableDataProvider<Item>  
-{
-	
-	/**
-	 * 
-	 */
+public class ItemSortableDataProvider extends SortableDataProvider<Item> {
+		
 	private static final long serialVersionUID = -7831455860632228103L;
 	
 	@Autowired
 	ItemService itemService;
 	
-	public ItemService getItemService() {
-		return itemService;
-	}
-
-	public void setItemService(ItemService itemService) {
-		this.itemService = itemService;
-	}
-
 	/**
 	 * constructor
 	 */
@@ -62,20 +51,13 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item>
 		super();
 		// set default sort
 		setSort("firstName", SortOrder.DESCENDING);
-	}	
+	}
 
 	/**
 	 * @see org.apache.wicket.markup.repeater.data.IDataProvider#iterator(int, int)
 	 */
 	public Iterator<Item> iterator(int first, int count)
 	{
-//		List<Item> items = new ArrayList<Item>();
-//		for (edu.unlp.informatica.postgrado.seguimiento.item.model.Item 
-//				item : getItemService().find(first, count, getSort().toString())) {
-//			items.add(new Item(item));
-//			
-//		}
-//		return items.iterator();
 		return getItemService().find(first, count, getSort().toString()).iterator();
 	}
 
@@ -88,11 +70,29 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item>
 	}
 
 	/**
+	 * Como el servicio ya me entrega el objeto desconectado puedo 
+	 * enviarlo directamente a la interfaz.
+	 * 
 	 * @see org.apache.wicket.markup.repeater.data.IDataProvider#model(java.lang.Object)
 	 */
-	public IModel<Item> model(Item object)
+	public IModel<Item> model(final Item item)
 	{
-		return new ItemtDetachableModel(object);
+		return new LoadableDetachableModel<Item>(){
+
+			private static final long serialVersionUID = 8967269923476817174L;
+
+			@Override
+			protected Item load() {
+				// TODO Auto-generated method stub
+				return item;
+			}};
+	}
+	
+	public ItemService getItemService() {
+		return itemService;
 	}
 
+	public void setItemService(ItemService itemService) {
+		this.itemService = itemService;
+	}
 }
