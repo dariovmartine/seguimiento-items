@@ -14,5 +14,6 @@
 		<property name="hibernate.show_sql">{hibernate.show_sql}</property>
 			
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Item" />
+		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Estado" />
 	</session-factory>
 </hibernate-configuration>
