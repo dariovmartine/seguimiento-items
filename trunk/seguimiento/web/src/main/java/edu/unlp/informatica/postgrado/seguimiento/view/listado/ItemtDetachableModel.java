@@ -4,7 +4,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 
-public class DetachableItemtModel extends LoadableDetachableModel<Item> {
+public class ItemtDetachableModel extends LoadableDetachableModel<Item> {
 
 	/**
 	 * 
@@ -13,7 +13,7 @@ public class DetachableItemtModel extends LoadableDetachableModel<Item> {
 	
 	private edu.unlp.informatica.postgrado.seguimiento.view.Item item;
 
-	public DetachableItemtModel(Item item) {
+	public ItemtDetachableModel(Item item) {
 		this.item = new edu.unlp.informatica.postgrado.seguimiento.view.Item(item);
 	}
 
