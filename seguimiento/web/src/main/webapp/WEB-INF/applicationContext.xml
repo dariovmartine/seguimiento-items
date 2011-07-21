@@ -19,6 +19,12 @@
 	<context:component-scan base-package="edu.unlp.informatica.postgrado.seguimiento" />
 
     <!-- Wicket WebApplication setup -->
+    <bean id="datasourceLocator" class="edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator">
+		<property name="itemService" ref="itemService" />
+		<property name="estadoService" ref="estadoService" />
+	</bean>
+	
     <bean id="wicketApplication" class="edu.unlp.informatica.postgrado.seguimiento.WicketApplication"/>
 
+	
 </beans>
