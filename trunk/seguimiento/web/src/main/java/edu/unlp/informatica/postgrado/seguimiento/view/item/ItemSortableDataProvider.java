@@ -27,6 +27,7 @@ import org.springframework.stereotype.Component;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
+import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
 
 /**
@@ -39,10 +40,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 		
 	private static final long serialVersionUID = -7831455860632228103L;
-	
-	@Autowired
-	ItemService itemService;
-	
+			
 	/**
 	 * constructor
 	 */
@@ -58,7 +56,7 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 	 */
 	public Iterator<Item> iterator(int first, int count)
 	{
-		return getItemService().find(first, count, getSort().toString()).iterator();
+		return DataSourceLocator.getInstance().getItemService().find(first, count, getSort().toString()).iterator();
 	}
 
 	/**
@@ -66,7 +64,7 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 	 */
 	public int size()
 	{
-		return getItemService().getCount();
+		return DataSourceLocator.getInstance().getItemService().getCount();
 	}
 
 	/**
@@ -88,11 +86,5 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 			}};
 	}
 	
-	public ItemService getItemService() {
-		return itemService;
-	}
-
-	public void setItemService(ItemService itemService) {
-		this.itemService = itemService;
-	}
+	
 }

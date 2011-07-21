@@ -45,15 +45,11 @@ public class ItemListadoPanel extends Panel {
 	 * 
 	 */
 	private static final long serialVersionUID = 6639795032464660258L;
-
-	
 	
 	@SpringBean(name="sortableItemDataProvider")
 	ItemSortableDataProvider sortableItemDataProvider;
 	
-	private ModalWindow modal2;
-		
-	private ItemEditPanel modalPanel1;
+	private ItemEditWindow itemEditWindow;
 
 	/**
 	 * constructor
@@ -61,43 +57,11 @@ public class ItemListadoPanel extends Panel {
 	public ItemListadoPanel(String id) {
 		super(id);
 		final Label result;
-		add(result = new Label("result", new PropertyModel<String>(this,
-				"result")));
+		add(result = new Label("result", new PropertyModel<String>(this, "result")));
 		result.setOutputMarkupId(true);
-
-
-		add(modal2 = new ModalWindow("modal2"));
-		modalPanel1 = new ItemEditPanel(modal2.getContentId());
-
-		modal2.setContent(getModalPanel1());
-		modal2.setTitle("This is modal window with panel content.");
-		modal2.setCookieName("modal-2");
-
-		modal2.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 8779902619698219539L;
-
-			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
-				setResult("Modal window 2 - close button");
-				return true;
-			}
-		});
-
-		modal2.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 3646057969858558792L;
-
-			public void onClose(AjaxRequestTarget target) {
-				target.add(result);
-			}
-		});
 		
-
-
+		add(itemEditWindow = new ItemEditWindow("modal2"));
+		
 		final DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView = 
 			new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider()) {
 
@@ -131,8 +95,8 @@ public class ItemListadoPanel extends Panel {
 
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						modalPanel1.setItemSel(itemSel);
-						modal2.show(target);
+						itemEditWindow.setItemSel(itemSel);
+						itemEditWindow.show(target);
 					}
 				});
 
@@ -195,8 +159,8 @@ public class ItemListadoPanel extends Panel {
 	/**
 	 * @return the modalPanel1
 	 */
-	public ItemEditPanel getModalPanel1() {
-		return modalPanel1;
+	public ItemEditWindow getModalPanel1() {
+		return itemEditWindow;
 	}
 
 

@@ -1,6 +1,6 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.item;
 
-import java.util.Collections;
+import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -9,15 +9,9 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.ListMultipleChoice;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
-import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
-import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 
 public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> {
 
@@ -25,42 +19,30 @@ public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimient
 
 	private FormComponent<String> textField = null;
 	
-	/*
-	 * ojo con esto: The 'subject' instance of the MyVeryLargeObjectDao class 
-	 * will be serialized into the session with each page version. 
-	 * This can get out of hand, because with some business object models, 
-	 * the attached object can become very large. For this we 
-	 * introduced DetachableModels, which will retrieve the data 
-	 * from the database when needed, and will 
-	 * clean up when the data is not needed 
-	 * (at the end of the request for instance).
-	 **/
-
-	@SpringBean(name="itemService")
-	ItemService itemService;
+	private ListMultipleChoice<String> choice;
 	
-	@SpringBean(name="estadoService")
-	EstadoService estadoService;
+	private List<String> estados;
 	
-	private Item item;
+	private String name;	
 	
 	public ItemEditForm() {
+		
 		super("inputForm" );// , new CompoundPropertyModel<FormInputModel>(new FormInputModel()));
 
 		textField = new TextField<String>("firstname").setRequired(true).setLabel(
 				new Model<String>("String"));
-		
+		textField.setModel(new Model<String>());
 		add(textField);
 		
-		add(new ListMultipleChoice<String>("estadoSelection",  estadoService.getNames()));			
+		add(choice = new ListMultipleChoice<String>("estadoSelection"));			
 		
 		add(new AjaxButton("saveButton", this)
 		{
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form)
 			{
-				item.setName(textField.getModel().getObject());
-				item = getItemService().save(item);
+				setName(textField.getModel().getObject());
+				
 				// repaint the feedback panel so that it is hidden
 				//target.add("");
 			}
@@ -70,6 +52,7 @@ public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimient
 			{
 				// repaint the feedback panel so errors are shown
 				//target.add("");
+				"".toString();
 			}
 		});
 
@@ -80,6 +63,7 @@ public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimient
 			{
 				// just set a new instance of the page
 				//setResponsePage(SortingPane.class);
+				"".toString();
 			}
 		}.setDefaultFormProcessing(false));
 	}
@@ -98,28 +82,54 @@ public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimient
 		this.textField = textField;
 	}
 
-	public void setItemSel(Item itemSel) {
-		this.textField.setModel(new Model<String>());
-		Item i = this.getItemService().getById(itemSel.getId());
-		this.textField.getModel().setObject(i.getName());
-		this.item = itemSel;
+	
+
+	/**
+	 * @return the estados
+	 */
+	public List<String> getEstados() {
+		return estados;
+	}
+
+	/**
+	 * @param estados the estados to set
+	 */
+	public void setEstados(List<String> estados) {
+		this.estados = estados;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+		this.textField.getModel().setObject(name);
+	}
+
+	/**
+	 * @return the choice
+	 */
+	public ListMultipleChoice<String> getChoice() {
+		return choice;
+	}
+
+	/**
+	 * @param choice the choice to set
+	 */
+	public void setChoice(ListMultipleChoice<String> choice) {
+		this.choice = choice;
 	}
 	
 	
 
-	/**
-	 * @return the itemService
-	 */
-	public ItemService getItemService() {
-		return itemService;
-	}
 
-	/**
-	 * @param itemService the itemService to set
-	 */
-	public void setItemService(ItemService itemService) {
-		this.itemService = itemService;
-	}
 
 
 	
