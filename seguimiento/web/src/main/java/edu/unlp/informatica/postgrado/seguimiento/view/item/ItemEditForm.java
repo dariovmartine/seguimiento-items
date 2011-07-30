@@ -36,36 +36,7 @@ public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimient
 		
 		add(choice = new ListMultipleChoice<String>("estadoSelection"));			
 		
-		add(new AjaxButton("saveButton", this)
-		{
-			@Override
-			protected void onSubmit(AjaxRequestTarget target, Form<?> form)
-			{
-				setName(textField.getModel().getObject());
-				
-				// repaint the feedback panel so that it is hidden
-				//target.add("");
-			}
-
-			@Override
-			protected void onError(AjaxRequestTarget target, Form<?> form)
-			{
-				// repaint the feedback panel so errors are shown
-				//target.add("");
-				"".toString();
-			}
-		});
-
-		add(new Button("resetButton")
-		{
-			@Override
-			public void onSubmit()
-			{
-				// just set a new instance of the page
-				//setResponsePage(SortingPane.class);
-				"".toString();
-			}
-		}.setDefaultFormProcessing(false));
+		
 	}
 
 	/**
