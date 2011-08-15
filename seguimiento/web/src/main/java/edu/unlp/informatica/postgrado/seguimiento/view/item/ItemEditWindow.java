@@ -105,7 +105,7 @@ public class ItemEditWindow extends ModalWindow {
 				}
 			});
 			
-			add(new AjaxLink<Void>("closeOK") {
+			formInput.add(new AjaxLink<Void>("closeOK") {
 				@Override
 				public void onClick(AjaxRequestTarget target) {
 					
@@ -113,7 +113,7 @@ public class ItemEditWindow extends ModalWindow {
 				}
 			});
 
-			add(new AjaxLink<Void>("closeCancel") {
+			formInput.add(new AjaxLink<Void>("closeCancel") {
 				@Override
 				public void onClick(AjaxRequestTarget target) {
 					
