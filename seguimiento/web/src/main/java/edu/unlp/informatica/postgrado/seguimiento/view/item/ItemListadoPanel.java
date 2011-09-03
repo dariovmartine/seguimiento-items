@@ -22,15 +22,15 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+
 
 
 /**
@@ -49,7 +49,7 @@ public class ItemListadoPanel extends Panel {
 	@SpringBean(name="sortableItemDataProvider")
 	ItemSortableDataProvider sortableItemDataProvider;
 	
-	private ItemEditWindow itemEditWindow;
+	private ItemEditPanel itemEditPanel = null;
 
 	/**
 	 * constructor
@@ -59,8 +59,34 @@ public class ItemListadoPanel extends Panel {
 		final Label result;
 		add(result = new Label("result", new PropertyModel<String>(this, "result")));
 		result.setOutputMarkupId(true);
+	
+		final ModalWindow itemEditWindow;
+		add(itemEditWindow = new ModalWindow("modal2"));
+				
+		itemEditWindow.setContent(itemEditPanel = new ItemEditPanel(itemEditWindow.getContentId()));
+		itemEditWindow.setTitle("Item");
+		itemEditWindow.setCookieName("modal-2");
 		
-		add(itemEditWindow = new ItemEditWindow("modal2"));
+		itemEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
+
+			private static final long serialVersionUID = 8779902619698219539L;
+
+			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
+				// setResult("Modal window 2 - close button");
+				return true;
+			}
+		});
+
+		itemEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 3646057969858558792L;
+
+			public void onClose(AjaxRequestTarget target) {
+				// target.add(result);
+			}
+		});
 		
 		final DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView = 
 			new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider()) {
@@ -95,7 +121,7 @@ public class ItemListadoPanel extends Panel {
 
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						itemEditWindow.setItemSel(itemSel);
+						itemEditPanel.setItemSel(itemSel);
 						itemEditWindow.show(target);
 					}
 				});
@@ -155,14 +181,4 @@ public class ItemListadoPanel extends Panel {
 			ItemSortableDataProvider sortableItemDataProvider) {
 		this.sortableItemDataProvider = sortableItemDataProvider;
 	}
-
-	/**
-	 * @return the modalPanel1
-	 */
-	public ItemEditWindow getModalPanel1() {
-		return itemEditWindow;
-	}
-
-
-
 }
