@@ -3,6 +3,9 @@ package edu.unlp.informatica.postgrado.seguimiento.view.item;
 import java.util.Map;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.IAjaxCallDecorator;
+import org.apache.wicket.ajax.calldecorator.AjaxCallDecorator;
+import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.extensions.yui.calendar.DateTimeField;
@@ -68,15 +71,7 @@ public class ItemEditPanel extends Panel {
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 
-				Item i = DataSourceLocator.getInstance().getItemService()
-				.getById((((ItemEditPanel) this.getParent().getParent())).getItem().getId());
-		
-				i.setName(getFormInput().getName());
-				//i.setState(getFormInput().getState());
-				DataSourceLocator.getInstance().getItemService().save(i);
 				
-				((ModalWindow) this.getParent().getParent().getParent())
-						.close(target);
 
 			}
 		});
@@ -87,6 +82,45 @@ public class ItemEditPanel extends Panel {
 
 				((ModalWindow) this.getParent().getParent().getParent())
 						.close(target);
+			}
+		});
+		
+		
+		formInput.add(new AjaxFormSubmitBehavior(formInput, "onsubmit")
+		{
+			@Override
+			protected IAjaxCallDecorator getAjaxCallDecorator()
+			{
+				return new AjaxCallDecorator()
+				{
+					public CharSequence decorateScript(CharSequence script)
+					{
+						return script + "return false;";
+					}
+				};
+			}
+
+			@Override
+			protected void onSubmit(AjaxRequestTarget target)
+			{
+				Item i = DataSourceLocator.getInstance().getItemService()
+				.getById((((ItemEditPanel) this.getParent().getParent())).getItem().getId());
+		
+				i.setName(getFormInput().getName());
+				//i.setState(getFormInput().getState());
+				DataSourceLocator.getInstance().getItemService().save(i);
+				
+				((ModalWindow) this.getParent().getParent().getParent())
+						.close(target);
+
+				// focus the textarea again
+				target.appendJavascript("document.getElementById('" + text.getMarkupId() +
+					"').focus();");
+			}
+
+			@Override
+			protected void onError(AjaxRequestTarget target)
+			{
 			}
 		});
 	}
