@@ -1,17 +1,14 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.item;
 
+import java.util.Collection;
 import java.util.List;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.ListMultipleChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
-
-import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
+import org.apache.wicket.model.util.WildcardListModel;
 
 public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> {
 
@@ -25,6 +22,16 @@ public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimient
 	
 	private String name;	
 	
+	private Long itemId;
+	
+	public Long getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(Long id) {
+		this.itemId = itemId;
+	}
+
 	public ItemEditForm() {
 		
 		super("inputForm" );// , new CompoundPropertyModel<FormInputModel>(new FormInputModel()));
@@ -34,7 +41,8 @@ public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimient
 		textField.setModel(new Model<String>());
 		add(textField);
 		
-		add(choice = new ListMultipleChoice<String>("estadoSelection"));			
+		add(choice = new ListMultipleChoice<String>("estadoSelection"));
+		choice.setDefaultModel(new WildcardListModel<Collection<String>>() );
 		
 		
 	}
@@ -97,12 +105,4 @@ public class ItemEditForm extends Form<edu.unlp.informatica.postgrado.seguimient
 	public void setChoice(ListMultipleChoice<String> choice) {
 		this.choice = choice;
 	}
-	
-	
-
-
-
-
-	
-
 }
