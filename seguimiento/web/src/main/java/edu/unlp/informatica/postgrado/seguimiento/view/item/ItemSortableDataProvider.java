@@ -73,11 +73,10 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 	 * 
 	 * @see org.apache.wicket.markup.repeater.data.IDataProvider#model(java.lang.Object)
 	 */
+	@SuppressWarnings("serial")
 	public IModel<Item> model(final Item item)
 	{
 		return new LoadableDetachableModel<Item>(){
-
-			private static final long serialVersionUID = 8967269923476817174L;
 
 			@Override
 			protected Item load() {

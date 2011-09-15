@@ -54,8 +54,11 @@ public class ItemListadoPanel extends Panel {
 	/**
 	 * constructor
 	 */
+	@SuppressWarnings("serial")
 	public ItemListadoPanel(String id) {
+		
 		super(id);
+		
 		final Label result;
 		add(result = new Label("result", new PropertyModel<String>(this, "result")));
 		result.setOutputMarkupId(true);
@@ -69,8 +72,6 @@ public class ItemListadoPanel extends Panel {
 		
 		itemEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
 
-			private static final long serialVersionUID = 8779902619698219539L;
-
 			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
 				// setResult("Modal window 2 - close button");
 				return true;
@@ -78,11 +79,10 @@ public class ItemListadoPanel extends Panel {
 		});
 
 		itemEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 3646057969858558792L;
-
 			public void onClose(AjaxRequestTarget target) {
 				// target.add(result);
 			}
@@ -90,8 +90,6 @@ public class ItemListadoPanel extends Panel {
 		
 		final DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView = 
 			new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider()) {
-
-			private static final long serialVersionUID = -3098685539151210145L;
 
 			@Override
 			protected void populateItem(
@@ -107,7 +105,6 @@ public class ItemListadoPanel extends Panel {
 
 				item.add(AttributeModifier.replace("class",
 						new AbstractReadOnlyModel<String>() {
-							private static final long serialVersionUID = 1L;
 
 							@Override
 							public String getObject() {
@@ -117,8 +114,6 @@ public class ItemListadoPanel extends Panel {
 						}));
 				item.add(new AjaxLink<Void>("showModal2") {
 					
-					private static final long serialVersionUID = -8563436483693662304L;
-
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						itemEditPanel.setItemSel(itemSel);
@@ -133,7 +128,6 @@ public class ItemListadoPanel extends Panel {
 
 		add(new OrderByBorder("orderByFirstName", "firstName",
 				getSortableItemDataProvider()) {
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void onSortChanged() {
@@ -143,7 +137,6 @@ public class ItemListadoPanel extends Panel {
 
 		add(new OrderByBorder("orderByLastName", "lastName",
 				getSortableItemDataProvider()) {
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			protected void onSortChanged() {
