@@ -26,6 +26,12 @@ public class AbstractRepository<E, K> {
 		return entity;
 	}
 	
+	public E update(E entity) {
+		
+		hibernateTemplate.update(entity);
+		return entity;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<E> find() {
 		 
