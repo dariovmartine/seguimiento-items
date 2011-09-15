@@ -45,6 +45,7 @@ public class TabbedPanelPage extends WebPage
 	/**
 	 * Constructor
 	 */
+	@SuppressWarnings("serial")
 	public TabbedPanelPage()
 	{
 		// create a list of ITab objects used to feed the tabbed panel
@@ -52,11 +53,6 @@ public class TabbedPanelPage extends WebPage
 		
 		tabs.add(new AbstractTab(new Model<String>("ABM Items"))
 		{
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 8179939742395213269L;
-
 			@Override
 			public Panel getPanel(String panelId)
 			{
@@ -66,11 +62,6 @@ public class TabbedPanelPage extends WebPage
 		
 		tabs.add(new AbstractTab(new Model<String>("first tab"))
 		{
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 8179939742395213269L;
-
 			@Override
 			public Panel getPanel(String panelId)
 			{
@@ -80,11 +71,6 @@ public class TabbedPanelPage extends WebPage
 
 		tabs.add(new AbstractTab(new Model<String>("second tab"))
 		{
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 4863534669327731950L;
-
 			@Override
 			public Panel getPanel(String panelId)
 			{
@@ -94,11 +80,6 @@ public class TabbedPanelPage extends WebPage
 
 		tabs.add(new AbstractTab(new Model<String>("third tab"))
 		{
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = -4729847224748003299L;
-
 			@Override
 			public Panel getPanel(String panelId)
 			{
@@ -114,6 +95,11 @@ public class TabbedPanelPage extends WebPage
 	 */
 	private static class TabPanel1 extends Panel
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -8591685660475063086L;
+
 		/**
 		 * Constructor
 		 * 
@@ -132,6 +118,11 @@ public class TabbedPanelPage extends WebPage
 	private static class TabPanel2 extends Panel
 	{
 		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 2159760903794539250L;
+
+		/**
 		 * Constructor
 		 * 
 		 * @param id
@@ -148,6 +139,11 @@ public class TabbedPanelPage extends WebPage
 	 */
 	private static class TabPanel3 extends Panel
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 6938023480361767786L;
+
 		/**
 		 * Constructor
 		 * 

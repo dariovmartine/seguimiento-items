@@ -1,7 +1,5 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.item;
 
-import java.util.Map;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.IAjaxCallDecorator;
@@ -9,7 +7,6 @@ import org.apache.wicket.ajax.calldecorator.AjaxCallDecorator;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
-import org.apache.wicket.extensions.yui.calendar.DateTimeField;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
@@ -42,33 +39,15 @@ public class ItemEditPanel extends Panel {
 		return item;
 	}
 
+	@SuppressWarnings("serial")
 	public ItemEditPanel(String id) {
 		
 		super(id);
 
 		formInput.setEstados(DataSourceLocator.getInstance().getEstadoService()
 				.getNames());
-		add(getFormInput());
-
-//		formInput.add(new DateTimeField("dateTimeField") {
-//
-//			/**
-//			 * 
-//			 */
-//			private static final long serialVersionUID = 8857477532890851349L;
-//
-//			/**
-//			 * @see org.apache.wicket.extensions.yui.calendar.DateTimeField#configure(java.util.Map)
-//			 */
-//			@Override
-//			protected void configure(Map<String, Object> widgetProperties) {
-//				super.configure(widgetProperties);
-//				// IE 6 breaks layout with iframe - is that a YUI bug?
-//				widgetProperties.put("iframe", false);
-//			}
-//		});
-
 		
+		add(getFormInput());		
 
 		formInput.add(new AjaxLink<Void>("closeCancel") {
 			
@@ -103,15 +82,11 @@ public class ItemEditPanel extends Panel {
 				.getById(getItem().getId());
 		
 				i.setName(((ItemEditForm)getForm()).getTextField().getModelObject());
-				//i.setState(getFormInput().getState());
+				//TODO:  i.setState(getFormInput().getState());
 				DataSourceLocator.getInstance().getItemService().udpate(i);
 				
 				((ModalWindow) getForm().getParent().getParent())
 						.close(target);
-
-				// focus the textarea again
-//				target.appendJavascript("document.getElementById('" + text.getMarkupId() +
-//					"').focus();");
 			}
 
 			@Override
@@ -136,5 +111,4 @@ public class ItemEditPanel extends Panel {
 	public void setFormInput(ItemEditForm formInput) {
 		this.formInput = formInput;
 	}
-
 }
