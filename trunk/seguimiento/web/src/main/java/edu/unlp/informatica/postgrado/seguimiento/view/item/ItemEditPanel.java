@@ -102,7 +102,7 @@ public class ItemEditPanel extends Panel {
 				Item i = DataSourceLocator.getInstance().getItemService()
 				.getById(getItem().getId());
 		
-				i.setName(((ItemEditForm)getForm()).getName());
+				i.setName(((ItemEditForm)getForm()).getTextField().getModelObject());
 				//i.setState(getFormInput().getState());
 				DataSourceLocator.getInstance().getItemService().save(i);
 				
