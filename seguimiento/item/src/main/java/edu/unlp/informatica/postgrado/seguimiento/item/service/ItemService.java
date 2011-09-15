@@ -27,6 +27,11 @@ public class ItemService {
 		return mapper.map(itemRepository.save(entity), Item.class);
 	}
 	
+	public Item udpate(Item entity) {
+		
+		return mapper.map(itemRepository.update(entity), Item.class);
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Item> find() {
 		
