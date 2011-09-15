@@ -98,10 +98,11 @@ public class ItemEditPanel extends Panel {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target)
 			{
+				
 				Item i = DataSourceLocator.getInstance().getItemService()
-				.getById(getFormInput().getItemId());
+				.getById(getItem().getId());
 		
-				i.setName(getFormInput().getName());
+				i.setName(((ItemEditForm)getForm()).getName());
 				//i.setState(getFormInput().getState());
 				DataSourceLocator.getInstance().getItemService().save(i);
 				
