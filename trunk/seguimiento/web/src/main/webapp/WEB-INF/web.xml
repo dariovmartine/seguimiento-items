@@ -48,22 +48,5 @@
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
-
-
 	
-	<filter>
-		<filter-name>RepeaterExamplesApplication</filter-name>
-		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
-		<init-param>
-			<param-name>applicationClassName</param-name>
-			<param-value>edu.unlp.informatica.postgrado.seguimiento.view.prueba.RepeaterApplication</param-value>
-		</init-param>
-	</filter>
-	
-		<filter-mapping>
-		<filter-name>RepeaterExamplesApplication</filter-name>
-		<url-pattern>/repeater/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
-	</filter-mapping>
 </web-app>
