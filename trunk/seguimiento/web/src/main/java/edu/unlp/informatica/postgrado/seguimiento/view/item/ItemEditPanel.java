@@ -83,17 +83,17 @@ public class ItemEditPanel extends Panel {
 		
 		formInput.add(new AjaxFormSubmitBehavior(formInput, "onsubmit")
 		{
-//			@Override
-//			protected IAjaxCallDecorator getAjaxCallDecorator()
-//			{
-//				return new AjaxCallDecorator()
-//				{
-//					public CharSequence decorateScript(Component c, CharSequence script)
-//					{
-//						return script + "return false;";
-//					}
-//				};
-//			}
+			@Override
+			protected IAjaxCallDecorator getAjaxCallDecorator()
+			{
+				return new AjaxCallDecorator()
+				{
+					public CharSequence decorateScript(Component c, CharSequence script)
+					{
+						return script + "return false;";
+					}
+				};
+			}
 
 			@Override
 			protected void onSubmit(AjaxRequestTarget target)
@@ -104,10 +104,10 @@ public class ItemEditPanel extends Panel {
 		
 				i.setName(((ItemEditForm)getForm()).getTextField().getModelObject());
 				//i.setState(getFormInput().getState());
-				DataSourceLocator.getInstance().getItemService().save(i);
+				DataSourceLocator.getInstance().getItemService().udpate(i);
 				
-//				((ModalWindow) this.getParent().getParent().getParent())
-//						.close(target);
+				((ModalWindow) getForm().getParent().getParent())
+						.close(target);
 
 				// focus the textarea again
 //				target.appendJavascript("document.getElementById('" + text.getMarkupId() +
