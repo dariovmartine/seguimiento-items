@@ -50,6 +50,8 @@ public class ItemListadoPanel extends Panel {
 	ItemSortableDataProvider sortableItemDataProvider;
 	
 	private ItemEditPanel itemEditPanel = null;
+	
+	private DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView = null; 
 
 	/**
 	 * constructor
@@ -58,7 +60,7 @@ public class ItemListadoPanel extends Panel {
 	public ItemListadoPanel(String id) {
 		
 		super(id);
-		
+		setOutputMarkupId(true);
 		final Label result;
 		add(result = new Label("result", new PropertyModel<String>(this, "result")));
 		result.setOutputMarkupId(true);
@@ -88,9 +90,9 @@ public class ItemListadoPanel extends Panel {
 			}
 		});
 		
-		final DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView = 
-			new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider()) {
-
+		
+			dataView = new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider()) {
+			
 			@Override
 			protected void populateItem(
 					final Item<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> item) {
@@ -125,7 +127,7 @@ public class ItemListadoPanel extends Panel {
 		};
 
 		dataView.setItemsPerPage(8);
-
+		
 		add(new OrderByBorder("orderByFirstName", "firstName",
 				getSortableItemDataProvider()) {
 
@@ -173,5 +175,9 @@ public class ItemListadoPanel extends Panel {
 	public void setSortableItemDataProvider(
 			ItemSortableDataProvider sortableItemDataProvider) {
 		this.sortableItemDataProvider = sortableItemDataProvider;
+	}
+
+	public DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> getDataView() {
+		return dataView;
 	}
 }
