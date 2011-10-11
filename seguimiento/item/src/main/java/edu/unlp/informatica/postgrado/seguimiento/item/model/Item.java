@@ -30,7 +30,7 @@ public class Item implements Serializable {
 	Long id;
 	
 	@ValidUserName
-	@Size(min = 3, max = 12, message = "Must be between 3 and 12 chars")
+	@Size(min = 3, max = 12)
 	@Column(name = "NAME")
 	private String name;
 
