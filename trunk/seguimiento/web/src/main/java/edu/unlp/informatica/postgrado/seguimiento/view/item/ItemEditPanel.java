@@ -7,6 +7,7 @@ import org.apache.wicket.ajax.calldecorator.AjaxCallDecorator;
 import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
@@ -22,22 +23,15 @@ public class ItemEditPanel extends Panel {
 
 	private ItemEditForm formInput;
 
-	
-	public void setItemId(Long itemId) {
-
-		Item i = DataSourceLocator.getInstance().getItemService().getById(itemId);
-				
-		getFormInput().setModel(new CompoundPropertyModel<Item>(i));
-		//formInput.setModelObject(i);
-		
-		
-	}
-
 	@SuppressWarnings("serial")
 	public ItemEditPanel(String id) {
 		
 		super(id);
-		add(formInput = new ItemEditForm(/*new CompoundPropertyModel<Item>(new Item()))*/));
+		// create a feedback panel
+		final Component feedback = new FeedbackPanel("feedback").setOutputMarkupPlaceholderTag(true);
+		add(feedback);
+		
+		add(formInput = new ItemEditForm());
 		
 		formInput.add(new AjaxLink<Void>("closeCancel") {
 			
@@ -67,7 +61,7 @@ public class ItemEditPanel extends Panel {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target)
 			{
-				Item newVersion = (Item)getForm().getModelObject();
+				Item newVersion = (Item) getForm().getModelObject();
 				
 				Item i = DataSourceLocator.getInstance().getItemService()
 				.getById(newVersion.getId());
@@ -84,26 +78,19 @@ public class ItemEditPanel extends Panel {
 			}
 
 			@Override
-			protected void onError(AjaxRequestTarget target)
-			{
-				"".toString();
+			protected void onError(AjaxRequestTarget target) {
+				target.add(feedback);
+				
 			}
+
+			
 		});
-
 	}
+	
+	public void setItemId(Long itemId) {
 
-	/**
-	 * @return the formInput
-	 */
-	public ItemEditForm getFormInput() {
-		return formInput;
-	}
-
-	/**
-	 * @param formInput
-	 *            the formInput to set
-	 */
-	public void setFormInput(ItemEditForm formInput) {
-		this.formInput = formInput;
+		Item i = DataSourceLocator.getInstance().getItemService().getById(itemId);
+				
+		formInput.setModel(new CompoundPropertyModel<Item>(i));
 	}
 }
