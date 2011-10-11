@@ -118,7 +118,7 @@ public class ItemListadoPanel extends Panel {
 					
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						itemEditPanel.setItemSel(itemSel);
+						itemEditPanel.setItemId(itemSel.getId());
 						itemEditWindow.show(target);
 					}
 				});

@@ -8,6 +8,7 @@ import org.apache.wicket.ajax.form.AjaxFormSubmitBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.CompoundPropertyModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
@@ -19,36 +20,25 @@ public class ItemEditPanel extends Panel {
 	 */
 	private static final long serialVersionUID = -3342982114735537862L;
 
-	private Item item;
+	private ItemEditForm formInput;
 
-	private ItemEditForm formInput = new ItemEditForm();
+	
+	public void setItemId(Long itemId) {
 
-	public void setItemSel(Item itemSel) {
-
-		Item i = DataSourceLocator.getInstance().getItemService()
-				.getById(itemSel.getId());
-		getFormInput().setName(i.getName());
-		this.getFormInput().getChoice().setChoices(
-			DataSourceLocator.getInstance().getEstadoService()
-								.getNames());
-		this.getFormInput().setItemId(i.getId());
-		item = itemSel;
-	}
-
-	public Item getItem() {
-		return item;
+		Item i = DataSourceLocator.getInstance().getItemService().getById(itemId);
+				
+		getFormInput().setModel(new CompoundPropertyModel<Item>(i));
+		//formInput.setModelObject(i);
+		
+		
 	}
 
 	@SuppressWarnings("serial")
 	public ItemEditPanel(String id) {
 		
 		super(id);
-
-		formInput.setEstados(DataSourceLocator.getInstance().getEstadoService()
-				.getNames());
+		add(formInput = new ItemEditForm(/*new CompoundPropertyModel<Item>(new Item()))*/));
 		
-		add(getFormInput());		
-
 		formInput.add(new AjaxLink<Void>("closeCancel") {
 			
 			@Override
@@ -77,17 +67,19 @@ public class ItemEditPanel extends Panel {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target)
 			{
+				Item newVersion = (Item)getForm().getModelObject();
 				
 				Item i = DataSourceLocator.getInstance().getItemService()
-				.getById(getItem().getId());
+				.getById(newVersion.getId());
 		
-				i.setName(((ItemEditForm)getForm()).getTextField().getModelObject());
-				//TODO:  i.setState(getFormInput().getState());
+				i.setName(newVersion.getName());
+				i.setState(newVersion.getState());
+				
 				DataSourceLocator.getInstance().getItemService().udpate(i);
 				
-				((ModalWindow) getForm().getParent().getParent())
-						.close(target);
-				
+				((ModalWindow) getForm().getParent().getParent()).close(target);
+
+				// Esto es para que se refresque la grilla de datos
 				target.add(this.getForm().getParent().getParent().getParent());
 			}
 
@@ -97,6 +89,7 @@ public class ItemEditPanel extends Panel {
 				"".toString();
 			}
 		});
+
 	}
 
 	/**
