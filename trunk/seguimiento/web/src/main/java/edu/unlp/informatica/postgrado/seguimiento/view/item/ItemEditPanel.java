@@ -32,7 +32,7 @@ public class ItemEditPanel extends Panel {
 		add(feedback);
 		
 		add(formInput = new ItemEditForm());
-		
+		formInput.setEditMode(true);
 		formInput.add(new AjaxLink<Void>("closeCancel") {
 			
 			@Override

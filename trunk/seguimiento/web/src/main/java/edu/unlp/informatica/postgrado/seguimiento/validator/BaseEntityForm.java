@@ -92,7 +92,7 @@ public class BaseEntityForm<T> extends Form<T> {
                         FormComponent c = (FormComponent) t;
 
                         if (entityProperties.containsKey(t.getId())) {
-                            c.add(new JSR302Validator<T>(t.getId(), entityClass,editMode?c.getModel():null,BaseEntityForm.this));
+                        	c.add(new JSR302Validator<T>(t.getId(), entityClass,editMode?c.getModel():null,BaseEntityForm.this,c.getLabel()));
                         }
 
 

@@ -4,14 +4,18 @@
  */
 package edu.unlp.informatica.postgrado.seguimiento.validator;
 
+import java.io.IOException;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.Properties;
 import java.util.Set;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+
 import org.apache.wicket.Component;
-import org.apache.wicket.Localizer;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.validation.INullAcceptingValidator;
 import org.apache.wicket.validation.IValidatable;
@@ -30,13 +34,37 @@ class JSR302Validator<T> implements IValidator<T>, INullAcceptingValidator<T> {
     private Class<T> propertyClass;
     private final IModel currentValue;
     private Component parent;
+    private Properties p = new Properties();
 
-    public JSR302Validator(String propertyName, Class<T> propertyClass, IModel currentValue, Component parent) {
+	private IModel<String> label; 
+
+    public JSR302Validator(String propertyName, Class<T> propertyClass, IModel currentValue, Component parent, IModel<String> label) {
         this.propertyName = propertyName;
         this.propertyClass = propertyClass;
         this.currentValue = currentValue;
-        this.parent=parent;
+        this.label = label;
+        this.parent = parent;
+        try {
+			p.load(this.getClass().getClassLoader()  
+	                .getResourceAsStream("ValidationMessages.properties"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
     }
+    
+    private String getString(String key)
+	{
+    	try {
+    		return  parent.getString(key);	
+		} catch (MissingResourceException e) {
+			key = key.subSequence(1, key.length() -1).toString();
+			if (p.containsKey(key)) {
+				return (String) p.get(key);
+			}
+			throw new MissingResourceException("No encuentro",parent.getClass().getName(),key);
+		}
+	}
 
     public void validate(IValidatable iv) {
         // Only validates changed values
@@ -50,7 +78,7 @@ class JSR302Validator<T> implements IValidator<T>, INullAcceptingValidator<T> {
             String errorMessage;
             try {
                 String key = v.getMessageTemplate();
-                errorMessage = parent.getString(v.getMessageTemplate());
+                errorMessage = getString(v.getMessageTemplate());
                 if (errorMessage != null) {
                     errorMessage = replaceVariables(errorMessage, v);
                 }
@@ -63,7 +91,11 @@ class JSR302Validator<T> implements IValidator<T>, INullAcceptingValidator<T> {
     }
 
     private String replaceVariables(String message, ConstraintViolation<T> violation) {
-        message = message.replaceAll("\\{fieldName\\}", parent.getString(propertyName, null, propertyName));
+    	String name = parent.getString(propertyName, null, propertyName);
+    	if (label != null) {
+    		name = label.getObject();
+    	}
+        message = message.replaceAll("\\{fieldName\\}", name);
         Map<String, Object> attributes = violation.getConstraintDescriptor().getAttributes();
         for (String attrName : attributes.keySet()) {
             message = message.replaceAll("\\{" + attrName + "\\}", attributes.get(attrName).toString());
