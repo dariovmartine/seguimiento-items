@@ -2,7 +2,6 @@ package edu.unlp.informatica.postgrado.seguimiento.view.item;
 
 import java.util.Collection;
 
-import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.ListMultipleChoice;
 import org.apache.wicket.markup.html.form.TextField;
@@ -10,9 +9,10 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.WildcardListModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
+import edu.unlp.informatica.postgrado.seguimiento.validator.BaseEntityForm;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
-public class ItemEditForm extends Form<Item> {
+public class ItemEditForm extends BaseEntityForm<Item> {
 
 	private static final long serialVersionUID = 7499289901011022854L;	
 
@@ -22,7 +22,7 @@ public class ItemEditForm extends Form<Item> {
 	
 	public ItemEditForm() {
 		
-		super("inputForm");
+		super("inputForm", new Item());
 
 		textField = new TextField<String>("name").setRequired(true).setLabel(
 				new Model<String>("String"));
