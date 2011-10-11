@@ -87,6 +87,8 @@ public class ItemEditPanel extends Panel {
 				
 				((ModalWindow) getForm().getParent().getParent())
 						.close(target);
+				
+				target.add(this.getForm().getParent().getParent().getParent());
 			}
 
 			@Override
