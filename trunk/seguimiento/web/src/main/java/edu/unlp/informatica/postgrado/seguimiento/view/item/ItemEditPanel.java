@@ -64,14 +64,21 @@ public class ItemEditPanel extends Panel {
 			{
 				Item newVersion = (Item) getForm().getModelObject();
 				
-				Item i;
+				Item item;
 				try {
-					i = DataSourceLocator.getInstance().getItemService()
-					.getById(newVersion.getId());
-					i.setName(newVersion.getName());
-					i.setState(newVersion.getState());				
 					
-					DataSourceLocator.getInstance().getItemService().update(i);
+					if (newVersion.getId() != null) {
+						
+						item = DataSourceLocator.getInstance().getItemService()
+									.getById(newVersion.getId());
+						item.setName(newVersion.getName());
+						item.setState(newVersion.getState());
+						DataSourceLocator.getInstance().getItemService().update(item);
+					} else {
+						
+						item = newVersion;
+						DataSourceLocator.getInstance().getItemService().save(item);
+					}				
 					
 					// Esto es para que se refresque la grilla de datos
 					target.add(this.getForm().getParent().getParent().getParent());
@@ -93,12 +100,16 @@ public class ItemEditPanel extends Panel {
 	
 	public void setItemId(Long itemId) {
 
-		Item i;
+		Item item = new Item();
 		try {
-			i = DataSourceLocator.getInstance().getItemService().getById(itemId);
-			formInput.setModel(new CompoundPropertyModel<Item>(i));
+			
+			if (itemId != null) {
+				item = DataSourceLocator.getInstance().getItemService().getById(itemId);
+			}
 		} catch (ServiceException e) {
 			
-		}		
+		}	
+
+		formInput.setModel(new CompoundPropertyModel<Item>(item));
 	}
 }

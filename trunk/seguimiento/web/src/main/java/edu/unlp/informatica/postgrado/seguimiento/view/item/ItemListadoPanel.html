@@ -3,9 +3,9 @@
 	xmlns:wicket="http://wicket.apache.org">
 	<title>Seguimiento Items:Items</title>
 <wicket:panel >
-		Last modal window result: <span wicket:id="result"></span>
 	<div wicket:id="modal2"></div>
-	<br />
+	<br/>
+	<a wicket:id="doAdd">Add</a>
 	<span wicket:id="navigator">[dataview navigator]</span>
 	<table cellspacing="0" class="dataview">
 		<tr>
@@ -17,8 +17,8 @@
 			<th>Cell Phone</th>
 		</tr>
 		<tr wicket:id="sorting">
-			<td><a wicket:id="showModal2">Edit</a></td>
-			<td><a wicket:id="contactid">[contactid]</a></td>
+			<td><a wicket:id="doEdit">Edit</a> <a wicket:id="doDelete">Delete</a></td>
+			<td><span wicket:id="contactid">[contactid]</span></td>
 			<td><span wicket:id="firstname">[firstname]</span></td>
 			<td><span wicket:id="lastname">[lastname]</span></td>
 			<td><span wicket:id="homephone">[homephone]</span></td>
