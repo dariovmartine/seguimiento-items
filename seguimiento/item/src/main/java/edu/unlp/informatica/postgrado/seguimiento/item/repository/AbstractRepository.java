@@ -34,6 +34,13 @@ public class AbstractRepository<E, K> {
 		return entity;
 	}
 	
+	public E delete(E entity) {
+		
+		hibernateTemplate.delete(entity);
+		hibernateTemplate.flush(); // Chequeamos fallas en los constraints
+		return entity;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<E> find() {
 		 

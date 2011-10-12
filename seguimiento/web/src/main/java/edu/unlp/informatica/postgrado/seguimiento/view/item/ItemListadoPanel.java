@@ -17,7 +17,10 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.item;
 
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.IAjaxCallDecorator;
+import org.apache.wicket.ajax.calldecorator.AjaxCallDecorator;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
@@ -27,8 +30,10 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
-import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
+import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
 
 
@@ -62,8 +67,8 @@ public class ItemListadoPanel extends Panel {
 		super(id);
 		setOutputMarkupId(true);
 		final Label result;
-		add(result = new Label("result", new PropertyModel<String>(this, "result")));
-		result.setOutputMarkupId(true);
+		//add(result = new Label("result", new PropertyModel<String>(this, "result")));
+		//result.setOutputMarkupId(true);
 	
 		final ModalWindow itemEditWindow;
 		add(itemEditWindow = new ModalWindow("modal2"));
@@ -113,19 +118,52 @@ public class ItemListadoPanel extends Panel {
 										: "odd";
 							}
 						}));
-				item.add(new AjaxLink<Void>("showModal2") {
+				
+				item.add(new AjaxLink<Void>("doEdit") {
 					
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						itemEditPanel.setItemId(itemSel.getId());
 						itemEditWindow.show(target);
 					}
-				});
+				});				
+		        
+				item.add(new AjaxLink<Void>("doDelete") {					
 
+					@Override
+					public void onClick(AjaxRequestTarget target) {
+						try {
+							DataSourceLocator.getInstance().getItemService().delete(itemSel);
+							target.add(this.getParent().getParent().getParent());
+						} catch (ServiceException e) {
+							target.appendJavaScript("alert('" +	e.getCause().getCause().getCause().getLocalizedMessage() + "');");
+						}
+					}
+
+					@Override
+					protected IAjaxCallDecorator getAjaxCallDecorator() {
+						return new AjaxCallDecorator()
+						{
+							public CharSequence decorateScript(Component c, CharSequence script)
+							{
+								return "if(confirm('Está seguro que quiere eliminar: " + itemSel.getName()  + "?')) {" + script + "}" ;
+							}
+						};
+					}
+				});
 			}
 		};
 
 		dataView.setItemsPerPage(8);
+		
+		add(new AjaxLink<Void>("doAdd") {
+			
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				itemEditPanel.setItemId(null);
+				itemEditWindow.show(target);
+			}
+		});
 		
 		add(new OrderByBorder("orderByFirstName", "firstName",
 				getSortableItemDataProvider()) {
