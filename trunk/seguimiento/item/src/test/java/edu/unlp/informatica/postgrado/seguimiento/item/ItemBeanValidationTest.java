@@ -30,7 +30,7 @@ public class ItemBeanValidationTest {
 
 		Set<ConstraintViolation<Item>> constraintViolations = validator
 				.validate(bean);
-		assertEquals(1, constraintViolations.size());
+		assertEquals(2, constraintViolations.size());
 		
 		System.out.println(constraintViolations.iterator().next().getMessage());
 		
