@@ -30,6 +30,7 @@ public class Item implements Serializable {
 	Long id;
 	
 	@ValidUserName
+	@NotNull
 	@Size(min = 3, max = 12)
 	@Column(name = "NAME")
 	private String name;
