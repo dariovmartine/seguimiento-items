@@ -1,6 +1,6 @@
 package edu.unlp.informatica.postgrado.seguimiento.item;
 
-import junit.framework.Assert;
+import static junit.framework.Assert.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,12 +22,18 @@ public class TestXMLConfiguration {
 	public void test() {
 		
 		Item i = new Item();
-		i.setName("dario");
-		myService.save(i);
-		i = new Item();
-		i.setName("lu");
-		myService.save(i);
+		i.setName("juan");
+		try {
+			myService.save(i);
+			i = new Item();
+			i.setName("mariano");
+			myService.save(i);
+			
+			assertTrue("Debería haberse grabado algo.", myService.find().size() > 0);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			fail(e.getMessage());
+		}
 		
-		Assert.assertTrue("Debería haberse grabado algo.", myService.find().size() > 0);
 	}
 }

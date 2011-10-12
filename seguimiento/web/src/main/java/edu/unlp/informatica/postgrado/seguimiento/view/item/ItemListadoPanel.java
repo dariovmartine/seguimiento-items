@@ -90,8 +90,7 @@ public class ItemListadoPanel extends Panel {
 			}
 		});
 		
-		
-			dataView = new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider()) {
+		dataView = new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider()) {
 			
 			@Override
 			protected void populateItem(

@@ -32,7 +32,7 @@ public class Item implements Serializable {
 	@ValidUserName
 	@NotNull
 	@Size(min = 3, max = 12)
-	@Column(name = "NAME")
+	@Column(name = "NAME", unique=true)
 	private String name;
 
 	@NotNull
