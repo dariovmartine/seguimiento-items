@@ -22,11 +22,10 @@ import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
-import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
 
@@ -56,7 +55,11 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 	 */
 	public Iterator<Item> iterator(int first, int count)
 	{
-		return DataSourceLocator.getInstance().getItemService().find(first, count, getSort().toString()).iterator();
+		try {
+			return DataSourceLocator.getInstance().getItemService().find(first, count, getSort().toString()).iterator();
+		} catch (ServiceException e) {
+			return null;
+		}
 	}
 
 	/**
@@ -64,7 +67,12 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 	 */
 	public int size()
 	{
-		return DataSourceLocator.getInstance().getItemService().getCount();
+		try {
+			return DataSourceLocator.getInstance().getItemService().getCount();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			return 0;
+		}
 	}
 
 	/**
@@ -84,6 +92,4 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 				return item;
 			}};
 	}
-	
-	
 }

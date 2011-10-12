@@ -23,12 +23,14 @@ public class AbstractRepository<E, K> {
 	public E save(E entity) {
 		
 		hibernateTemplate.save(entity);
+		hibernateTemplate.flush(); // Chequeamos fallas en los constraints
 		return entity;
 	}
 	
 	public E update(E entity) {
 		
 		hibernateTemplate.update(entity);
+		hibernateTemplate.flush(); // Chequeamos fallas en los constraints
 		return entity;
 	}
 	

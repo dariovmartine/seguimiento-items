@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
@@ -63,34 +64,41 @@ public class ItemEditPanel extends Panel {
 			{
 				Item newVersion = (Item) getForm().getModelObject();
 				
-				Item i = DataSourceLocator.getInstance().getItemService()
-				.getById(newVersion.getId());
-		
-				i.setName(newVersion.getName());
-				i.setState(newVersion.getState());
-				
-				DataSourceLocator.getInstance().getItemService().udpate(i);
-				
-				((ModalWindow) getForm().getParent().getParent()).close(target);
-
-				// Esto es para que se refresque la grilla de datos
-				target.add(this.getForm().getParent().getParent().getParent());
+				Item i;
+				try {
+					i = DataSourceLocator.getInstance().getItemService()
+					.getById(newVersion.getId());
+					i.setName(newVersion.getName());
+					i.setState(newVersion.getState());				
+					
+					DataSourceLocator.getInstance().getItemService().update(i);
+					
+					// Esto es para que se refresque la grilla de datos
+					target.add(this.getForm().getParent().getParent().getParent());
+					
+					((ModalWindow) getForm().getParent().getParent()).close(target);	
+				} catch (ServiceException e) {
+					
+					target.appendJavaScript("alert('" +	e.getCause().getCause().getCause().getLocalizedMessage() + "');");
+				}
 			}
 
 			@Override
 			protected void onError(AjaxRequestTarget target) {
-				target.add(feedback);
 				
-			}
-
-			
+				target.add(feedback);				
+			}			
 		});
 	}
 	
 	public void setItemId(Long itemId) {
 
-		Item i = DataSourceLocator.getInstance().getItemService().getById(itemId);
-				
-		formInput.setModel(new CompoundPropertyModel<Item>(i));
+		Item i;
+		try {
+			i = DataSourceLocator.getInstance().getItemService().getById(itemId);
+			formInput.setModel(new CompoundPropertyModel<Item>(i));
+		} catch (ServiceException e) {
+			
+		}		
 	}
 }
