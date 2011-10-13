@@ -13,7 +13,6 @@
 	</parent>
 	<properties>
 		<org.hibernate-core.version>3.3.2.GA</org.hibernate-core.version>
-		<org.hibernate-annotations.version>3.4.0.GA</org.hibernate-annotations.version>
 		<org.hibernate-entitymanager.version>3.4.0.GA</org.hibernate-entitymanager.version>
 	</properties>
 	<dependencies>
@@ -48,11 +47,6 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>${org.hibernate-core.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>${org.hibernate-annotations.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -212,9 +206,9 @@
 						<version>${org.hibernate-core.version}</version>
 					</dependency>
 					<dependency>
-						<groupId>org.hibernate</groupId>
-						<artifactId>hibernate-annotations</artifactId>
-						<version>${org.hibernate-annotations.version}</version>
+						<groupId>org.hibernate.common</groupId>
+						<artifactId>hibernate-commons-annotations</artifactId>
+						<version>${hibernate.version}</version>
 					</dependency>
 				</dependencies>
 			</plugin>

@@ -24,12 +24,12 @@ public class Estado implements Serializable {
 
 	@Id 
 	@Column(name = "ID")
-	@GeneratedValue(generator="EXAMPLE_ID_GEN", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="EXAMPLE_ID_GEN", sequenceName="SEQ_ESTADO_ID")
+	@GeneratedValue(generator="ESTADO_ID_GEN", strategy=GenerationType.SEQUENCE)
+	@SequenceGenerator(name="ESTADO_ID_GEN", sequenceName="SEQ_ESTADO_ID")
 	Long id;
 	
 	@ValidUserName
-	@Size(min = 3, max = 12, message = "Must be between 3 and 12 chars")
+	@Size(min = 3, max = 12)
 	@Column(name = "NAME")
 	private String name;
 	

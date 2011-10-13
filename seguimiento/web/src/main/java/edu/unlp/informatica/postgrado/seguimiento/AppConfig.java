@@ -75,9 +75,7 @@ class RepositoryConfig {
     @Autowired
     public HibernateTransactionManager transactionManager(SessionFactory sessionFactory)
     {
-        HibernateTransactionManager htm = new HibernateTransactionManager();
-        htm.setSessionFactory(sessionFactory);
-        return htm;
+    	return new HibernateTransactionManager(sessionFactory);
     }
     
     @Bean
@@ -111,17 +109,11 @@ class RepositoryConfig {
         return properties;
     }
     
-    @Bean
-    @Autowired
-    public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory)
-    {
-    	return new HibernateTransactionManager(sessionFactory);
-    }
+
     @Bean
     @Autowired
     public DozerBeanMapper getDozerBeanMapper()
     {
     	return new DozerBeanMapper();
     }    
-    
 }
