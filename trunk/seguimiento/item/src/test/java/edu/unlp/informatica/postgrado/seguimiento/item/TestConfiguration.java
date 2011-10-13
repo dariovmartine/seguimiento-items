@@ -20,7 +20,7 @@ public class TestConfiguration {
 		ItemService myService = (ItemService) ctx.getBean("itemService",ItemService.class);
 
 		Item i = new Item();
-		i.setName("dario");
+		i.setName("dario3");
 		try {
 			myService.save(i);
 			i = new Item();
