@@ -18,11 +18,11 @@
 		<jetty.version>6.1.25</jetty.version>
 		<wicket.version>1.5-RC5.1</wicket.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
-		<hibernate.version>3.3.0.ga</hibernate.version>
+		<hibernate.version>4.0.0.CR2</hibernate.version>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
 		<org.springwebflow.version>2.2.0.RELEASE</org.springwebflow.version>
-		<maven.compiler.source>1.5</maven.compiler.source>
-		<maven.compiler.target>1.5</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
 		<dozer.version>5.3.2</dozer.version>
 		<hsqldb.version>2.2.4</hsqldb.version>
 	</properties>
@@ -68,7 +68,13 @@
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb-j5</artifactId>
 			<version>${hsqldb.version}</version>
-		</dependency>	
+		</dependency>
+		<!-- HIBERNATE -->
+		<dependency>
+			<groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
