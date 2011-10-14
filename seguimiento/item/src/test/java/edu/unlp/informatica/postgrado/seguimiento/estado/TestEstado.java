@@ -21,7 +21,7 @@ public class TestEstado {
 		EstadoService myService = (EstadoService) ctx.getBean("estadoService",EstadoService.class);
 
 		Estado i = new Estado();
-		i.setName("abierto");
+		i.setName("creado");
 		try {
 			myService.save(i);
 			i = new Estado();
