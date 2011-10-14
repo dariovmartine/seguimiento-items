@@ -42,12 +42,6 @@
 			<version>${jetty.version}</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- HIBERNATE -->
-		<dependency>
-			<groupId>org.hibernate.common</groupId>
-			<artifactId>hibernate-commons-annotations</artifactId>
-			<version>${hibernate.version}</version>
-		</dependency>
 		<!-- SPRING -->
 		<dependency>
 			<groupId>javax.inject</groupId>

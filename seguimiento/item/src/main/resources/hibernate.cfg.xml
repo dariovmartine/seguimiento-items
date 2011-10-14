@@ -1,6 +1,6 @@
 <!DOCTYPE hibernate-configuration PUBLIC
     "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
 		<!-- Database connection settings -->
@@ -10,9 +10,12 @@
 		<property name="connection.password">{hibernate.connection.password}</property>
 		<property name="dialect">{hibernate.dialect}</property>
 		<property name="current_session_context_class">thread</property>
-		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 		<property name="hibernate.show_sql">{hibernate.show_sql}</property>
-			
+		
+	   <property name="javax.persistence.validation.group.pre-persist">javax.validation.groups.Default</property>
+       <property name="javax.persistence.validation.group.pre-update">javax.validation.groups.Default</property>
+   
+   
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Item" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Estado" />
 	</session-factory>

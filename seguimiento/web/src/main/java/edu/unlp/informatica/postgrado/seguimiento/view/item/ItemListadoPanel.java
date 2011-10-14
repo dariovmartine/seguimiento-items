@@ -95,7 +95,7 @@ public class ItemListadoPanel extends Panel {
 			}
 		});
 		
-		dataView = new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", getSortableItemDataProvider()) {
+		dataView = new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", sortableItemDataProvider) {
 			
 			@Override
 			protected void populateItem(
@@ -103,11 +103,8 @@ public class ItemListadoPanel extends Panel {
 				final edu.unlp.informatica.postgrado.seguimiento.item.model.Item itemSel = item
 						.getModelObject();
 				
-				item.add(new Label("contactid", String.valueOf(itemSel.getId())));
-				item.add(new Label("firstname", itemSel.getName()));
-				item.add(new Label("lastname", itemSel.getName()));
-				item.add(new Label("homephone", itemSel.getName()));
-				item.add(new Label("cellphone", itemSel.getState()));
+				item.add(new Label("name", itemSel.getName()));
+				item.add(new Label("state", itemSel.getState()));
 
 				item.add(AttributeModifier.replace("class",
 						new AbstractReadOnlyModel<String>() {
@@ -165,8 +162,8 @@ public class ItemListadoPanel extends Panel {
 			}
 		});
 		
-		add(new OrderByBorder("orderByFirstName", "firstName",
-				getSortableItemDataProvider()) {
+		add(new OrderByBorder("orderByName", "name",
+				sortableItemDataProvider) {
 
 			@Override
 			protected void onSortChanged() {
@@ -174,8 +171,8 @@ public class ItemListadoPanel extends Panel {
 			}
 		});
 
-		add(new OrderByBorder("orderByLastName", "lastName",
-				getSortableItemDataProvider()) {
+		add(new OrderByBorder("orderByState", "state",
+				sortableItemDataProvider) {
 
 			@Override
 			protected void onSortChanged() {
@@ -186,35 +183,5 @@ public class ItemListadoPanel extends Panel {
 		add(dataView);
 
 		add(new PagingNavigator("navigator", dataView));
-	}
-
-	/**
-	 * @return the result
-	 */
-	public String getResult() {
-		return result;
-	}
-
-	/**
-	 * @param result
-	 *            the result to set
-	 */
-	public void setResult(String result) {
-		this.result = result;
-	}
-
-	private String result;
-
-	public ItemSortableDataProvider getSortableItemDataProvider() {
-		return sortableItemDataProvider;
-	}
-
-	public void setSortableItemDataProvider(
-			ItemSortableDataProvider sortableItemDataProvider) {
-		this.sortableItemDataProvider = sortableItemDataProvider;
-	}
-
-	public DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> getDataView() {
-		return dataView;
 	}
 }

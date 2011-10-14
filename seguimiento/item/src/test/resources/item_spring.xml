@@ -43,8 +43,6 @@
 				<prop key="hibernate.c3p0.idle_test_period">300</prop>
 				<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>
 				<prop key="hibernate.current_session_context_class">org.hibernate.context.ManagedSessionContext</prop>
-				<prop key="hibernate.cache.use_second_level_cache">true</prop>
-				<prop key="hibernate.cache.provider_class"> net.sf.ehcache.hibernate.EhCacheProvider</prop>
 				<prop key="hibernate.max_fetch_depth">4</prop>
 			</props>
 		</property>
