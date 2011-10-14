@@ -26,6 +26,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.Item</value>
+				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.Estado</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

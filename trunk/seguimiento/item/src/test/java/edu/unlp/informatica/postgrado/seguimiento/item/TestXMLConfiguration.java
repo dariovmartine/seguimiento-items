@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 
 @ContextConfiguration(locations={"classpath:item_spring.xml"})
@@ -17,18 +19,27 @@ public class TestXMLConfiguration {
 
 	@Autowired
 	ItemService  myService;
+	
+	@Autowired
+	EstadoService estadoService; 
 
 	@Test
-	public void test() {
+	public void test() {		
 		
-		Item i = new Item();
-		i.setName("juan");
-		i.setState("sdsd");
+		Estado s = new Estado();
+		s.setName("terminado");
+				
 		try {
+			estadoService.save(s);
+		
+			Item i = new Item();
+			i.setName("juan");
+			i.setEstado(s);
+			
 			myService.save(i);
 			i = new Item();
 			i.setName("mariano");
-			i.setState("sdsd");
+			i.setEstado(s);
 			myService.save(i);
 			
 			assertTrue("Debería haberse grabado algo.", myService.find().size() > 0);

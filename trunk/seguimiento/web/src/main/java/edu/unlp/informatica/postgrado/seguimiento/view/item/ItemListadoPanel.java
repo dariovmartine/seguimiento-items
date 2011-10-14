@@ -104,7 +104,7 @@ public class ItemListadoPanel extends Panel {
 						.getModelObject();
 				
 				item.add(new Label("name", itemSel.getName()));
-				item.add(new Label("state", itemSel.getState()));
+				item.add(new Label("state", itemSel.getEstado().getName()));
 
 				item.add(AttributeModifier.replace("class",
 						new AbstractReadOnlyModel<String>() {
