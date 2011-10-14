@@ -13,7 +13,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
 public class EstadoEditPanel extends Panel {
@@ -65,20 +64,20 @@ public class EstadoEditPanel extends Panel {
 			{
 				Estado newVersion = (Estado) getForm().getModelObject();
 				
-				Estado item;
+				Estado estado;
 				try {
 					
 					if (newVersion.getId() != null) {
 						
-						item = DataSourceLocator.getInstance().getEstadoService()
+						estado = DataSourceLocator.getInstance().getEstadoService()
 									.getById(newVersion.getId());
-						item.setName(newVersion.getName());
+						estado.setName(newVersion.getName());
 						
-						DataSourceLocator.getInstance().getEstadoService().update(item);
+						DataSourceLocator.getInstance().getEstadoService().update(estado);
 					} else {
 						
-						item = newVersion;
-						DataSourceLocator.getInstance().getEstadoService().save(item);
+						estado = newVersion;
+						DataSourceLocator.getInstance().getEstadoService().save(estado);
 					}				
 					
 					// Esto es para que se refresque la grilla de datos
@@ -99,18 +98,18 @@ public class EstadoEditPanel extends Panel {
 		});
 	}
 	
-	public void setItemId(Long itemId) {
+	public void setEstadoId(Long estadoId) {
 
-		Estado item = new Estado();
+		Estado estado = new Estado();
 		try {
 			
-			if (itemId != null) {
-				item = DataSourceLocator.getInstance().getEstadoService().getById(itemId);
+			if (estadoId != null) {
+				estado = DataSourceLocator.getInstance().getEstadoService().getById(estadoId);
 			}
 		} catch (ServiceException e) {
 			
 		}	
 
-		formInput.setModel(new CompoundPropertyModel<Estado>(item));
+		formInput.setModel(new CompoundPropertyModel<Estado>(estado));
 	}
 }

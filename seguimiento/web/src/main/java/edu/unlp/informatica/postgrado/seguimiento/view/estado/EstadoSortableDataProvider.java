@@ -26,7 +26,6 @@ import org.springframework.stereotype.Component;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
 
