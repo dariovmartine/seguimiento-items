@@ -5,6 +5,7 @@
 package edu.unlp.informatica.postgrado.seguimiento.validator;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.Properties;
@@ -72,7 +73,18 @@ class JSR302Validator<T> implements IValidator<T>, INullAcceptingValidator<T> {
             return;
         }
         Validator validator = factory.getValidator();
-        Set<ConstraintViolation<T>> violations = validator.validateValue(propertyClass, propertyName, iv.getValue());
+        
+        // El caso de los multiples choice
+        Object value = iv.getValue(); 
+        if (value instanceof List) {
+        	List l = (List) value;
+        	value = null;
+        	if (l.size() == 1) {
+        		value = l.get(0);
+        	} 
+        }
+        
+        Set<ConstraintViolation<T>> violations = validator.validateValue(propertyClass, propertyName, value);
         for (ConstraintViolation<T> v : violations) {
             ValidationError error = new ValidationError();
             String errorMessage;

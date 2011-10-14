@@ -68,7 +68,7 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 	public int size()
 	{
 		try {
-			return DataSourceLocator.getInstance().getItemService().getCount();
+			return (int) DataSourceLocator.getInstance().getItemService().getCount();
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			return 0;

@@ -51,8 +51,8 @@ public class AbstractRepository<E, K> {
 		return hibernateTemplate.load(clazz, id);
 	}
 	
-	public int getCount() {
-		return (Integer)hibernateTemplate.findByCriteria(DetachedCriteria.forClass(clazz).setProjection(	Projections.rowCount())).get(0);
+	public long getCount() {
+		return (Long)hibernateTemplate.findByCriteria(DetachedCriteria.forClass(clazz).setProjection(	Projections.rowCount())).get(0);
 	}
 
 }
