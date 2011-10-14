@@ -23,10 +23,12 @@ public class TestXMLConfiguration {
 		
 		Item i = new Item();
 		i.setName("juan");
+		i.setState("sdsd");
 		try {
 			myService.save(i);
 			i = new Item();
 			i.setName("mariano");
+			i.setState("sdsd");
 			myService.save(i);
 			
 			assertTrue("Debería haberse grabado algo.", myService.find().size() > 0);

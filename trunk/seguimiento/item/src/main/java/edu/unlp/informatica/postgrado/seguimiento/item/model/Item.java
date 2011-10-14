@@ -36,7 +36,7 @@ public class Item implements Serializable {
 	private String name;
 
 	@NotNull
-	@Column(name = "STATE")
+	@Column(name = "STATE" )
 	private String state;
 
 	public Long getId() {

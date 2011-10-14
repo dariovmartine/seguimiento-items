@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.validators.ValidUserName;
@@ -31,6 +32,7 @@ public class Estado implements Serializable {
 	@ValidUserName
 	@Size(min = 3, max = 12)
 	@Column(name = "NAME")
+	@NotNull
 	private String name;
 	
 	public Long getId() {

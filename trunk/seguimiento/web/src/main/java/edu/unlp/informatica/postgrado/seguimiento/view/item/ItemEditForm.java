@@ -25,7 +25,7 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 		
 		super("inputForm", new Item());
 
-		textField = new TextField<String>("name")/*.setRequired(true) (reemplazado por jsr303)*/.setLabel(
+		textField = new TextField<String>("name").setLabel(
 				new Model<String>("Nombre del item"));
 		add(textField);
 		
