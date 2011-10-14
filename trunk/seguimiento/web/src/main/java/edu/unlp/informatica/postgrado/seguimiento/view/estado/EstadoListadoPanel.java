@@ -53,9 +53,9 @@ public class EstadoListadoPanel extends Panel {
 	private static final long serialVersionUID = 6639795032464660258L;
 	
 	@SpringBean(name="sortableEstadoDataProvider")
-	EstadoSortableDataProvider sortableItemDataProvider;
+	EstadoSortableDataProvider sortableEstadoDataProvider;
 	
-	private EstadoEditPanel itemEditPanel = null;
+	private EstadoEditPanel estadoEditPanel = null;
 	
 	private DataView<Estado> dataView = null; 
 
@@ -71,14 +71,14 @@ public class EstadoListadoPanel extends Panel {
 		//add(result = new Label("result", new PropertyModel<String>(this, "result")));
 		//result.setOutputMarkupId(true);
 	
-		final ModalWindow itemEditWindow;
-		add(itemEditWindow = new ModalWindow("modal2"));
+		final ModalWindow estadoEditWindow;
+		add(estadoEditWindow = new ModalWindow("modal2"));
 				
-		itemEditWindow.setContent(itemEditPanel = new EstadoEditPanel(itemEditWindow.getContentId()));
-		itemEditWindow.setTitle("Item");
-		itemEditWindow.setCookieName("modal-2");
+		estadoEditWindow.setContent(estadoEditPanel = new EstadoEditPanel(estadoEditWindow.getContentId()));
+		estadoEditWindow.setTitle("Estado");
+		estadoEditWindow.setCookieName("modal-2");
 		
-		itemEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
+		estadoEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
 
 			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
 				// setResult("Modal window 2 - close button");
@@ -86,7 +86,7 @@ public class EstadoListadoPanel extends Panel {
 			}
 		});
 
-		itemEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+		estadoEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
 
 			/**
 			 * 
@@ -96,15 +96,15 @@ public class EstadoListadoPanel extends Panel {
 			}
 		});
 		
-		dataView = new DataView<Estado>("sorting", sortableItemDataProvider) {
+		dataView = new DataView<Estado>("sorting", sortableEstadoDataProvider) {
 			
 			@Override
 			protected void populateItem(
 					final Item<Estado> item) {
-				final Estado itemSel = item
+				final Estado estadoSel = item
 						.getModelObject();
 				
-				item.add(new Label("name", itemSel.getName()));
+				item.add(new Label("name", estadoSel.getName()));
 				
 				item.add(AttributeModifier.replace("class",
 						new AbstractReadOnlyModel<String>() {
@@ -120,8 +120,8 @@ public class EstadoListadoPanel extends Panel {
 					
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						itemEditPanel.setItemId(itemSel.getId());
-						itemEditWindow.show(target);
+						estadoEditPanel.setEstadoId(estadoSel.getId());
+						estadoEditWindow.show(target);
 					}
 				});				
 		        
@@ -130,7 +130,7 @@ public class EstadoListadoPanel extends Panel {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						try {
-							DataSourceLocator.getInstance().getEstadoService().delete(itemSel);
+							DataSourceLocator.getInstance().getEstadoService().delete(estadoSel);
 							target.add(this.getParent().getParent().getParent());
 						} catch (ServiceException e) {
 							target.appendJavaScript("alert('" +	e.getCause().getCause().getCause().getLocalizedMessage() + "');");
@@ -143,7 +143,7 @@ public class EstadoListadoPanel extends Panel {
 						{
 							public CharSequence decorateScript(Component c, CharSequence script)
 							{
-								return "if(confirm('Está seguro que quiere eliminar: " + itemSel.getName()  + "?')) {" + script + "}" ;
+								return "if(confirm('Está seguro que quiere eliminar: " + estadoSel.getName()  + "?')) {" + script + "}" ;
 							}
 						};
 					}
@@ -157,13 +157,13 @@ public class EstadoListadoPanel extends Panel {
 			
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				itemEditPanel.setItemId(null);
-				itemEditWindow.show(target);
+				estadoEditPanel.setEstadoId(null);
+				estadoEditWindow.show(target);
 			}
 		});
 		
 		add(new OrderByBorder("orderByName", "name",
-				sortableItemDataProvider) {
+				sortableEstadoDataProvider) {
 
 			@Override
 			protected void onSortChanged() {
