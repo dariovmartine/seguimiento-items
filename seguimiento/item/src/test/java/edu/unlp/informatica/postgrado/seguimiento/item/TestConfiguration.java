@@ -13,7 +13,6 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 public class TestConfiguration {
 
 	@Test
-	@Rollback(false)
 	public void test() {
 		
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(

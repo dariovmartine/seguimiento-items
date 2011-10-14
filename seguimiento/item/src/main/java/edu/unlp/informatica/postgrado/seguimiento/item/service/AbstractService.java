@@ -80,7 +80,7 @@ public abstract class AbstractService<E, R extends AbstractRepository> {
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-	public int getCount() throws ServiceException {
+	public long getCount() throws ServiceException {
 		
 		try {
 			
