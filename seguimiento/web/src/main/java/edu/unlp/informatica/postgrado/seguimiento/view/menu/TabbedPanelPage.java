@@ -26,6 +26,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
+import edu.unlp.informatica.postgrado.seguimiento.view.estado.EstadoListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.item.ItemListadoPanel;
 
 
@@ -60,12 +61,12 @@ public class TabbedPanelPage extends WebPage
 			}
 		});
 		
-		tabs.add(new AbstractTab(new Model<String>("first tab"))
+		tabs.add(new AbstractTab(new Model<String>("ABM Estado"))
 		{
 			@Override
 			public Panel getPanel(String panelId)
 			{
-				return new TabPanel1(panelId);
+				return new EstadoListadoPanel(panelId);
 			}
 		});
 
