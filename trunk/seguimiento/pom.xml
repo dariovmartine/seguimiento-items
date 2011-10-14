@@ -18,7 +18,9 @@
 		<jetty.version>6.1.25</jetty.version>
 		<wicket.version>1.5-RC5.1</wicket.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
-		<hibernate.version>4.0.0.CR2</hibernate.version>
+		<hibernate.commons.annotations>4.0.0.CR2</hibernate.commons.annotations>
+		<hibernate.version>3.6.7.Final</hibernate.version>
+		<hibernate.validator>4.2.0.Final</hibernate.validator>
 		<org.springframework.version>3.0.5.RELEASE</org.springframework.version>
 		<org.springwebflow.version>2.2.0.RELEASE</org.springwebflow.version>
 		<maven.compiler.source>1.6</maven.compiler.source>
@@ -73,7 +75,7 @@
 		<dependency>
 			<groupId>org.hibernate.common</groupId>
 			<artifactId>hibernate-commons-annotations</artifactId>
-			<version>${hibernate.version}</version>
+			<version>${hibernate.commons.annotations}</version>
 		</dependency>
 		<!-- SPRING -->
 		<dependency>
