@@ -29,7 +29,7 @@ public class EstadoService extends AbstractService<Estado, EstadoRepository> {
 		
 		List<String> list = new ArrayList<String>();
 		for (Estado estado : find()) {
-			list.add(((Estado) estado).getName());
+			list.add(((Estado) estado).getNombre());
 		}
 		
 		return list;

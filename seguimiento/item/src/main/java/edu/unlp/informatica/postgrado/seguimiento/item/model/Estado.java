@@ -31,9 +31,9 @@ public class Estado implements Serializable {
 	
 	@ValidUserName
 	@Size(min = 3, max = 12)
-	@Column(name = "NAME", unique=true)
+	@Column(name = "nombre", unique=true)
 	@NotNull
-	private String name;
+	private String nombre;
 	
 	public Long getId() {
 		return id;
@@ -43,12 +43,12 @@ public class Estado implements Serializable {
 		this.id = id;
 	}
 	
-	public String getName() {
-		return name;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	/* (non-Javadoc)
@@ -56,14 +56,14 @@ public class Estado implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return name;
+		return nombre;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		return result;
 	}
 
@@ -76,10 +76,10 @@ public class Estado implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Estado other = (Estado) obj;
-		if (name == null) {
-			if (other.name != null)
+		if (nombre == null) {
+			if (other.nombre != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!nombre.equals(other.nombre))
 			return false;
 		return true;
 	}	

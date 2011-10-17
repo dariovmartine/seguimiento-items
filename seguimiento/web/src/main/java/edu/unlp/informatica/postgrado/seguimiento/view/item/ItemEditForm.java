@@ -23,7 +23,7 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 		
 		super("inputForm", new Item());
 
-		textField = new TextField<String>("name").setLabel(new Model<String>("Nombre"));
+		textField = new TextField<String>("nombre").setLabel(new Model<String>("Nombre"));
 		add(textField);
 		
 		try {
@@ -34,7 +34,5 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 		} catch (ServiceException e) {
 			
 		}
-	}
-	
-	
+	}	
 }

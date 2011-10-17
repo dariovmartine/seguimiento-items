@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.unlp.informatica.postgrado.seguimiento.view.item;
+package edu.unlp.informatica.postgrado.seguimiento.view.tipoitem;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
@@ -33,6 +33,7 @@ import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
 
@@ -44,25 +45,25 @@ import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
  * @author dariovmartine
  * 
  */
-public class ItemListadoPanel extends Panel {
+public class TipoItemListadoPanel extends Panel {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6639795032464660258L;
 	
-	@SpringBean(name="sortableItemDataProvider")
-	ItemSortableDataProvider sortableItemDataProvider;
+	@SpringBean(name="sortableTipoItemDataProvider")
+	TipoItemSortableDataProvider sortableTipoItemDataProvider;
 	
-	private ItemEditPanel itemEditPanel = null;
+	private TipoItemEditPanel tipoItemEditPanel = null;
 	
-	private DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> dataView = null; 
+	private DataView<TipoItem> dataView = null; 
 
 	/**
 	 * constructor
 	 */
 	@SuppressWarnings("serial")
-	public ItemListadoPanel(String id) {
+	public TipoItemListadoPanel(String id) {
 		
 		super(id);
 		setOutputMarkupId(true);
@@ -70,14 +71,14 @@ public class ItemListadoPanel extends Panel {
 		//add(result = new Label("result", new PropertyModel<String>(this, "result")));
 		//result.setOutputMarkupId(true);
 	
-		final ModalWindow itemEditWindow;
-		add(itemEditWindow = new ModalWindow("modal2"));
+		final ModalWindow tipoItemEditWindow;
+		add(tipoItemEditWindow = new ModalWindow("modal2"));
 				
-		itemEditWindow.setContent(itemEditPanel = new ItemEditPanel(itemEditWindow.getContentId()));
-		itemEditWindow.setTitle("Item");
-		itemEditWindow.setCookieName("modal-2");
+		tipoItemEditWindow.setContent(tipoItemEditPanel = new TipoItemEditPanel(tipoItemEditWindow.getContentId()));
+		tipoItemEditWindow.setTitle("TipoItem");
+		tipoItemEditWindow.setCookieName("modal-2");
 		
-		itemEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
+		tipoItemEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
 
 			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
 				// setResult("Modal window 2 - close button");
@@ -85,7 +86,7 @@ public class ItemListadoPanel extends Panel {
 			}
 		});
 
-		itemEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+		tipoItemEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
 
 			/**
 			 * 
@@ -95,17 +96,16 @@ public class ItemListadoPanel extends Panel {
 			}
 		});
 		
-		dataView = new DataView<edu.unlp.informatica.postgrado.seguimiento.item.model.Item>("sorting", sortableItemDataProvider) {
+		dataView = new DataView<TipoItem>("sorting", sortableTipoItemDataProvider) {
 			
 			@Override
 			protected void populateItem(
-					final Item<edu.unlp.informatica.postgrado.seguimiento.item.model.Item> item) {
-				final edu.unlp.informatica.postgrado.seguimiento.item.model.Item itemSel = item
+					final Item<TipoItem> item) {
+				final TipoItem tipoItemSel = item
 						.getModelObject();
 				
-				item.add(new Label("nombre", itemSel.getNombre()));
-				//item.add(new Label("state", itemSel.getEstado().getName())); ???
-
+				item.add(new Label("nombre", tipoItemSel.getNombre()));
+				
 				item.add(AttributeModifier.replace("class",
 						new AbstractReadOnlyModel<String>() {
 
@@ -120,8 +120,8 @@ public class ItemListadoPanel extends Panel {
 					
 					@Override
 					public void onClick(AjaxRequestTarget target) {
-						itemEditPanel.setItemId(itemSel.getId());
-						itemEditWindow.show(target);
+						tipoItemEditPanel.setTipoItemId(tipoItemSel.getId());
+						tipoItemEditWindow.show(target);
 					}
 				});				
 		        
@@ -130,7 +130,7 @@ public class ItemListadoPanel extends Panel {
 					@Override
 					public void onClick(AjaxRequestTarget target) {
 						try {
-							DataSourceLocator.getInstance().getItemService().delete(itemSel);
+							DataSourceLocator.getInstance().getTipoItemService().delete(tipoItemSel);
 							target.add(this.getParent().getParent().getParent());
 						} catch (ServiceException e) {
 							target.appendJavaScript("alert('" +	e.getCause().getCause().getCause().getLocalizedMessage() + "');");
@@ -143,7 +143,7 @@ public class ItemListadoPanel extends Panel {
 						{
 							public CharSequence decorateScript(Component c, CharSequence script)
 							{
-								return "if(confirm('Está seguro que quiere eliminar: " + itemSel.getNombre()  + "?')) {" + script + "}" ;
+								return "if(confirm('Está seguro que quiere eliminar: " + tipoItemSel.getNombre()  + "?')) {" + script + "}" ;
 							}
 						};
 					}
@@ -157,28 +157,19 @@ public class ItemListadoPanel extends Panel {
 			
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				itemEditPanel.setItemId(null);
-				itemEditWindow.show(target);
+				tipoItemEditPanel.setTipoItemId(null);
+				tipoItemEditWindow.show(target);
 			}
 		});
 		
 		add(new OrderByBorder("orderByName", "nombre",
-				sortableItemDataProvider) {
+				sortableTipoItemDataProvider) {
 
 			@Override
 			protected void onSortChanged() {
 				dataView.setCurrentPage(0);
 			}
-		});
-
-		add(new OrderByBorder("orderByState", "state",
-				sortableItemDataProvider) {
-
-			@Override
-			protected void onSortChanged() {
-				dataView.setCurrentPage(0);
-			}
-		});
+		});		
 
 		add(dataView);
 

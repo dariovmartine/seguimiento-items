@@ -18,6 +18,8 @@ package edu.unlp.informatica.postgrado.seguimiento.view;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.PrioridadService;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
 
 /**
  * Service locator class for contacts database
@@ -30,6 +32,10 @@ public class DataSourceLocator
 	private ItemService itemService;
 
 	private EstadoService estadoService;
+
+	private TipoItemService tipoItemService;
+
+	private PrioridadService prioridadService;
 		
 	private static DataSourceLocator dataSource;
 	
@@ -71,5 +77,20 @@ public class DataSourceLocator
 	 */
 	public void setEstadoService(EstadoService estadoService) {
 		this.estadoService = estadoService;
+	}
+	
+	public TipoItemService getTipoItemService() {
+		// TODO Auto-generated method stub
+		return tipoItemService;
+	}
+	public void setTipoItemService(TipoItemService tipoItemService) {
+		this.tipoItemService = tipoItemService;
+	}
+	public PrioridadService getPrioridadService() {
+		// TODO Auto-generated method stub
+		return prioridadService;
+	}
+	public void setPrioridadService(PrioridadService prioridadService) {
+		this.prioridadService = prioridadService;
 	}
 }

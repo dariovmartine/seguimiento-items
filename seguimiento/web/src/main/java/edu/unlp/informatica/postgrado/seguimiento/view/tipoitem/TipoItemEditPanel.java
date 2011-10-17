@@ -1,4 +1,4 @@
-package edu.unlp.informatica.postgrado.seguimiento.view.estado;
+package edu.unlp.informatica.postgrado.seguimiento.view.tipoitem;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -12,27 +12,27 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
-public class EstadoEditPanel extends Panel {
+public class TipoItemEditPanel extends Panel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3342982114735537862L;
 
-	private EstadoEditForm formInput;
+	private TipoItemEditForm formInput;
 
 	@SuppressWarnings("serial")
-	public EstadoEditPanel(String id) {
+	public TipoItemEditPanel(String id) {
 		
 		super(id);
 		// create a feedback panel
 		final Component feedback = new FeedbackPanel("feedback").setOutputMarkupPlaceholderTag(true);
 		add(feedback);
 		
-		add(formInput = new EstadoEditForm());
+		add(formInput = new TipoItemEditForm());
 		formInput.setEditMode(true);
 		formInput.add(new AjaxLink<Void>("closeCancel") {
 			
@@ -62,22 +62,22 @@ public class EstadoEditPanel extends Panel {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target)
 			{
-				Estado newVersion = (Estado) getForm().getModelObject();
+				TipoItem newVersion = (TipoItem) getForm().getModelObject();
 				
-				Estado estado;
+				TipoItem tipoItem;
 				try {
 					
 					if (newVersion.getId() != null) {
 						
-						estado = DataSourceLocator.getInstance().getEstadoService()
+						tipoItem = DataSourceLocator.getInstance().getTipoItemService()
 									.getById(newVersion.getId());
-						estado.setNombre(newVersion.getNombre());
+						tipoItem.setNombre(newVersion.getNombre());
 						
-						DataSourceLocator.getInstance().getEstadoService().update(estado);
+						DataSourceLocator.getInstance().getTipoItemService().update(tipoItem);
 					} else {
 						
-						estado = newVersion;
-						DataSourceLocator.getInstance().getEstadoService().save(estado);
+						tipoItem = newVersion;
+						DataSourceLocator.getInstance().getTipoItemService().save(tipoItem);
 					}				
 					
 					// Esto es para que se refresque la grilla de datos
@@ -98,18 +98,18 @@ public class EstadoEditPanel extends Panel {
 		});
 	}
 	
-	public void setEstadoId(Long estadoId) {
+	public void setTipoItemId(Long tipoItemId) {
 
-		Estado estado = new Estado();
+		TipoItem tipoItem = new TipoItem();
 		try {
 			
-			if (estadoId != null) {
-				estado = DataSourceLocator.getInstance().getEstadoService().getById(estadoId);
+			if (tipoItemId != null) {
+				tipoItem = DataSourceLocator.getInstance().getTipoItemService().getById(tipoItemId);
 			}
 		} catch (ServiceException e) {
 			
 		}	
 
-		formInput.setModel(new CompoundPropertyModel<Estado>(estado));
+		formInput.setModel(new CompoundPropertyModel<TipoItem>(tipoItem));
 	}
 }

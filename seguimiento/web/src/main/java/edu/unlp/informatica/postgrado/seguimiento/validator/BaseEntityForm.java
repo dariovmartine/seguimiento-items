@@ -26,26 +26,32 @@ import org.apache.wicket.util.visit.IVisitor;
  */
 public class BaseEntityForm<T> extends Form<T> {
 
-    private boolean validatorsAdded = false;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4161226037749036278L;
+
+	private boolean validatorsAdded = false;
     
-    private Class entityClass;
+    private Class<T> entityClass;
     private T entity;
 
     public T getEntity() {
         return entity;
     }
 
-    public void setEntity(T entity) {
+    @SuppressWarnings("unchecked")
+	public void setEntity(T entity) {
         this.entity = entity;
-        setModel(new CompoundPropertyModel(entity));
-        this.entityClass = entity.getClass();
+        setModel(new CompoundPropertyModel<T>(entity));
+        this.entityClass = (Class<T>) entity.getClass();
     }
 
-    public Class getEntityClass() {
+    public Class<T> getEntityClass() {
         return entityClass;
     }
 
-    public void setEntityClass(Class entityClass) {
+    public void setEntityClass(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 
