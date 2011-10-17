@@ -14,6 +14,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.estado.EstadoListadoPanel
 import edu.unlp.informatica.postgrado.seguimiento.view.item.ItemListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.persona.PersonaListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.prioridad.PrioridadListadoPanel;
+import edu.unlp.informatica.postgrado.seguimiento.view.proyecto.ProyectoListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.tipoitem.TipoItemListadoPanel;
 
 
@@ -39,7 +40,7 @@ public class TabbedPanelPage extends WebPage
 		// create a list of ITab objects used to feed the tabbed panel
 		List<ITab> tabs = new ArrayList<ITab>();
 		
-		tabs.add(new AbstractTab(new Model<String>("ABM Items"))
+		tabs.add(new AbstractTab(new Model<String>("Items"))
 		{
 			@Override
 			public Panel getPanel(String panelId)
@@ -48,7 +49,16 @@ public class TabbedPanelPage extends WebPage
 			}
 		});
 		
-		tabs.add(new AbstractTab(new Model<String>("ABM Estado"))
+		tabs.add(new AbstractTab(new Model<String>("Proyectos"))
+		{
+			@Override
+			public Panel getPanel(String panelId)
+			{
+				return new ProyectoListadoPanel(panelId);
+			}
+		});
+		
+		tabs.add(new AbstractTab(new Model<String>("Estados"))
 		{
 			@Override
 			public Panel getPanel(String panelId)
@@ -57,7 +67,7 @@ public class TabbedPanelPage extends WebPage
 			}
 		});
 
-		tabs.add(new AbstractTab(new Model<String>("ABM Tipo Item"))
+		tabs.add(new AbstractTab(new Model<String>("Tipos de Items"))
 		{
 			@Override
 			public Panel getPanel(String panelId)
@@ -66,7 +76,7 @@ public class TabbedPanelPage extends WebPage
 			}
 		});
 
-		tabs.add(new AbstractTab(new Model<String>("ABM Prioridad"))
+		tabs.add(new AbstractTab(new Model<String>("Prioridades"))
 		{
 			@Override
 			public Panel getPanel(String panelId)
@@ -75,7 +85,7 @@ public class TabbedPanelPage extends WebPage
 			}
 		});
 		
-		tabs.add(new AbstractTab(new Model<String>("ABM Personas"))
+		tabs.add(new AbstractTab(new Model<String>("Personas"))
 		{
 			@Override
 			public Panel getPanel(String panelId)

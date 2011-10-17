@@ -1,9 +1,13 @@
 package edu.unlp.informatica.postgrado.seguimiento.view;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PersonaService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PrioridadService;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
 
 /**
@@ -12,17 +16,26 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
  * @author dariovmartine
  * 
  */
+@Service("datasourceLocator")
 public class DataSourceLocator
 {
+	@Autowired
 	private ItemService itemService;
 
+	@Autowired
 	private EstadoService estadoService;
 
+	@Autowired
 	private TipoItemService tipoItemService;
 
+	@Autowired
 	private PrioridadService prioridadService;
 
+	@Autowired
 	private PersonaService personaService;
+
+	@Autowired
+	private ProyectoService proyectoService;
 		
 	private static DataSourceLocator dataSource;
 	
@@ -73,6 +86,7 @@ public class DataSourceLocator
 	public void setTipoItemService(TipoItemService tipoItemService) {
 		this.tipoItemService = tipoItemService;
 	}
+	
 	public PrioridadService getPrioridadService() {
 	
 		return prioridadService;
@@ -85,7 +99,17 @@ public class DataSourceLocator
 	public PersonaService getPersonaService() {
 		return personaService;
 	}
+	
 	public void setPersonaService(PersonaService personaService) {
 		this.personaService = personaService;
+	}
+	
+	public ProyectoService getProyectoService() {
+		// TODO Auto-generated method stub
+		return proyectoService;
+	}
+	
+	public void setProyectoService(ProyectoService proyectoService) {
+		this.proyectoService = proyectoService;
 	}
 }
