@@ -15,8 +15,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PERSONA")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Persona  implements Serializable {
+public class Persona  implements Serializable {
 
 	/**
 	 * 

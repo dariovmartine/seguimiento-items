@@ -24,6 +24,7 @@
 		<property name="estadoService" ref="estadoService" />
 		<property name="tipoItemService" ref="tipoItemService" />
 		<property name="prioridadService" ref="prioridadService" />
+		<property name="personaService" ref="personaService" />
 	</bean>
 	
     <bean id="wicketApplication" class="edu.unlp.informatica.postgrado.seguimiento.WicketApplication"/>

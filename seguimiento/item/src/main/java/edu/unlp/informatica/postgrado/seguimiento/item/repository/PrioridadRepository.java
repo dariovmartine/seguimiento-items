@@ -9,7 +9,5 @@ public class PrioridadRepository extends AbstractRepository<Prioridad, Long> {
 
 	public PrioridadRepository() {
 		super(Prioridad.class);
-	}
-
-	
+	}	
 }
