@@ -82,5 +82,46 @@ public class ConfiguracionItem  implements Serializable {
 	public void setTipoItemProyecto(TipoItemProyecto tipoItemProyecto) {
 		this.tipoItemProyecto = tipoItemProyecto;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result
+				+ ((proximosEstados == null) ? 0 : proximosEstados.hashCode());
+		result = prime
+				* result
+				+ ((tipoItemProyecto == null) ? 0 : tipoItemProyecto.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ConfiguracionItem other = (ConfiguracionItem) obj;
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
+			return false;
+		if (proximosEstados == null) {
+			if (other.proximosEstados != null)
+				return false;
+		} else if (!proximosEstados.equals(other.proximosEstados))
+			return false;
+		if (tipoItemProyecto == null) {
+			if (other.tipoItemProyecto != null)
+				return false;
+		} else if (!tipoItemProyecto.equals(other.tipoItemProyecto))
+			return false;
+		return true;
+	}
+	
 	
 }

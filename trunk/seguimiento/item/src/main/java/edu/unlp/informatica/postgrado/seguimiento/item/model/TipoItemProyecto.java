@@ -62,4 +62,39 @@ public class TipoItemProyecto  implements Serializable {
 	public void setTipoItem(TipoItem tipoItem) {
 		this.tipoItem = tipoItem;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((proyecto == null) ? 0 : proyecto.hashCode());
+		result = prime * result
+				+ ((tipoItem == null) ? 0 : tipoItem.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TipoItemProyecto other = (TipoItemProyecto) obj;
+		if (proyecto == null) {
+			if (other.proyecto != null)
+				return false;
+		} else if (!proyecto.equals(other.proyecto))
+			return false;
+		if (tipoItem == null) {
+			if (other.tipoItem != null)
+				return false;
+		} else if (!tipoItem.equals(other.tipoItem))
+			return false;
+		return true;
+	}
+	
+	
 }

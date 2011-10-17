@@ -62,4 +62,38 @@ public class Integrante implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((persona == null) ? 0 : persona.hashCode());
+		result = prime * result
+				+ ((proyecto == null) ? 0 : proyecto.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Integrante other = (Integrante) obj;
+		if (persona == null) {
+			if (other.persona != null)
+				return false;
+		} else if (!persona.equals(other.persona))
+			return false;
+		if (proyecto == null) {
+			if (other.proyecto != null)
+				return false;
+		} else if (!proyecto.equals(other.proyecto))
+			return false;
+		return true;
+	}
+	
+	
 }
