@@ -1,4 +1,4 @@
-package edu.unlp.informatica.postgrado.seguimiento.view.estado;
+package edu.unlp.informatica.postgrado.seguimiento.view.prioridad;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -12,27 +12,27 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
-public class EstadoEditPanel extends Panel {
+public class PrioridadEditPanel extends Panel {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3342982114735537862L;
 
-	private EstadoEditForm formInput;
+	private PrioridadEditForm formInput;
 
 	@SuppressWarnings("serial")
-	public EstadoEditPanel(String id) {
+	public PrioridadEditPanel(String id) {
 		
 		super(id);
 		// create a feedback panel
 		final Component feedback = new FeedbackPanel("feedback").setOutputMarkupPlaceholderTag(true);
 		add(feedback);
 		
-		add(formInput = new EstadoEditForm());
+		add(formInput = new PrioridadEditForm());
 		formInput.setEditMode(true);
 		formInput.add(new AjaxLink<Void>("closeCancel") {
 			
@@ -62,22 +62,22 @@ public class EstadoEditPanel extends Panel {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target)
 			{
-				Estado newVersion = (Estado) getForm().getModelObject();
+				Prioridad newVersion = (Prioridad) getForm().getModelObject();
 				
-				Estado estado;
+				Prioridad prioridad;
 				try {
 					
 					if (newVersion.getId() != null) {
 						
-						estado = DataSourceLocator.getInstance().getEstadoService()
+						prioridad = DataSourceLocator.getInstance().getPrioridadService()
 									.getById(newVersion.getId());
-						estado.setNombre(newVersion.getNombre());
+						prioridad.setNombre(newVersion.getNombre());
 						
-						DataSourceLocator.getInstance().getEstadoService().update(estado);
+						DataSourceLocator.getInstance().getPrioridadService().update(prioridad);
 					} else {
 						
-						estado = newVersion;
-						DataSourceLocator.getInstance().getEstadoService().save(estado);
+						prioridad = newVersion;
+						DataSourceLocator.getInstance().getPrioridadService().save(prioridad);
 					}				
 					
 					// Esto es para que se refresque la grilla de datos
@@ -98,18 +98,18 @@ public class EstadoEditPanel extends Panel {
 		});
 	}
 	
-	public void setEstadoId(Long estadoId) {
+	public void setPrioridadId(Long prioridadId) {
 
-		Estado estado = new Estado();
+		Prioridad prioridad = new Prioridad();
 		try {
 			
-			if (estadoId != null) {
-				estado = DataSourceLocator.getInstance().getEstadoService().getById(estadoId);
+			if (prioridadId != null) {
+				prioridad = DataSourceLocator.getInstance().getPrioridadService().getById(prioridadId);
 			}
 		} catch (ServiceException e) {
 			
 		}	
 
-		formInput.setModel(new CompoundPropertyModel<Estado>(estado));
+		formInput.setModel(new CompoundPropertyModel<Prioridad>(prioridad));
 	}
 }

@@ -28,6 +28,8 @@ import org.apache.wicket.model.Model;
 
 import edu.unlp.informatica.postgrado.seguimiento.view.estado.EstadoListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.item.ItemListadoPanel;
+import edu.unlp.informatica.postgrado.seguimiento.view.prioridad.PrioridadListadoPanel;
+import edu.unlp.informatica.postgrado.seguimiento.view.tipoitem.TipoItemListadoPanel;
 
 
 
@@ -70,21 +72,21 @@ public class TabbedPanelPage extends WebPage
 			}
 		});
 
-		tabs.add(new AbstractTab(new Model<String>("second tab"))
+		tabs.add(new AbstractTab(new Model<String>("ABM Tipo Item"))
 		{
 			@Override
 			public Panel getPanel(String panelId)
 			{
-				return new TabPanel2(panelId);
+				return new TipoItemListadoPanel(panelId);
 			}
 		});
 
-		tabs.add(new AbstractTab(new Model<String>("third tab"))
+		tabs.add(new AbstractTab(new Model<String>("ABM Prioridad"))
 		{
 			@Override
 			public Panel getPanel(String panelId)
 			{
-				return new TabPanel3(panelId);
+				return new PrioridadListadoPanel(panelId);
 			}
 		});
 

@@ -11,12 +11,18 @@
 		<property name="dialect">{hibernate.dialect}</property>
 		<property name="current_session_context_class">thread</property>
 		<property name="hibernate.show_sql">{hibernate.show_sql}</property>
-		
-	   <property name="javax.persistence.validation.group.pre-persist">javax.validation.groups.Default</property>
-       <property name="javax.persistence.validation.group.pre-update">javax.validation.groups.Default</property>
-   
-   
-		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Item" />
+	   	<property name="javax.persistence.validation.group.pre-persist">javax.validation.groups.Default</property>
+       	<property name="javax.persistence.validation.group.pre-update">javax.validation.groups.Default</property>
+      
+		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Estado" />
+		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Integrante" />
+		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Item" />
+		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Persona" />
+		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad" />
+		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto" />
+		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem" />
+		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItemProyecto" />
+		
 	</session-factory>
 </hibernate-configuration>

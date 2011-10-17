@@ -21,11 +21,11 @@ public class TestEstado {
 		EstadoService myService = (EstadoService) ctx.getBean("estadoService",EstadoService.class);
 
 		Estado i = new Estado();
-		i.setName("creado");
+		i.setNombre("creado");
 		try {
 			myService.save(i);
 			i = new Estado();
-			i.setName("cerrado");
+			i.setNombre("cerrado");
 			myService.save(i);
 			
 			assertTrue("Debería haberse grabado algo.", myService.find().size() > 0);

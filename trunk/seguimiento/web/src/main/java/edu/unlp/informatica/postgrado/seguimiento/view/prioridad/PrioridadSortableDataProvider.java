@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.unlp.informatica.postgrado.seguimiento.view.item;
+package edu.unlp.informatica.postgrado.seguimiento.view.prioridad;
 
 import java.util.Iterator;
 
@@ -25,7 +25,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.springframework.stereotype.Component;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
 
@@ -35,15 +35,15 @@ import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
  * @author dariovmartine
  * 
  */
-@Component("sortableItemDataProvider")
-public class ItemSortableDataProvider extends SortableDataProvider<Item> {
+@Component("sortablePrioridadDataProvider")
+public class PrioridadSortableDataProvider extends SortableDataProvider<Prioridad> {
 		
 	private static final long serialVersionUID = -7831455860632228103L;
 			
 	/**
 	 * constructor
 	 */
-	public ItemSortableDataProvider()
+	public PrioridadSortableDataProvider()
 	{
 		super();
 		// set default sort
@@ -53,10 +53,10 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 	/**
 	 * @see org.apache.wicket.markup.repeater.data.IDataProvider#iterator(int, int)
 	 */
-	public Iterator<Item> iterator(int first, int count)
+	public Iterator<Prioridad> iterator(int first, int count)
 	{
 		try {
-			return DataSourceLocator.getInstance().getItemService().find(first, count, getSort().toString()).iterator();
+			return DataSourceLocator.getInstance().getPrioridadService().find(first, count, getSort().toString()).iterator();
 		} catch (ServiceException e) {
 			return null;
 		}
@@ -68,7 +68,7 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 	public int size()
 	{
 		try {
-			return (int) DataSourceLocator.getInstance().getItemService().getCount();
+			return (int) DataSourceLocator.getInstance().getPrioridadService().getCount();
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			return 0;
@@ -82,14 +82,14 @@ public class ItemSortableDataProvider extends SortableDataProvider<Item> {
 	 * @see org.apache.wicket.markup.repeater.data.IDataProvider#model(java.lang.Object)
 	 */
 	@SuppressWarnings("serial")
-	public IModel<Item> model(final Item item)
+	public IModel<Prioridad> model(final Prioridad prioridad)
 	{
-		return new LoadableDetachableModel<Item>(){
+		return new LoadableDetachableModel<Prioridad>(){
 
 			@Override
-			protected Item load() {
+			protected Prioridad load() {
 				// TODO Auto-generated method stub
-				return item;
+				return prioridad;
 			}};
 	}
 }

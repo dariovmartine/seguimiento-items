@@ -47,7 +47,7 @@ public class EstadoSortableDataProvider extends SortableDataProvider<Estado> {
 	{
 		super();
 		// set default sort
-		setSort("firstName", SortOrder.DESCENDING);
+		setSort("nombre", SortOrder.DESCENDING);
 	}
 
 	/**

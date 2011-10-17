@@ -1,6 +1,7 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,13 +36,28 @@ public class Item implements Serializable {
 	@ValidUserName
 	@NotNull
 	@Size(min = 3, max = 12)
-	@Column(name = "NAME", unique=true)
-	private String name;
-
+	@Column(name = "nombre", unique=true)
+	private String nombre;
+	
+	@NotNull
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name = "ID_CONF_ITEM")
+	private ConfiguracionItem configuracionItem;
+	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_ESTADO")
-	private Estado estado;
+	private Estado estado;	
+		
+	@NotNull
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name = "ID_INTEGRANTE")
+	private Integrante responsable;
+	
+	@NotNull
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name = "ID_PRIORIDAD")
+	private Prioridad prioridad;
 
 	public Long getId() {
 		return id;
@@ -51,12 +67,20 @@ public class Item implements Serializable {
 		this.id = id;
 	}
 	
-	public String getName() {
-		return name;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public ConfiguracionItem getConfiguracionItem() {
+		return configuracionItem;
+	}
+
+	public void setConfiguracionItem(ConfiguracionItem configuracionItem) {
+		this.configuracionItem = configuracionItem;
 	}
 
 	public Estado getEstado() {
@@ -65,5 +89,21 @@ public class Item implements Serializable {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+	}
+
+	public Integrante getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(Integrante responsable) {
+		this.responsable = responsable;
+	}
+
+	public Prioridad getPrioridad() {
+		return prioridad;
+	}
+
+	public void setPrioridad(Prioridad prioridad) {
+		this.prioridad = prioridad;
 	}
 }

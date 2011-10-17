@@ -104,7 +104,7 @@ public class EstadoListadoPanel extends Panel {
 				final Estado estadoSel = item
 						.getModelObject();
 				
-				item.add(new Label("name", estadoSel.getName()));
+				item.add(new Label("nombre", estadoSel.getNombre()));
 				
 				item.add(AttributeModifier.replace("class",
 						new AbstractReadOnlyModel<String>() {
@@ -143,7 +143,7 @@ public class EstadoListadoPanel extends Panel {
 						{
 							public CharSequence decorateScript(Component c, CharSequence script)
 							{
-								return "if(confirm('Está seguro que quiere eliminar: " + estadoSel.getName()  + "?')) {" + script + "}" ;
+								return "if(confirm('Está seguro que quiere eliminar: " + estadoSel.getNombre()  + "?')) {" + script + "}" ;
 							}
 						};
 					}
@@ -162,7 +162,7 @@ public class EstadoListadoPanel extends Panel {
 			}
 		});
 		
-		add(new OrderByBorder("orderByName", "name",
+		add(new OrderByBorder("orderByName", "nombre",
 				sortableEstadoDataProvider) {
 
 			@Override
