@@ -16,7 +16,6 @@
       
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Estado" />
-		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Integrante" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Item" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Persona" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad" />

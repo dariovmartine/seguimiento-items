@@ -9,7 +9,5 @@ public class EstadoRepository extends AbstractRepository<Estado, Long> {
 
 	public EstadoRepository() {
 		super(Estado.class);
-	}
-
-	
+	}	
 }

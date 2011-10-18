@@ -36,7 +36,7 @@ public class DataSourceLocator
 
 	@Autowired
 	private ProyectoService proyectoService;
-		
+
 	private static DataSourceLocator dataSource;
 	
 	public DataSourceLocator() {
@@ -105,7 +105,6 @@ public class DataSourceLocator
 	}
 	
 	public ProyectoService getProyectoService() {
-		// TODO Auto-generated method stub
 		return proyectoService;
 	}
 	

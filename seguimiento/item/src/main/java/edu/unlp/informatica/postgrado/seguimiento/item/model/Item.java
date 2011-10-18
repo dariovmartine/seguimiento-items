@@ -51,8 +51,8 @@ public class Item implements Serializable {
 		
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
-	@JoinColumn(name = "ID_INTEGRANTE")
-	private Integrante responsable;
+	@JoinColumn(name = "ID_PERSONA")
+	private Persona responsable;
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
@@ -91,11 +91,11 @@ public class Item implements Serializable {
 		this.estado = estado;
 	}
 
-	public Integrante getResponsable() {
+	public Persona getResponsable() {
 		return responsable;
 	}
 
-	public void setResponsable(Integrante responsable) {
+	public void setResponsable(Persona responsable) {
 		this.responsable = responsable;
 	}
 
