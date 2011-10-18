@@ -16,6 +16,5 @@ public class PersonaService extends AbstractService<Persona, PersonaRepository> 
 	public PersonaRepository getRepository() {
 		// TODO Auto-generated method stub
 		return repository;
-	}
-	
+	}	
 }
