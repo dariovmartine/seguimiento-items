@@ -51,16 +51,12 @@ public class Proyecto implements Serializable {
 	@JoinColumn(name = "ID_LIDER")
 	Persona lider;
 	
-    @OneToMany
-    @JoinColumn(name="ID_PROYECTO")
-	List<TipoItemProyecto> tipoItems;
-	
-	@ManyToMany(targetEntity=ConfiguracionItem.class)
-    @JoinTable(name="CONF_ITEM_PROYECTO",
+	@ManyToMany(targetEntity=TipoItem.class)
+    @JoinTable(name="TIPO_ITEM_PROYECTO",
     		joinColumns=@JoinColumn(name="PROYECTO_ID"),
-	        inverseJoinColumns=@JoinColumn(name="CONF_ITEM_ID"))
-	List<ConfiguracionItem> configuracionItems;
-	
+	        inverseJoinColumns=@JoinColumn(name="TIPO_ITEM_ID"))
+	List<TipoItem> tipoItems;
+
 	@ManyToMany(targetEntity=Item.class)
     @JoinTable(name="ITEM",
     		joinColumns=@JoinColumn(name="PROYECTO_ID"),
@@ -99,22 +95,6 @@ public class Proyecto implements Serializable {
 		this.lider = lider;
 	}
 
-	public List<TipoItemProyecto> getTipoItems() {
-		return tipoItems;
-	}
-
-	public void setTipoItems(List<TipoItemProyecto> tipoItems) {
-		this.tipoItems = tipoItems;
-	}
-
-	public List<ConfiguracionItem> getConfiguracionItems() {
-		return configuracionItems;
-	}
-
-	public void setConfiguracionItems(List<ConfiguracionItem> configuracionItems) {
-		this.configuracionItems = configuracionItems;
-	}
-
 	public List<Item> getItems() {
 		return items;
 	}
@@ -123,19 +103,23 @@ public class Proyecto implements Serializable {
 		this.items = items;
 	}
 
+	public List<TipoItem> getTipoItems() {
+		return tipoItems;
+	}
+
+	public void setTipoItems(List<TipoItem> tipoItems) {
+		this.tipoItems = tipoItems;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((configuracionItems == null) ? 0 : configuracionItems
-						.hashCode());
+		result = prime * result
+				+ ((integrantes == null) ? 0 : integrantes.hashCode());
 		result = prime * result + ((items == null) ? 0 : items.hashCode());
 		result = prime * result + ((lider == null) ? 0 : lider.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result
-				+ ((integrantes == null) ? 0 : integrantes.hashCode());
 		result = prime * result
 				+ ((tipoItems == null) ? 0 : tipoItems.hashCode());
 		return result;
@@ -150,10 +134,10 @@ public class Proyecto implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Proyecto other = (Proyecto) obj;
-		if (configuracionItems == null) {
-			if (other.configuracionItems != null)
+		if (integrantes == null) {
+			if (other.integrantes != null)
 				return false;
-		} else if (!configuracionItems.equals(other.configuracionItems))
+		} else if (!integrantes.equals(other.integrantes))
 			return false;
 		if (items == null) {
 			if (other.items != null)
@@ -170,18 +154,11 @@ public class Proyecto implements Serializable {
 				return false;
 		} else if (!nombre.equals(other.nombre))
 			return false;
-		if (integrantes == null) {
-			if (other.integrantes != null)
-				return false;
-		} else if (!integrantes.equals(other.integrantes))
-			return false;
 		if (tipoItems == null) {
 			if (other.tipoItems != null)
 				return false;
 		} else if (!tipoItems.equals(other.tipoItems))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 }

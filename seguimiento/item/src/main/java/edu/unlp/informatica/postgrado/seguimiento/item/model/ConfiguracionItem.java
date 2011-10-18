@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
  * @author  Victor.Martinez
  */
 @Entity
-@Table(name = "CONF_ITEM")
+@Table(name = "CONFIG_ITEM")
 public class ConfiguracionItem  implements Serializable {
 
 	/**
@@ -37,8 +37,8 @@ public class ConfiguracionItem  implements Serializable {
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
-	@JoinColumn(name = "ID_TIPO_ITEM_PROYECTO")
-	private TipoItemProyecto tipoItemProyecto;
+	@JoinColumn(name = "ID_TIPO_ITEM")
+	private TipoItem tipoItem;
 		
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
@@ -75,14 +75,14 @@ public class ConfiguracionItem  implements Serializable {
 		this.proximosEstados = proximosEstados;
 	}
 
-	public TipoItemProyecto getTipoItemProyecto() {
-		return tipoItemProyecto;
+	public TipoItem getTipoItem() {
+		return tipoItem;
 	}
 
-	public void setTipoItemProyecto(TipoItemProyecto tipoItemProyecto) {
-		this.tipoItemProyecto = tipoItemProyecto;
+	public void setTipoItem(TipoItem tipoItem) {
+		this.tipoItem = tipoItem;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -90,9 +90,8 @@ public class ConfiguracionItem  implements Serializable {
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result
 				+ ((proximosEstados == null) ? 0 : proximosEstados.hashCode());
-		result = prime
-				* result
-				+ ((tipoItemProyecto == null) ? 0 : tipoItemProyecto.hashCode());
+		result = prime * result
+				+ ((tipoItem == null) ? 0 : tipoItem.hashCode());
 		return result;
 	}
 
@@ -115,13 +114,11 @@ public class ConfiguracionItem  implements Serializable {
 				return false;
 		} else if (!proximosEstados.equals(other.proximosEstados))
 			return false;
-		if (tipoItemProyecto == null) {
-			if (other.tipoItemProyecto != null)
+		if (tipoItem == null) {
+			if (other.tipoItem != null)
 				return false;
-		} else if (!tipoItemProyecto.equals(other.tipoItemProyecto))
+		} else if (!tipoItem.equals(other.tipoItem))
 			return false;
 		return true;
 	}
-	
-	
 }
