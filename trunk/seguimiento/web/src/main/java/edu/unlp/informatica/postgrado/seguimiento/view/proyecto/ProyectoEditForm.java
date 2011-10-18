@@ -9,6 +9,7 @@ import org.apache.wicket.model.Model;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
 import edu.unlp.informatica.postgrado.seguimiento.validator.BaseEntityForm;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
@@ -21,6 +22,8 @@ public class ProyectoEditForm extends BaseEntityForm<Proyecto> {
 	private ListChoice<Persona> lider;
 	
 	private ListMultipleChoice<Persona> integrantes;
+	
+	private ListMultipleChoice<TipoItem> tipoItemProyecto;
 	
 	public ProyectoEditForm() {
 		
@@ -46,6 +49,16 @@ public class ProyectoEditForm extends BaseEntityForm<Proyecto> {
 		} catch (ServiceException e) {
 			
 		}
+
+		try {
+
+			add(tipoItemProyecto = new ListMultipleChoice<TipoItem>("tipoItems"));
+			tipoItemProyecto.setChoices(DataSourceLocator.getInstance().getTipoItemService().find());
+			tipoItemProyecto.setLabel(new Model<String>("Tipos de Items"));
+		} catch (ServiceException e) {
+			
+		}
+		
 	}
 	
 	

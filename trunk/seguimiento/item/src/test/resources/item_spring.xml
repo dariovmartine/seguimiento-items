@@ -32,7 +32,7 @@
 				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad</value>
 				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto</value>
 				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem</value>
-				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItemProyecto</value>
+			
 			</list>
 		</property>
 		<property name="hibernateProperties">
