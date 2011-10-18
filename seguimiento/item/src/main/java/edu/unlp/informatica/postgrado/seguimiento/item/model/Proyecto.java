@@ -48,7 +48,7 @@ public class Proyecto implements Serializable {
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
-	@JoinColumn(name = "ID_INTEGRANTE")
+	@JoinColumn(name = "ID_LIDER")
 	Persona lider;
 	
     @OneToMany

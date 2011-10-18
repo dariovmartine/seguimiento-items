@@ -2,6 +2,7 @@ package edu.unlp.informatica.postgrado.seguimiento.view.proyecto;
 
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.ListChoice;
+import org.apache.wicket.markup.html.form.ListMultipleChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 
@@ -17,7 +18,9 @@ public class ProyectoEditForm extends BaseEntityForm<Proyecto> {
 
 	private FormComponent<String> textField = null;
 		
-	private ListChoice<Persona> choice;
+	private ListChoice<Persona> lider;
+	
+	private ListMultipleChoice<Persona> integrantes;
 	
 	public ProyectoEditForm() {
 		
@@ -28,9 +31,18 @@ public class ProyectoEditForm extends BaseEntityForm<Proyecto> {
 		
 		try {
 
-			add(choice = new ListChoice<Persona>("lider"));
-			choice.setChoices(DataSourceLocator.getInstance().getPersonaService().find());
-			choice.setLabel(new Model<String>("Lider"));
+			add(lider = new ListChoice<Persona>("lider"));
+			lider.setChoices(DataSourceLocator.getInstance().getPersonaService().find());
+			lider.setLabel(new Model<String>("Lider"));
+		} catch (ServiceException e) {
+			
+		}
+		
+		try {
+
+			add(integrantes = new ListMultipleChoice<Persona>("integrantes"));
+			integrantes.setChoices(DataSourceLocator.getInstance().getPersonaService().find());
+			integrantes.setLabel(new Model<String>("Integrantes"));
 		} catch (ServiceException e) {
 			
 		}
