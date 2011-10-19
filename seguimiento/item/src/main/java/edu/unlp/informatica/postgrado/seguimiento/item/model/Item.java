@@ -42,7 +42,7 @@ public class Item implements Serializable {
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_CONF_ITEM")
-	private ConfiguracionItem configuracionItem;
+	private ConfiguracionItem configuracionItem; // FIXME: <-- ESTE ATRIBUTO ESTA AL PEDO!!!!!!!!!!!
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
