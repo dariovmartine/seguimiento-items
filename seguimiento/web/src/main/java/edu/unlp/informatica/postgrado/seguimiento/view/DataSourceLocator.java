@@ -3,6 +3,7 @@ package edu.unlp.informatica.postgrado.seguimiento.view;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PersonaService;
@@ -36,6 +37,9 @@ public class DataSourceLocator
 
 	@Autowired
 	private ProyectoService proyectoService;
+	
+	@Autowired
+	private ConfiguracionItemService configuracionItemService;
 
 	private static DataSourceLocator dataSource;
 	
@@ -110,5 +114,12 @@ public class DataSourceLocator
 	
 	public void setProyectoService(ProyectoService proyectoService) {
 		this.proyectoService = proyectoService;
+	}
+	public ConfiguracionItemService getConfiguracionItemService() {
+		return configuracionItemService;
+	}
+	public void setConfiguracionItemService(
+			ConfiguracionItemService configuracionItemService) {
+		this.configuracionItemService = configuracionItemService;
 	}
 }

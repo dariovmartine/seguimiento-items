@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
+import edu.unlp.informatica.postgrado.seguimiento.view.configuracionitem.ConfiguracionItemListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.estado.EstadoListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.item.ItemListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.persona.PersonaListadoPanel;
@@ -94,7 +95,14 @@ public class TabbedPanelPage extends WebPage
 			}
 		});
 
-
+		tabs.add(new AbstractTab(new Model<String>("Configuracion de Items"))
+		{
+			@Override
+			public Panel getPanel(String panelId)
+			{
+				return new ConfiguracionItemListadoPanel(panelId);
+			}
+		});
 		add(new AjaxTabbedPanel("tabs", tabs));
 	}
 
