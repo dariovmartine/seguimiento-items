@@ -2,8 +2,9 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org">
 	<div wicket:id="feedback"></div>
 	<form wicket:id="inputForm" class="inputForm">
-		Nombre: <input wicket:id="nombre" type="text" size="10"/><br/>
-		Estado:	<select wicket:id="estado" ></select>
+		Tipo Item: <select wicket:id="tipoItem"  size="5"/>
+		Estado: <select wicket:id="estado"  size="5"/><br/>
+		Pr&oacute;ximos estados: <select wicket:id="proximosEstados"  size="5"/><br/>
 		<input type = "submit" value = "Submit"/>
 		<input type="button" value="Cancelar" wicket:id="closeCancel" />		
 	</form>	
