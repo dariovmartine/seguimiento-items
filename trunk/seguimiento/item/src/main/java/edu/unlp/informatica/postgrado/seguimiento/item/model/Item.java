@@ -1,7 +1,6 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,14 +35,13 @@ public class Item implements Serializable {
 	@ValidUserName
 	@NotNull
 	@Size(min = 3, max = 12)
-	@Column(name = "nombre", unique=true)
-	private String nombre;
+	@Column(name = "TITULO", unique=true)
+	private String titulo;
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
-	@JoinColumn(name = "ID_CONF_ITEM")
-	private ConfiguracionItem configuracionItem; // FIXME: <-- ESTE ATRIBUTO ESTA AL PEDO!!!!!!!!!!!
-	
+	@Column(name = "DESCRIPCION")
+	private String descripcion;
+		
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_ESTADO")
@@ -58,6 +56,16 @@ public class Item implements Serializable {
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_PRIORIDAD")
 	private Prioridad prioridad;
+	
+	@NotNull
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name = "ID_TIPO_ITEM")
+	private TipoItem tipoItem;
+	
+	@NotNull
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name = "ID_PROYECTO")
+	private Proyecto proyecto;
 
 	public Long getId() {
 		return id;
@@ -65,22 +73,6 @@ public class Item implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-	
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public ConfiguracionItem getConfiguracionItem() {
-		return configuracionItem;
-	}
-
-	public void setConfiguracionItem(ConfiguracionItem configuracionItem) {
-		this.configuracionItem = configuracionItem;
 	}
 
 	public Estado getEstado() {
@@ -106,21 +98,55 @@ public class Item implements Serializable {
 	public void setPrioridad(Prioridad prioridad) {
 		this.prioridad = prioridad;
 	}
+	
+	public TipoItem getTipoItem() {
+		return tipoItem;
+	}
+
+	public void setTipoItem(TipoItem tipoItem) {
+		this.tipoItem = tipoItem;
+	}
+
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((configuracionItem == null) ? 0 : configuracionItem
-						.hashCode());
+		result = prime * result
+				+ ((descripcion == null) ? 0 : descripcion.hashCode());
 		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result
 				+ ((prioridad == null) ? 0 : prioridad.hashCode());
 		result = prime * result
+				+ ((proyecto == null) ? 0 : proyecto.hashCode());
+		result = prime * result
 				+ ((responsable == null) ? 0 : responsable.hashCode());
+		result = prime * result
+				+ ((tipoItem == null) ? 0 : tipoItem.hashCode());
+		result = prime * result + ((titulo == null) ? 0 : titulo.hashCode());
 		return result;
 	}
 
@@ -133,33 +159,46 @@ public class Item implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (configuracionItem == null) {
-			if (other.configuracionItem != null)
+		if (descripcion == null) {
+			if (other.descripcion != null)
 				return false;
-		} else if (!configuracionItem.equals(other.configuracionItem))
+		} else if (!descripcion.equals(other.descripcion))
 			return false;
 		if (estado == null) {
 			if (other.estado != null)
 				return false;
 		} else if (!estado.equals(other.estado))
 			return false;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
 		if (prioridad == null) {
 			if (other.prioridad != null)
 				return false;
 		} else if (!prioridad.equals(other.prioridad))
+			return false;
+		if (proyecto == null) {
+			if (other.proyecto != null)
+				return false;
+		} else if (!proyecto.equals(other.proyecto))
 			return false;
 		if (responsable == null) {
 			if (other.responsable != null)
 				return false;
 		} else if (!responsable.equals(other.responsable))
 			return false;
+		if (tipoItem == null) {
+			if (other.tipoItem != null)
+				return false;
+		} else if (!tipoItem.equals(other.tipoItem))
+			return false;
+		if (titulo == null) {
+			if (other.titulo != null)
+				return false;
+		} else if (!titulo.equals(other.titulo))
+			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return titulo;
+	}		
 }
