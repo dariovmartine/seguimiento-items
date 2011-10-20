@@ -110,6 +110,14 @@ public class Proyecto implements Serializable {
 	public void setTipoItems(List<TipoItem> tipoItems) {
 		this.tipoItems = tipoItems;
 	}
+	
+	public void addItem(Item item) {
+		
+		if (tipoItems.contains(item.getTipoItem())) {
+			items.add(item);
+		} else
+			throw new IllegalArgumentException("El tipo de item no existe en el proyecto");
+	} 
 
 	@Override
 	public int hashCode() {
@@ -160,5 +168,12 @@ public class Proyecto implements Serializable {
 		} else if (!tipoItems.equals(other.tipoItems))
 			return false;
 		return true;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return nombre;
+	}
+	
+	
 }

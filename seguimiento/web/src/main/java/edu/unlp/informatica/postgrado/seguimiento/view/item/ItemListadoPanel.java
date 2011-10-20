@@ -87,7 +87,7 @@ public class ItemListadoPanel extends Panel {
 				final edu.unlp.informatica.postgrado.seguimiento.item.model.Item itemSel = item
 						.getModelObject();
 				
-				item.add(new Label("nombre", itemSel.getNombre()));
+				item.add(new Label("nombre", itemSel.getTitulo()));
 				//item.add(new Label("state", itemSel.getEstado().getName())); ???
 
 				item.add(AttributeModifier.replace("class",
@@ -127,7 +127,7 @@ public class ItemListadoPanel extends Panel {
 						{
 							public CharSequence decorateScript(Component c, CharSequence script)
 							{
-								return "if(confirm('Está seguro que quiere eliminar: " + itemSel.getNombre()  + "?')) {" + script + "}" ;
+								return "if(confirm('Está seguro que quiere eliminar: " + itemSel.getTitulo()  + "?')) {" + script + "}" ;
 							}
 						};
 					}
@@ -146,7 +146,7 @@ public class ItemListadoPanel extends Panel {
 			}
 		});
 		
-		add(new OrderByBorder("orderByName", "nombre",
+		add(new OrderByBorder("orderByTitulo", "titulo",
 				sortableItemDataProvider) {
 
 			@Override

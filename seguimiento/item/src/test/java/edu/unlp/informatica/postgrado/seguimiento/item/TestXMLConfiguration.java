@@ -33,12 +33,12 @@ public class TestXMLConfiguration {
 			estadoService.save(s);
 		
 			Item i = new Item();
-			i.setNombre("juan");
+			i.setTitulo("juan");
 			
 			
 			//myService.save(i);
 			i = new Item();
-			i.setNombre("mariano");
+			i.setTitulo("mariano");
 			
 			//myService.save(i);
 			

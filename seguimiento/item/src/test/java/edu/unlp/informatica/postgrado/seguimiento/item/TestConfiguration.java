@@ -1,6 +1,5 @@
 package edu.unlp.informatica.postgrado.seguimiento.item;
 
-import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 import org.junit.Test;
@@ -30,11 +29,11 @@ public class TestConfiguration {
 			estadoService.save(s);
 			
 			Item i = new Item();
-			i.setNombre("dario3");
+			i.setTitulo("dario3");
 						
 			//myService.save(i);
 			i = new Item();
-			i.setNombre("lu3333");
+			i.setTitulo("lu3333");
 			
 			//myService.save(i);
 			

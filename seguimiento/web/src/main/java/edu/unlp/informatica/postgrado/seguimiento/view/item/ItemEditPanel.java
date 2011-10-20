@@ -71,7 +71,7 @@ public class ItemEditPanel extends Panel {
 						
 						item = DataSourceLocator.getInstance().getItemService()
 									.getById(newVersion.getId());
-						item.setNombre(newVersion.getNombre());
+						item.setTitulo(newVersion.getTitulo());
 						
 						DataSourceLocator.getInstance().getItemService().update(item);
 					} else {
