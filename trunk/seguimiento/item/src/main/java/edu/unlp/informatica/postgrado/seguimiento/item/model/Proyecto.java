@@ -123,8 +123,23 @@ public class Proyecto implements Serializable {
 	}
 	
 	public boolean canChangeState(TipoItem tipoItem, Estado estado) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		if (tipoItems == null) {
+			
+			return true;
+		}
+		
+		if (tipoItems.get(tipoItem) == null) {
+			
+			return false;
+		}
+		
+		if (tipoItems.get(tipoItem).getProximosEstados() == null) {
+			
+			return false;
+		}		
+			
+		return tipoItems.get(tipoItem).getProximosEstados().contains(estado);
 	}
 	
 	public Set<TipoItem> getTipoItemList() {
