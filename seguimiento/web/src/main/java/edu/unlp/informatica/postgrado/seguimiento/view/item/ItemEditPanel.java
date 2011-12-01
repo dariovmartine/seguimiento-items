@@ -10,6 +10,7 @@ import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
@@ -62,6 +63,12 @@ public class ItemEditPanel extends Panel {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target)
 			{
+				if (getForm().hasError()) {
+					
+					target.appendJavaScript("alert('" +	getForm().getFeedbackMessages() + "');");
+					return;
+					
+				}
 				Item newVersion = (Item) getForm().getModelObject();
 				
 				Item item;
@@ -71,6 +78,13 @@ public class ItemEditPanel extends Panel {
 						
 						item = DataSourceLocator.getInstance().getItemService()
 									.getById(newVersion.getId());
+						
+						item.setTitulo(newVersion.getTitulo());
+						item.setDescripcion(newVersion.getDescripcion());
+						item.setPrioridad(newVersion.getPrioridad());
+						item.setProyecto(newVersion.getProyecto());
+						item.setResponsable(newVersion.getResponsable());
+						item.setTipoItem(newVersion.getTipoItem());
 						item.setTitulo(newVersion.getTitulo());
 						
 						DataSourceLocator.getInstance().getItemService().update(item);

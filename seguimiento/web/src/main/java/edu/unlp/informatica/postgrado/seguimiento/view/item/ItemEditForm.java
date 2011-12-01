@@ -1,9 +1,11 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.item;
 
+import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.util.WildcardListModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
@@ -46,7 +48,20 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 		
 		try {
 
-			add(estado = new DropDownChoice<Estado>("estado",DataSourceLocator.getInstance().getEstadoService().find()));
+			add(estado = new DropDownChoice<Estado>("estado",new WildcardListModel<Estado>(DataSourceLocator.getInstance().getEstadoService().find())){
+
+				@Override
+				public void updateModel() {
+					try {
+						super.updateModel();	
+					} catch (Exception e) {
+						this.getForm().error(e.getCause().getMessage());
+					}
+					
+				}
+				
+				
+			});
 			estado.setLabel(new Model<String>("Estado"));
 		} catch (ServiceException e) {
 			
@@ -84,5 +99,4 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 			
 		}
 	}
-	
 }

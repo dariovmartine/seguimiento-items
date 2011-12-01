@@ -1,6 +1,7 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -49,7 +50,7 @@ public class ConfiguracionItem  implements Serializable {
     @JoinTable(name="PROXIMO_ESTADO",
     		joinColumns=@JoinColumn(name="CONF_ITEM_ID"),
 	        inverseJoinColumns=@JoinColumn(name="ESTADO_ID"))
-	private List<Estado> proximosEstados;
+	private List<Estado> proximosEstados = new ArrayList<Estado>();
 	
 	public Long getId() {
 		return id;

@@ -80,6 +80,15 @@ public class Item implements Serializable {
 	}
 
 	public void setEstado(Estado estado) {
+		
+		if (proyecto != null) {
+			
+			if (! proyecto.canChangeState(tipoItem, estado)) {
+				
+				throw new IllegalArgumentException("El estado al que se intenta cambiar no es válido.");
+			}
+		}
+		
 		this.estado = estado;
 	}
 
@@ -131,17 +140,7 @@ public class Item implements Serializable {
 		this.descripcion = descripcion;
 	}
 	
-	public void changeState(Estado estado) {
-		
-		if (proyecto.canChangeState(tipoItem, estado)) {
-			
-			this.setEstado(estado);
-		} else {
-			
-			throw new IllegalArgumentException("El estado al que se intenta cambiar no es válido.");
-		}
-		
-	}
+	
 
 	@Override
 	public int hashCode() {
