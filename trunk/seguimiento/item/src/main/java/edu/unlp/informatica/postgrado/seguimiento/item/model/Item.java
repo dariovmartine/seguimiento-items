@@ -130,6 +130,18 @@ public class Item implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+	public void changeState(Estado estado) {
+		
+		if (proyecto.canChangeState(tipoItem, estado)) {
+			
+			this.setEstado(estado);
+		} else {
+			
+			throw new IllegalArgumentException("El estado al que se intenta cambiar no es válido.");
+		}
+		
+	}
 
 	@Override
 	public int hashCode() {
