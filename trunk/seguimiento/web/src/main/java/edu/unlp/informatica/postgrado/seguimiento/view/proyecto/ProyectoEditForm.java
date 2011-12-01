@@ -52,7 +52,7 @@ public class ProyectoEditForm extends BaseEntityForm<Proyecto> {
 
 		try {
 
-			add(tipoItemProyecto = new ListMultipleChoice<TipoItem>("tipoItems"));
+			add(tipoItemProyecto = new ListMultipleChoice<TipoItem>("tipoItemList"));
 			tipoItemProyecto.setChoices(DataSourceLocator.getInstance().getTipoItemService().find());
 			tipoItemProyecto.setLabel(new Model<String>("Tipos de Items"));
 		} catch (ServiceException e) {

@@ -13,6 +13,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PersonaService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
@@ -30,27 +31,29 @@ public class TestProyecto {
 		ProyectoService proService = (ProyectoService) ctx.getBean("proyectoService",ProyectoService.class);
 		TipoItemService tiService = (TipoItemService) ctx.getBean("tipoItemService",TipoItemService.class);
 		EstadoService eService = (EstadoService) ctx.getBean("estadoService",EstadoService.class);
+		ConfiguracionItemService ciService = (ConfiguracionItemService) ctx.getBean("configuracionItemService",ConfiguracionItemService.class);
 		
 		Persona i = new Persona();
 		i.setNombre("Jefe");
 		try {
 			myService.save(i);
-			i = new Persona();
-			
+						
 			TipoItem ti = new TipoItem();
-			i.setNombre("Ampliación");
+			ti.setNombre("Ampliació2");
 			tiService.save(ti);
 			
 			Estado e = new Estado();
-			e.setNombre("s");
+			e.setNombre("sss3");
 			eService.save(e);
 			
 			ConfiguracionItem ci = new ConfiguracionItem();
-			ci.setTipoItem(ti);
 			ci.setEstado(e);
+			ci.setTipoItem(ti);
+			ciService.save(ci);
+			
 			Proyecto p = new Proyecto();
 			p.setLider(i);
-			
+			p.setNombre("ppp");
 			p.getTipoItems().put(ti, ci);
 			proService.save(p);
 			
