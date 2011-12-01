@@ -63,10 +63,7 @@ public class Proyecto implements Serializable {
     @MapKeyJoinColumn(name="TIPO_ITEM_ID")
 	Map<TipoItem, ConfiguracionItem> tipoItems = new HashMap<TipoItem, ConfiguracionItem>();
 
-	@ManyToMany(targetEntity=Item.class)
-    @JoinTable(name="ITEM",
-    		joinColumns=@JoinColumn(name="PROYECTO_ID"),
-	        inverseJoinColumns=@JoinColumn(name="ITEM_ID"))
+    @OneToMany(mappedBy="proyecto")
 	List<Item> items = new ArrayList<Item>();
 
 	public Long getId() {
