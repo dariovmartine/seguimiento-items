@@ -1,8 +1,11 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,8 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKey;
-import javax.persistence.MapKeyClass;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -48,7 +49,7 @@ public class Proyecto implements Serializable {
     @JoinTable(name="INTEGRANTES",
     		joinColumns=@JoinColumn(name="PROYECTO_ID"),
 	        inverseJoinColumns=@JoinColumn(name="PERSONA_ID"))
-	List<Persona> integrantes;
+	List<Persona> integrantes = new ArrayList<Persona>();
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
@@ -60,13 +61,13 @@ public class Proyecto implements Serializable {
             joinColumns=@JoinColumn(name="PROYECTO_ID"),
             inverseJoinColumns=@JoinColumn(name="CONFIG_ITEM_ID"))
     @MapKeyJoinColumn(name="TIPO_ITEM_ID")
-	Map<TipoItem, ConfiguracionItem> tipoItems;
+	Map<TipoItem, ConfiguracionItem> tipoItems = new HashMap<TipoItem, ConfiguracionItem>();
 
 	@ManyToMany(targetEntity=Item.class)
     @JoinTable(name="ITEM",
     		joinColumns=@JoinColumn(name="PROYECTO_ID"),
 	        inverseJoinColumns=@JoinColumn(name="ITEM_ID"))
-	List<Item> items;
+	List<Item> items = new ArrayList<Item>();
 
 	public Long getId() {
 		return id;
@@ -127,6 +128,10 @@ public class Proyecto implements Serializable {
 	public boolean canChangeState(TipoItem tipoItem, Estado estado) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public Set<TipoItem> getTipoItemList() {
+		return this.getTipoItems().keySet();
 	}
 
 	@Override
