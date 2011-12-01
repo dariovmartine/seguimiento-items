@@ -2,6 +2,7 @@ package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKey;
+import javax.persistence.MapKeyClass;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -51,11 +55,12 @@ public class Proyecto implements Serializable {
 	@JoinColumn(name = "ID_LIDER")
 	Persona lider;
 	
-	@ManyToMany(targetEntity=TipoItem.class)
-    @JoinTable(name="TIPO_ITEM_PROYECTO",
-    		joinColumns=@JoinColumn(name="PROYECTO_ID"),
-	        inverseJoinColumns=@JoinColumn(name="TIPO_ITEM_ID"))
-	List<TipoItem> tipoItems;
+	@OneToMany
+	@JoinTable(name="PROYECTO_CONF",
+            joinColumns=@JoinColumn(name="PROYECTO_ID"),
+            inverseJoinColumns=@JoinColumn(name="CONFIG_ITEM_ID"))
+    @MapKeyJoinColumn(name="TIPO_ITEM_ID")
+	Map<TipoItem, ConfiguracionItem> tipoItems;
 
 	@ManyToMany(targetEntity=Item.class)
     @JoinTable(name="ITEM",
@@ -103,21 +108,26 @@ public class Proyecto implements Serializable {
 		this.items = items;
 	}
 
-	public List<TipoItem> getTipoItems() {
+	public Map<TipoItem, ConfiguracionItem> getTipoItems() {
 		return tipoItems;
 	}
 
-	public void setTipoItems(List<TipoItem> tipoItems) {
+	public void setTipoItems(Map<TipoItem,ConfiguracionItem> tipoItems) {
 		this.tipoItems = tipoItems;
 	}
 	
 	public void addItem(Item item) {
 		
-		if (tipoItems.contains(item.getTipoItem())) {
+		if (tipoItems.containsKey(item.getTipoItem())) {
 			items.add(item);
 		} else
 			throw new IllegalArgumentException("El tipo de item no existe en el proyecto");
-	} 
+	}
+	
+	public boolean canChangeState(TipoItem tipoItem, Estado estado) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 	@Override
 	public int hashCode() {
@@ -174,6 +184,8 @@ public class Proyecto implements Serializable {
 	public String toString() {
 		return nombre;
 	}
+
+	
 	
 	
 }
