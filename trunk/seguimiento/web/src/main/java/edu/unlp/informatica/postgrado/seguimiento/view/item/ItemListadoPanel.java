@@ -87,8 +87,8 @@ public class ItemListadoPanel extends Panel {
 				final edu.unlp.informatica.postgrado.seguimiento.item.model.Item itemSel = item
 						.getModelObject();
 				
-				item.add(new Label("nombre", itemSel.getTitulo()));
-				//item.add(new Label("state", itemSel.getEstado().getName())); ???
+				item.add(new Label("titulo", itemSel.getTitulo()));
+				item.add(new Label("estado", itemSel.getEstado().toString())); 
 
 				item.add(AttributeModifier.replace("class",
 						new AbstractReadOnlyModel<String>() {
@@ -155,7 +155,7 @@ public class ItemListadoPanel extends Panel {
 			}
 		});
 
-		add(new OrderByBorder("orderByState", "state",
+		add(new OrderByBorder("orderByState", "estado",
 				sortableItemDataProvider) {
 
 			@Override
