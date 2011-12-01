@@ -153,8 +153,6 @@ public class Item implements Serializable {
 		result = prime * result
 				+ ((prioridad == null) ? 0 : prioridad.hashCode());
 		result = prime * result
-				+ ((proyecto == null) ? 0 : proyecto.hashCode());
-		result = prime * result
 				+ ((responsable == null) ? 0 : responsable.hashCode());
 		result = prime * result
 				+ ((tipoItem == null) ? 0 : tipoItem.hashCode());
@@ -185,11 +183,6 @@ public class Item implements Serializable {
 			if (other.prioridad != null)
 				return false;
 		} else if (!prioridad.equals(other.prioridad))
-			return false;
-		if (proyecto == null) {
-			if (other.proyecto != null)
-				return false;
-		} else if (!proyecto.equals(other.proyecto))
 			return false;
 		if (responsable == null) {
 			if (other.responsable != null)
