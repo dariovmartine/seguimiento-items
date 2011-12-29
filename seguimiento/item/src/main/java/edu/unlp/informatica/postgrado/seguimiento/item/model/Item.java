@@ -209,5 +209,13 @@ public class Item implements Serializable {
 	@Override
 	public String toString() {
 		return titulo;
+	}
+
+	public Timestamp getFechaCarga() {
+		return fechaCarga;
+	}
+
+	public void setFechaCarga(Timestamp fechaCarga) {
+		this.fechaCarga = fechaCarga;
 	}		
 }
