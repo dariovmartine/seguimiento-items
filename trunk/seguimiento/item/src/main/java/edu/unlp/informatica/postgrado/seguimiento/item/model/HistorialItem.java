@@ -3,6 +3,7 @@
  */
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -24,11 +25,16 @@ import javax.validation.constraints.NotNull;
  *
  */
 @Entity
-@Table(name = "HISTORIA_ITEM")
+@Table(name = "HISTORIAL_ITEM")
 	
-public class HistorialItem {
+public class HistorialItem implements Serializable{
 
-	
+	private static final long serialVersionUID = -5069221919900164546L;
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	@Id 
 	@Column(name = "ID")
 	@GeneratedValue(generator="HIST_ITEM_ID_GEN", strategy=GenerationType.SEQUENCE)
@@ -57,4 +63,50 @@ public class HistorialItem {
 	@NotNull
 	@Column(name = "F_FIN")
 	private Timestamp fechaFin;
+
+	public Persona getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(Persona responsable) {
+		this.responsable = responsable;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
+	public Persona getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Persona estado) {
+		this.estado = estado;
+	}
+
+	public Timestamp getFechaInicio() {
+		return fechaInicio;
+	}
+
+	public void setFechaInicio(Timestamp fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+	public Timestamp getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(Timestamp fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public Long getId() {
+		return id;
+	}
+	
+	
 }
