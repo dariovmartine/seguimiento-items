@@ -26,7 +26,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "HISTORIA_ITEM")
 	
-public class HistoriaItem {
+public class HistorialItem {
 
 	
 	@Id 
