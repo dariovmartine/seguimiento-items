@@ -10,11 +10,11 @@ import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.IModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
+import edu.unlp.informatica.postgrado.seguimiento.view.proyecto.ProyectoEditPanel;
 
 public class ItemEditPanel extends Panel {
 
@@ -110,6 +110,42 @@ public class ItemEditPanel extends Panel {
 				target.add(feedback);				
 			}			
 		});
+		
+		final ModalWindow proyectoEditWindow;
+		add(proyectoEditWindow = new ModalWindow("modal2"));
+				
+		proyectoEditWindow.setContent(new ProyectoEditPanel(proyectoEditWindow.getContentId()));
+		proyectoEditWindow.setTitle("Proyecto");
+		proyectoEditWindow.setCookieName("modal-2");
+		
+		proyectoEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
+
+			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
+				// setResult("Modal window 2 - close button");
+				return true;
+			}
+		});
+
+		proyectoEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+
+			/**
+			 * 
+			 */
+			public void onClose(AjaxRequestTarget target) {
+				"".toString();
+				target.add(formInput.getProyecto());
+			}
+		});
+		
+		add(new AjaxLink<Void>("open")
+		{
+			@Override
+			public void onClick(AjaxRequestTarget target)
+			{
+				proyectoEditWindow.show(target);
+			}
+		});
+
 	}
 	
 	public void setItemId(Long itemId) {
