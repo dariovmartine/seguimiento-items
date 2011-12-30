@@ -10,6 +10,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.PersonaService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PrioridadService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.HistorialItemService;
 
 /**
  * Service locator class for contacts database
@@ -40,6 +41,9 @@ public class DataSourceLocator
 	
 	@Autowired
 	private ConfiguracionItemService configuracionItemService;
+	
+	@Autowired
+	private HistorialItemService historialItemService;
 
 	private static DataSourceLocator dataSource;
 	
@@ -115,11 +119,22 @@ public class DataSourceLocator
 	public void setProyectoService(ProyectoService proyectoService) {
 		this.proyectoService = proyectoService;
 	}
+	
 	public ConfiguracionItemService getConfiguracionItemService() {
 		return configuracionItemService;
 	}
+	
 	public void setConfiguracionItemService(
 			ConfiguracionItemService configuracionItemService) {
 		this.configuracionItemService = configuracionItemService;
 	}
+	
+	public HistorialItemService getHistorialItemService() {
+		return historialItemService;
+	}
+	
+	public void setHistorialItemService(HistorialItemService historialItemService) {
+		this.historialItemService = historialItemService;
+	}
+
 }
