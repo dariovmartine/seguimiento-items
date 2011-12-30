@@ -21,6 +21,7 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -122,6 +123,7 @@ public class Proyecto implements Serializable {
 			throw new IllegalArgumentException("El tipo de item no existe en el proyecto");
 	}
 	
+	
 	public boolean canChangeState(TipoItem tipoItem, Estado estado) {
 		
 		if (tipoItems == null) {
@@ -142,8 +144,14 @@ public class Proyecto implements Serializable {
 		return tipoItems.get(tipoItem).getProximosEstados().contains(estado);
 	}
 	
-	public Set<TipoItem> getTipoItemList() {
-		return this.getTipoItems().keySet();
+	@Transient
+	private List<TipoItem> ret = new ArrayList<TipoItem>();
+	
+	public List<TipoItem> getTipoItemList() {
+
+		ret.clear();
+		ret.addAll(this.getTipoItems().keySet());
+		return ret;
 	}
 
 	@Override

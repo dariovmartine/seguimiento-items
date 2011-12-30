@@ -35,6 +35,10 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 	
 	private DropDownChoice<Proyecto> proyecto;
 	
+	public DropDownChoice<Proyecto> getProyecto() {
+		return proyecto;
+	}
+
 	@SuppressWarnings("serial")
 	public ItemEditForm() {
 		

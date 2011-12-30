@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <wicket:panel xmlns:wicket="http://wicket.apache.org">
 	<div wicket:id="feedback"></div>
+	<div wicket:id="modal2"></div>
+	Si desea crear un proyecto nuevo haga click  
+		<a wicket:id="open">aqu&iacute;</a>		
 	<form wicket:id="inputForm" class="inputForm">
 		Proyecto: <select wicket:id="proyecto" ></select>
-		Si desea crear un proyecto nuevo haga click  
-		<wicket:link>
-        	<a href="wicket/page?0-1.ILinkListener-tabs-tabs--container-tabs-1-link"> aqui</a>
-        	<br/>
-        </wicket:link>    
+			
 		Tipo Item:<select wicket:id="tipoItem" ></select><br/>
 		Titulo: <input wicket:id="titulo" type="text" size="10"/><br/>
 		Desripcion: <input wicket:id="descripcion" type="text" size="10"/><br/>
 		Prioridad: <select wicket:id="prioridad" ></select>
 		Estado:	<select wicket:id="estado" ></select>
 		Responsable: <select wicket:id="responsable" ></select><br/>
-		
-		
 		<input type = "submit" value = "Submit"/>
 		<input type="button" value="Cancelar" wicket:id="closeCancel" />		
 	</form>	
