@@ -112,9 +112,10 @@ public class ItemEditPanel extends Panel {
 		});
 		
 		final ModalWindow proyectoEditWindow;
+		final ProyectoEditPanel proyectoEditPanel;
 		add(proyectoEditWindow = new ModalWindow("modal2"));
 				
-		proyectoEditWindow.setContent(new ProyectoEditPanel(proyectoEditWindow.getContentId()));
+		proyectoEditWindow.setContent(proyectoEditPanel = new ProyectoEditPanel(proyectoEditWindow.getContentId()));
 		proyectoEditWindow.setTitle("Proyecto");
 		proyectoEditWindow.setCookieName("modal-2");
 		
@@ -132,8 +133,8 @@ public class ItemEditPanel extends Panel {
 			 * 
 			 */
 			public void onClose(AjaxRequestTarget target) {
-				"".toString();
-				target.add(formInput.getProyecto());
+				
+				target.add(formInput.updateProyecto());
 			}
 		});
 		
@@ -142,7 +143,10 @@ public class ItemEditPanel extends Panel {
 			@Override
 			public void onClick(AjaxRequestTarget target)
 			{
+				target.add(proyectoEditPanel.getFormInput());
+				proyectoEditPanel.getFormInput().clearInput();
 				proyectoEditWindow.show(target);
+				
 			}
 		});
 
