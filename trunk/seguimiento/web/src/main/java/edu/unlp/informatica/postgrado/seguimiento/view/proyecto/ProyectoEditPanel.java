@@ -24,6 +24,7 @@ public class ProyectoEditPanel extends Panel {
 
 	private ProyectoEditForm formInput;
 
+
 	@SuppressWarnings("serial")
 	public ProyectoEditPanel(String id) {
 		
@@ -112,4 +113,9 @@ public class ProyectoEditPanel extends Panel {
 
 		formInput.setModel(new CompoundPropertyModel<Proyecto>(proyecto));
 	}
+	
+	public ProyectoEditForm getFormInput() {
+		return formInput;
+	}
+
 }

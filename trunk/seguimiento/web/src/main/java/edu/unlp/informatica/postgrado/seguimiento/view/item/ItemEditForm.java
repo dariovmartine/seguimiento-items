@@ -1,6 +1,9 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.item;
 
-import org.apache.wicket.feedback.FeedbackMessage;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.TextField;
@@ -95,12 +98,20 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 			
 		}
 
-		try {
-
-			add(proyecto = new DropDownChoice<Proyecto>("proyecto",DataSourceLocator.getInstance().getProyectoService().find()));
-			proyecto.setLabel(new Model<String>("Proyecto"));
-		} catch (ServiceException e) {
-			
-		}
+		add(proyecto = new DropDownChoice<Proyecto>("proyecto",new ArrayList<Proyecto>()));
+		proyecto.setLabel(new Model<String>("Proyecto"));
+		updateProyecto();
 	}
+
+	public Component updateProyecto() {
+
+		try {
+			proyecto.setChoices(DataSourceLocator.getInstance().getProyectoService().find());	
+		} catch (ServiceException e) {
+			// TODO: Que hago?			
+		}
+		return proyecto;
+	}
+
+	
 }
