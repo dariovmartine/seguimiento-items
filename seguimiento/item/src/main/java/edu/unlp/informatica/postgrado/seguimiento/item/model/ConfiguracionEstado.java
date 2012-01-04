@@ -1,5 +1,6 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,14 +23,19 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "CONFIG_ESTADO")
-public class ConfiguracionEstado {
+public class ConfiguracionEstado implements Serializable  {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4813852462726118902L;
+
 	@Id 
 	@Column(name = "ID")
 	@GeneratedValue(generator="CONFIG_ESTADO_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="CONFIG_ESTADO_ID_GEN", sequenceName="SEQ_CONFIG_ESTADO_ID")
 	private Long id;
-	
+
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_ESTADO")
@@ -40,7 +46,15 @@ public class ConfiguracionEstado {
     		joinColumns=@JoinColumn(name="CONF_ITEM_ID"),
 	        inverseJoinColumns=@JoinColumn(name="ESTADO_ID"))
 	private List<Estado> proximosEstados = new ArrayList<Estado>();
+	
+	
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public Estado getEstado() {
 		return estado;
@@ -99,4 +113,11 @@ public class ConfiguracionEstado {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return proximosEstados.toString();
+	}
+	
+	
 }

@@ -71,7 +71,7 @@ public class ConfiguracionItemEditPanel extends Panel {
 						
 						configuracionItem = DataSourceLocator.getInstance().getConfiguracionItemService()
 									.getById(newVersion.getId());
-						configuracionItem.setEstado(newVersion.getEstado());
+						//configuracionItem.setEstado(newVersion.getEstado());
 						configuracionItem.setProximosEstados(newVersion.getProximosEstados());
 						configuracionItem.setTipoItem(newVersion.getTipoItem());
 						

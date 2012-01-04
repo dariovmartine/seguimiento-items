@@ -118,6 +118,15 @@ public class ConfiguracionItem  implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		String s = tipoItem + ":" ; 
+		for (Estado estado : proximosEstados.keySet()) {
+			s = "Estado: " + estado + " -> " + proximosEstados.get(estado); 
+		} 
+		return s;
+	}
 	
 	
 }
