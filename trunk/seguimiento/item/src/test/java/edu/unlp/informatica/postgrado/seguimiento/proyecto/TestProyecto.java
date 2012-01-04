@@ -44,12 +44,17 @@ public class TestProyecto {
 			tiService.save(ti);
 			
 			Estado e = new Estado();
-			e.setNombre("sss3");
+			e.setNombre("Inicial");
 			eService.save(e);
+			
+			Estado e2 = new Estado();
+			e2.setNombre("Finalizado");
+			eService.save(e2);
 			
 			ConfiguracionItem ci = new ConfiguracionItem();
 			ConfiguracionEstado confEstado = new ConfiguracionEstado();
 			confEstado.setEstado(e);
+			confEstado.getProximosEstados().add(e2);
 			ci.getProximosEstados().put(e, confEstado);
 			ci.setTipoItem(ti);
 			ciService.save(ci);

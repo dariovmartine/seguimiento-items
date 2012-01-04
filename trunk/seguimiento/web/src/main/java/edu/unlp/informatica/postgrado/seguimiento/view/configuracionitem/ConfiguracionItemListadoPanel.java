@@ -89,7 +89,7 @@ public class ConfiguracionItemListadoPanel extends Panel {
 						.getModelObject();
 				
 				item.add(new Label("tipoItem", configuracionItemSel.getTipoItem().getNombre()));
-				item.add(new Label("estado", configuracionItemSel.getEstado().getNombre()));
+				item.add(new Label("detalle", configuracionItemSel.getProximosEstados().toString()));
 				
 				item.add(AttributeModifier.replace("class",
 						new AbstractReadOnlyModel<String>() {
