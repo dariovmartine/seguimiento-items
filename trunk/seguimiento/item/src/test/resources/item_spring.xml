@@ -27,6 +27,7 @@
 			<list>
 				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.Item</value>
 				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.Estado</value>
+				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado</value>
 				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem</value>
 				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.Persona</value>
 				<value>edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad</value>

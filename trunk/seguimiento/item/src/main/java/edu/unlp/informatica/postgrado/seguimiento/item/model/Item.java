@@ -86,9 +86,9 @@ public class Item implements Serializable {
 
 	public void setEstado(Estado estado) {
 		
-		if (proyecto != null) {
+		if (proyecto != null && getEstado() != null && estado != null && ! getEstado().equals(estado) ) {
 			
-			if (! proyecto.canChangeState(tipoItem, estado)) {
+			if (! proyecto.canChangeState(tipoItem, getEstado(), estado)) {
 				
 				throw new IllegalArgumentException("El estado al que se intenta cambiar no es válido.");
 			}
@@ -102,6 +102,11 @@ public class Item implements Serializable {
 	}
 
 	public void setResponsable(Persona responsable) {
+		if (proyecto != null) {
+			if (!proyecto.isPersonInPoject(responsable)){
+				throw new IllegalArgumentException("La persona que intenta asignar como responsable no forma parte del proyecto.");
+			}
+		}
 		this.responsable = responsable;
 	}
 

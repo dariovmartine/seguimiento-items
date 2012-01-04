@@ -8,6 +8,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
@@ -47,7 +48,9 @@ public class TestProyecto {
 			eService.save(e);
 			
 			ConfiguracionItem ci = new ConfiguracionItem();
-			ci.setEstado(e);
+			ConfiguracionEstado confEstado = new ConfiguracionEstado();
+			confEstado.setEstado(e);
+			ci.getProximosEstados().put(e, confEstado);
 			ci.setTipoItem(ti);
 			ciService.save(ci);
 			
