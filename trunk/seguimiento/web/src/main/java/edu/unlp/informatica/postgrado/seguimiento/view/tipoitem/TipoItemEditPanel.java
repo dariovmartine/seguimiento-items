@@ -112,4 +112,10 @@ public class TipoItemEditPanel extends Panel {
 
 		formInput.setModel(new CompoundPropertyModel<TipoItem>(tipoItem));
 	}
+	
+	
+	public TipoItemEditForm getFormInput() {
+		return formInput;
+	}
+
 }

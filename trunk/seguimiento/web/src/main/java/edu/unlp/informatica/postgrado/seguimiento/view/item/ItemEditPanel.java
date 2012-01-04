@@ -15,6 +15,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 import edu.unlp.informatica.postgrado.seguimiento.view.proyecto.ProyectoEditPanel;
+import edu.unlp.informatica.postgrado.seguimiento.view.tipoitem.TipoItemEditPanel;
 
 public class ItemEditPanel extends Panel {
 
@@ -111,7 +112,7 @@ public class ItemEditPanel extends Panel {
 			}			
 		});
 		
-		final ModalWindow proyectoEditWindow;
+		/*final ModalWindow proyectoEditWindow;
 		final ProyectoEditPanel proyectoEditPanel;
 		add(proyectoEditWindow = new ModalWindow("modal2"));
 				
@@ -129,9 +130,7 @@ public class ItemEditPanel extends Panel {
 
 		proyectoEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
 
-			/**
-			 * 
-			 */
+			
 			public void onClose(AjaxRequestTarget target) {
 				
 				target.add(formInput.updateProyecto());
@@ -146,6 +145,47 @@ public class ItemEditPanel extends Panel {
 				target.add(proyectoEditPanel.getFormInput());
 				proyectoEditPanel.getFormInput().clearInput();
 				proyectoEditWindow.show(target);
+				
+			}
+		});
+
+	}*/
+		
+		final ModalWindow tipoItemEditWindow;
+		final TipoItemEditPanel tipoItemEditPanel;
+		add(tipoItemEditWindow = new ModalWindow("modal2"));
+				
+		tipoItemEditWindow.setContent(tipoItemEditPanel = new TipoItemEditPanel(tipoItemEditWindow.getContentId()));
+		tipoItemEditWindow.setTitle("Tipo de Item");
+		tipoItemEditWindow.setCookieName("modal-2");
+		
+		tipoItemEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
+
+			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
+				// setResult("Modal window 2 - close button");
+				return true;
+			}
+		});
+
+		tipoItemEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+
+			/**
+			 * 
+			 */
+			public void onClose(AjaxRequestTarget target) {
+				
+				target.add(formInput.updateTipoItem());
+			}
+		});
+		
+		add(new AjaxLink<Void>("open")
+		{
+			@Override
+			public void onClick(AjaxRequestTarget target)
+			{
+				target.add(tipoItemEditPanel.getFormInput());
+				tipoItemEditPanel.getFormInput().clearInput();
+				tipoItemEditWindow.show(target);
 				
 			}
 		});
