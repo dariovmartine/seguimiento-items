@@ -112,6 +112,16 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 		}
 		return proyecto;
 	}
+	
+	public Component updateTipoItem() {
+
+		try {
+			tipoItem.setChoices(DataSourceLocator.getInstance().getTipoItemService().find());	
+		} catch (ServiceException e) {
+			// TODO: Que hago?			
+		}
+		return tipoItem;
+	}
 
 	
 }
