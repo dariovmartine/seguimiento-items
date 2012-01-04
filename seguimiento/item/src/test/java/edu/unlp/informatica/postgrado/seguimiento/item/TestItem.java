@@ -4,9 +4,9 @@ import static junit.framework.Assert.fail;
 
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
@@ -55,16 +55,18 @@ public class TestItem {
 			e.setNombre("sss4");
 			eService.save(e);
 			
+			ConfiguracionEstado confEstado = new ConfiguracionEstado();
+			confEstado.setEstado(e);
 			ConfiguracionItem ci = new ConfiguracionItem();
-			ci.setEstado(e);
+			ci.getProximosEstados().put(e, confEstado);
 			ci.setTipoItem(ti);
-			ci.getProximosEstados().add(e);
 			ciService.save(ci);
 			
 			Proyecto p = new Proyecto();
 			p.setLider(i);
 			p.setNombre("ppp2");
 			p.getTipoItems().put(ti, ci);
+			p.getIntegrantes().add(i);
 			proService.save(p);
 			
 			

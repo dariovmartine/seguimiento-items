@@ -14,6 +14,7 @@
 	   	<property name="javax.persistence.validation.group.pre-persist">javax.validation.groups.Default</property>
        	<property name="javax.persistence.validation.group.pre-update">javax.validation.groups.Default</property>
       
+        <mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Estado" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Item" />

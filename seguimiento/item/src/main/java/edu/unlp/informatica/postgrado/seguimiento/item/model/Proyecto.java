@@ -123,9 +123,8 @@ public class Proyecto implements Serializable {
 			throw new IllegalArgumentException("El tipo de item no existe en el proyecto");
 	}
 	
-	
-	public boolean canChangeState(TipoItem tipoItem, Estado estado) {
-		
+	public boolean canChangeState(TipoItem tipoItem, Estado estadoActual, Estado estadoNuevo) {
+
 		if (tipoItems == null) {
 			
 			return true;
@@ -141,7 +140,11 @@ public class Proyecto implements Serializable {
 			return false;
 		}		
 			
-		return tipoItems.get(tipoItem).getProximosEstados().contains(estado);
+		return tipoItems.get(tipoItem).canChangeState(estadoActual, estadoNuevo);
+	}
+	
+	public boolean isPersonInPoject(Persona persona){
+		return this.getIntegrantes().contains(persona);
 	}
 	
 	@Transient
