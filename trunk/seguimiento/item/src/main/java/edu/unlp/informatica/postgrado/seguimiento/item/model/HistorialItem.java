@@ -54,7 +54,7 @@ public class HistorialItem implements Serializable{
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_ESTADO")
-	private Persona estado;
+	private Estado estado;
 	
 	@NotNull
 	@Column(name = "F_INICIO")
@@ -80,11 +80,11 @@ public class HistorialItem implements Serializable{
 		this.item = item;
 	}
 
-	public Persona getEstado() {
+	public Estado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(Persona estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 

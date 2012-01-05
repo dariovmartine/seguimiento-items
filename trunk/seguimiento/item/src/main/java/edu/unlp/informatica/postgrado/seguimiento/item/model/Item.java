@@ -2,6 +2,9 @@ package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -71,6 +75,10 @@ public class Item implements Serializable {
 	
 	@Transient //hasta ver con Dary si va o no
 	private Timestamp fechaCarga;
+	
+	@OneToMany(mappedBy="item")
+	List<HistorialItem> historial = new ArrayList<HistorialItem>();
+	
 
 	public Long getId() {
 		return id;
@@ -93,6 +101,20 @@ public class Item implements Serializable {
 				throw new IllegalArgumentException("El estado al que se intenta cambiar no es válido.");
 			}
 		}
+		//guardar historial
+		HistorialItem historico = new HistorialItem();
+		historico.setEstado(estado);
+		historico.setFechaInicio(new Timestamp(new Date().getTime()));
+		historico.setItem(this);
+		historico.setResponsable(getResponsable());//esta bien esto????
+		this.getHistorial().add(historico);
+		
+		if(estado == null){
+			//es el primer estado, se supone q se esta creando el item
+		}else{
+			//esta cambiando de un estado a otro
+			//aca habria q poner la fecha de fin al estado anterior
+		}
 		
 		this.estado = estado;
 	}
@@ -102,11 +124,11 @@ public class Item implements Serializable {
 	}
 
 	public void setResponsable(Persona responsable) {
-		if (proyecto != null) {
+		/*if (proyecto != null) {
 			if (!proyecto.isPersonInPoject(responsable)){
 				throw new IllegalArgumentException("La persona que intenta asignar como responsable no forma parte del proyecto.");
 			}
-		}
+		}*/
 		this.responsable = responsable;
 	}
 
@@ -135,6 +157,7 @@ public class Item implements Serializable {
 	}
 
 	public String getTitulo() {
+		System.out.println(this.getHistorial());
 		return titulo;
 	}
 
@@ -150,7 +173,13 @@ public class Item implements Serializable {
 		this.descripcion = descripcion;
 	}
 	
-	
+	public List<HistorialItem> getHistorial() {
+		return historial;
+	}
+
+	public void setHistorial(List<HistorialItem> historial) {
+		this.historial = historial;
+	}
 
 	@Override
 	public int hashCode() {
