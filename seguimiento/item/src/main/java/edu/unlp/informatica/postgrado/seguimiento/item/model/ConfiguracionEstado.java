@@ -35,6 +35,16 @@ public class ConfiguracionEstado implements Serializable  {
 	@GeneratedValue(generator="CONFIG_ESTADO_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="CONFIG_ESTADO_ID_GEN", sequenceName="SEQ_CONFIG_ESTADO_ID")
 	private Long id;
+
+	@NotNull
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name = "ID_ESTADO")
+	private Estado estado;
+	
+	@NotNull
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name = "ID_CONFIGURACION_ITEM")
+	private ConfiguracionItem configuracionItem;
 	
 	@ManyToMany(targetEntity=Estado.class)
     @JoinTable(name="PROXIMO_ESTADO",
@@ -69,15 +79,37 @@ public class ConfiguracionEstado implements Serializable  {
 		return proximosEstados.contains(estadoNuevo);
 	}
 
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
+	}
+
+	public ConfiguracionItem getConfiguracionItem() {
+		return configuracionItem;
+	}
+
+	public void setConfiguracionItem(ConfiguracionItem configuracionItem) {
+		this.configuracionItem = configuracionItem;
+	}
+	
+	@Override
+	public String toString() {
+		return proximosEstados.toString();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result
-		+ ((proximosEstados == null) ? 0 : proximosEstados.hashCode());
+				+ ((proximosEstados == null) ? 0 : proximosEstados.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -87,6 +119,12 @@ public class ConfiguracionEstado implements Serializable  {
 		if (getClass() != obj.getClass())
 			return false;
 		ConfiguracionEstado other = (ConfiguracionEstado) obj;
+	
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
+			return false;
 		if (proximosEstados == null) {
 			if (other.proximosEstados != null)
 				return false;
@@ -95,8 +133,5 @@ public class ConfiguracionEstado implements Serializable  {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return proximosEstados.toString();
-	}	
+
 }

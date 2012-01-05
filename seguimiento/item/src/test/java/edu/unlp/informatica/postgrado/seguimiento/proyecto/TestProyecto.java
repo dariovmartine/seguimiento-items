@@ -53,6 +53,8 @@ public class TestProyecto {
 			
 			ConfiguracionItem ci = new ConfiguracionItem();
 			ConfiguracionEstado confEstado = new ConfiguracionEstado();
+			confEstado.setEstado(e);
+			confEstado.setConfiguracionItem(ci);
 			confEstado.getProximosEstados().add(e2);
 			ci.getProximosEstados().put(e, confEstado);
 			//ciService.save(ci);
@@ -61,6 +63,8 @@ public class TestProyecto {
 			p.setLider(i);
 			p.setNombre("ppp");
 			p.getTipoItems().put(ti, ci);
+			ci.setProyecto(p);
+			ci.setTipoItem(ti);
 			proService.save(p);
 			
 			assertTrue("Debería haberse grabado algo.", myService.find().size() > 0);

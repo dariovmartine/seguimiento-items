@@ -56,15 +56,19 @@ public class TestItem {
 			eService.save(e);
 			
 			ConfiguracionEstado confEstado = new ConfiguracionEstado();
+			confEstado.setEstado(e);
 			ConfiguracionItem ci = new ConfiguracionItem();
 			ci.getProximosEstados().put(e, confEstado);
-			ciService.save(ci);
+			ci.setTipoItem(ti);
+			confEstado.setConfiguracionItem(ci);
+			//ciService.save(ci);
 			
 			Proyecto p = new Proyecto();
 			p.setLider(i);
 			p.setNombre("ppp2");
 			p.getTipoItems().put(ti, ci);
 			p.getIntegrantes().add(i);
+			ci.setProyecto(p);
 			proService.save(p);
 			
 			
