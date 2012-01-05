@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -23,6 +22,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.NotMapper;
 
 /**
  * @author  Victor.Martinez
@@ -57,7 +58,7 @@ public class Proyecto implements Serializable {
 	@JoinColumn(name = "ID_LIDER")
 	Persona lider;
 	
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="PROYECTO_CONF",
             joinColumns=@JoinColumn(name="PROYECTO_ID"),
             inverseJoinColumns=@JoinColumn(name="CONFIG_ITEM_ID"))
@@ -150,11 +151,33 @@ public class Proyecto implements Serializable {
 	@Transient
 	private List<TipoItem> ret = new ArrayList<TipoItem>();
 	
+	@NotMapper
 	public List<TipoItem> getTipoItemList() {
 
 		ret.clear();
-		ret.addAll(this.getTipoItems().keySet());
+		ret.addAll(tipoItems.keySet());
 		return ret;
+	}
+	
+	@NotMapper
+	public void setTipoItemList(List<TipoItem> newTipoItems) {
+		
+		for (TipoItem tipoItem : newTipoItems) {
+			
+			if (! tipoItems.containsKey(tipoItem)) {
+				
+				tipoItems.put(tipoItem, new ConfiguracionItem());
+			}
+		}
+		
+		for (TipoItem tipoItem : tipoItems.keySet()) {
+			
+			if (! newTipoItems.contains(tipoItem)) {
+				
+				tipoItems.remove(tipoItem);
+			}
+		}
+	
 	}
 
 	@Override

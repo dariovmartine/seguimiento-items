@@ -35,11 +35,6 @@ public class ConfiguracionEstado implements Serializable  {
 	@GeneratedValue(generator="CONFIG_ESTADO_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="CONFIG_ESTADO_ID_GEN", sequenceName="SEQ_CONFIG_ESTADO_ID")
 	private Long id;
-
-	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
-	@JoinColumn(name = "ID_ESTADO")
-	private Estado estado;	
 	
 	@ManyToMany(targetEntity=Estado.class)
     @JoinTable(name="PROXIMO_ESTADO",
@@ -54,14 +49,6 @@ public class ConfiguracionEstado implements Serializable  {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
 	}
 
 	public List<Estado> getProximosEstados() {
@@ -86,7 +73,6 @@ public class ConfiguracionEstado implements Serializable  {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result
 		+ ((proximosEstados == null) ? 0 : proximosEstados.hashCode());
 		return result;
@@ -101,11 +87,6 @@ public class ConfiguracionEstado implements Serializable  {
 		if (getClass() != obj.getClass())
 			return false;
 		ConfiguracionEstado other = (ConfiguracionEstado) obj;
-		if (estado == null) {
-			if (other.estado != null)
-				return false;
-		} else if (!estado.equals(other.estado))
-			return false;
 		if (proximosEstados == null) {
 			if (other.proximosEstados != null)
 				return false;
@@ -117,7 +98,5 @@ public class ConfiguracionEstado implements Serializable  {
 	@Override
 	public String toString() {
 		return proximosEstados.toString();
-	}
-	
-	
+	}	
 }

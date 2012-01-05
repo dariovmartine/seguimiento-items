@@ -53,11 +53,9 @@ public class TestProyecto {
 			
 			ConfiguracionItem ci = new ConfiguracionItem();
 			ConfiguracionEstado confEstado = new ConfiguracionEstado();
-			confEstado.setEstado(e);
 			confEstado.getProximosEstados().add(e2);
 			ci.getProximosEstados().put(e, confEstado);
-			ci.setTipoItem(ti);
-			ciService.save(ci);
+			//ciService.save(ci);
 			
 			Proyecto p = new Proyecto();
 			p.setLider(i);

@@ -76,7 +76,7 @@
 		</property>
 	</bean>
 	
-	<bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper" />
+	<bean id="defaultDozerBeanMapper" class="edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper" />
 	
 	
 	<bean id="attributeSource"

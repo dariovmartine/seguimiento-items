@@ -3,21 +3,21 @@ package edu.unlp.informatica.postgrado.seguimiento.item.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.AbstractRepository;
 
 public abstract class AbstractService<E, R extends AbstractRepository> {
 
 	@Autowired
-	private DozerBeanMapper mapper; 
+	private DefaultDozerBeanMapper mapper; 
 		
 	public abstract R getRepository();
-	
+			
 	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS)
 	public E save(E entity) throws ServiceException {
 		
