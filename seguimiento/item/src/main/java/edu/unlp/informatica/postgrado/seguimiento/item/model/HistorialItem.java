@@ -108,5 +108,8 @@ public class HistorialItem implements Serializable{
 		return id;
 	}
 	
-	
+	public String toString(){
+		
+		return ""; //item.toString()+" "+estado.toString()+" "+fechaInicio.toString()+" "+fechaFin.toString();
+	}
 }
