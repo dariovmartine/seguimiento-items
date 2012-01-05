@@ -165,8 +165,10 @@ public class Proyecto implements Serializable {
 		for (TipoItem tipoItem : newTipoItems) {
 			
 			if (! tipoItems.containsKey(tipoItem)) {
-				
-				tipoItems.put(tipoItem, new ConfiguracionItem());
+				ConfiguracionItem confItem = new ConfiguracionItem();
+				confItem.setProyecto(this);
+				confItem.setTipoItem(tipoItem);
+				tipoItems.put(tipoItem, confItem);
 			}
 		}
 		
