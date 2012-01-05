@@ -21,6 +21,8 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
+
 /**
  * @author dariovmartine
  *
@@ -110,10 +112,11 @@ class RepositoryConfig {
     }
     
 
+
     @Bean
     @Autowired
-    public DozerBeanMapper getDozerBeanMapper()
+    public DefaultDozerBeanMapper getDefaultDozerBeanMapper()
     {
-    	return new DozerBeanMapper();
-    }    
+    	return new DefaultDozerBeanMapper();
+    }     
 }

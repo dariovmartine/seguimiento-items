@@ -6,7 +6,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.dozer.DozerBeanMapper;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +19,8 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
+
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
 
 /**
  * @author dariovmartine
@@ -112,8 +113,8 @@ class RepositoryConfig {
 
     @Bean
     @Autowired
-    public DozerBeanMapper getDozerBeanMapper()
+    public DefaultDozerBeanMapper getDefaultDozerBeanMapper()
     {
-    	return new DozerBeanMapper();
+    	return new DefaultDozerBeanMapper();
     }    
 }

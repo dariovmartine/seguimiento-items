@@ -88,7 +88,7 @@ public class ConfiguracionItemListadoPanel extends Panel {
 				final ConfiguracionItem configuracionItemSel = item
 						.getModelObject();
 				
-				item.add(new Label("tipoItem", configuracionItemSel.getTipoItem().getNombre()));
+				//item.add(new Label("tipoItem", configuracionItemSel.getTipoItem().getNombre()));
 				item.add(new Label("detalle", configuracionItemSel.getProximosEstados().toString()));
 				
 				item.add(AttributeModifier.replace("class",
@@ -128,7 +128,7 @@ public class ConfiguracionItemListadoPanel extends Panel {
 						{
 							public CharSequence decorateScript(Component c, CharSequence script)
 							{
-								return "if(confirm('Está seguro que quiere eliminar: " + configuracionItemSel.getTipoItem().getNombre()  + "?')) {" + script + "}" ;
+								return "if(confirm('Está seguro que quiere eliminar: " /*+ configuracionItemSel.getTipoItem().getNombre() */ + "?')) {" + script + "}" ;
 							}
 						};
 					}

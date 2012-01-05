@@ -73,7 +73,7 @@ public class ConfiguracionItemEditPanel extends Panel {
 									.getById(newVersion.getId());
 						//configuracionItem.setEstado(newVersion.getEstado());
 						configuracionItem.setProximosEstados(newVersion.getProximosEstados());
-						configuracionItem.setTipoItem(newVersion.getTipoItem());
+						//configuracionItem.setTipoItem(newVersion.getTipoItem());
 						
 						DataSourceLocator.getInstance().getConfiguracionItemService().update(configuracionItem);
 					} else {
