@@ -3,14 +3,15 @@ package edu.unlp.informatica.postgrado.seguimiento.view;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionEstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.HistorialItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PersonaService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PrioridadService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
-import edu.unlp.informatica.postgrado.seguimiento.item.service.HistorialItemService;
 
 /**
  * Service locator class for contacts database
@@ -40,7 +41,7 @@ public class DataSourceLocator
 	private ProyectoService proyectoService;
 	
 	@Autowired
-	private ConfiguracionItemService configuracionItemService;
+	private ConfiguracionEstadoService configuracionEstadoService;
 	
 	@Autowired
 	private HistorialItemService historialItemService;
@@ -120,13 +121,12 @@ public class DataSourceLocator
 		this.proyectoService = proyectoService;
 	}
 	
-	public ConfiguracionItemService getConfiguracionItemService() {
-		return configuracionItemService;
+	public ConfiguracionEstadoService getConfiguracionEstadoService() {
+		return configuracionEstadoService;
 	}
 	
-	public void setConfiguracionItemService(
-			ConfiguracionItemService configuracionItemService) {
-		this.configuracionItemService = configuracionItemService;
+	public void setConfiguracionEstadoService(ConfiguracionEstadoService configuracionEstadoService) {
+		this.configuracionEstadoService = configuracionEstadoService;
 	}
 	
 	public HistorialItemService getHistorialItemService() {
