@@ -40,7 +40,11 @@ public class ConfiguracionItem  implements Serializable {
 	@SequenceGenerator(name="CONF_ITEM_ID_GEN", sequenceName="SEQ_CONF_ITEM_ID")
 	private Long id;
 	
-			
+	@NotNull
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name = "ID_TIPO_ITEM")
+	private TipoItem tipoItem;
+		
 	@OneToMany(cascade={CascadeType.ALL})
 	@JoinTable(name="CONFIG_ITEM_ESTADO",
             joinColumns=@JoinColumn(name="CONFIG_ITEM_ID"),
@@ -48,14 +52,18 @@ public class ConfiguracionItem  implements Serializable {
     @MapKeyJoinColumn(name="ESTADO_ID")
 	Map<Estado, ConfiguracionEstado> proximosEstados = new HashMap<Estado, ConfiguracionEstado>();
 	
+	@NotNull
+	@ManyToOne(cascade=CascadeType.DETACH)
+	@JoinColumn(name = "ID_PROYECTO")
+	private Proyecto proyecto;
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-	
+	}	
 	
 	public Map<Estado, ConfiguracionEstado> getProximosEstados() {
 		return proximosEstados;
@@ -73,6 +81,31 @@ public class ConfiguracionItem  implements Serializable {
 		}
 		
 		return proximosEstados.get(estadoActual).canChange(estadoNuevo);
+	}	
+
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
+	}	
+
+	public TipoItem getTipoItem() {
+		return tipoItem;
+	}
+
+	public void setTipoItem(TipoItem tipoItem) {
+		this.tipoItem = tipoItem;
+	}
+	
+	@Override
+	public String toString() {
+		String s = "" ; 
+		for (Estado estado : proximosEstados.keySet()) {
+			s = "Estado: " + estado + " -> " + proximosEstados.get(estado); 
+		} 
+		return s;
 	}
 
 	@Override
@@ -81,6 +114,8 @@ public class ConfiguracionItem  implements Serializable {
 		int result = 1;
 		result = prime * result
 				+ ((proximosEstados == null) ? 0 : proximosEstados.hashCode());
+		result = prime * result
+				+ ((tipoItem == null) ? 0 : tipoItem.hashCode());
 		return result;
 	}
 
@@ -98,17 +133,13 @@ public class ConfiguracionItem  implements Serializable {
 				return false;
 		} else if (!proximosEstados.equals(other.proximosEstados))
 			return false;
+		if (tipoItem == null) {
+			if (other.tipoItem != null)
+				return false;
+		} else if (!tipoItem.equals(other.tipoItem))
+			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		String s = "" ; 
-		for (Estado estado : proximosEstados.keySet()) {
-			s = "Estado: " + estado + " -> " + proximosEstados.get(estado); 
-		} 
-		return s;
-	}
-	
-	
+
 }
