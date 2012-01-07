@@ -65,23 +65,20 @@ public class ConfiguracionEstadoEditPanel extends Panel {
 			{
 				ConfiguracionEstado newVersion = (ConfiguracionEstado) getForm().getModelObject();
 				
-				ConfiguracionEstado configuracionEstado;
+				ConfiguracionEstado confEstado;
 				try {
 					
 					if (newVersion.getId() != null) {
 						
-						configuracionEstado = DataSourceLocator.getInstance().getConfiguracionEstadoService()
+						confEstado = DataSourceLocator.getInstance().getConfiguracionEstadoService()
 									.getById(newVersion.getId());
-						//configuracionItem.setEstado(newVersion.getEstado());
-						//configuracionEstado.setProximosEstados(newVersion.getProximosEstados());
-						//configuracionItem.setTipoItem(newVersion.getTipoItem());
+						confEstado.setEstado(newVersion.getEstado());
+						confEstado.setProximosEstados(newVersion.getProximosEstados());
 						
-						DataSourceLocator.getInstance().getConfiguracionEstadoService().update(configuracionEstado);
+						DataSourceLocator.getInstance().getConfiguracionEstadoService().update(confEstado);
 					} else {
-						
-						configuracionEstado = newVersion;
-						DataSourceLocator.getInstance().getConfiguracionEstadoService().save(configuracionEstado);
-					}				
+						target.appendJavaScript("alert('No puede crear nuevas configuraciones de estado desde esta ventana!');");
+					}
 					
 					// Esto es para que se refresque la grilla de datos
 					target.add(this.getForm().getParent().getParent().getParent());

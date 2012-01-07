@@ -112,43 +112,12 @@ public class ConfiguracionEstadoListadoPanel extends Panel {
 						configuracionEstadoEditWindow.show(target);
 					}
 				});				
-		        
-				item.add(new AjaxLink<Void>("doDelete") {					
-
-					@Override
-					public void onClick(AjaxRequestTarget target) {
-						try {
-							DataSourceLocator.getInstance().getConfiguracionEstadoService().delete(configuracionEstadoSel);
-							target.add(this.getParent().getParent().getParent());
-						} catch (ServiceException e) {
-							target.appendJavaScript("alert('" +	e.getCause().getCause().getCause().getLocalizedMessage() + "');");
-						}
-					}
-
-					@Override
-					protected IAjaxCallDecorator getAjaxCallDecorator() {
-						return new AjaxCallDecorator()
-						{
-							public CharSequence decorateScript(Component c, CharSequence script)
-							{
-								return "if(confirm('Está seguro que quiere eliminar: " /*+ configuracionItemSel.getTipoItem().getNombre() */ + "?')) {" + script + "}" ;
-							}
-						};
-					}
-				});
 			}
 		};
 
 		dataView.setItemsPerPage(8);
 		
-		add(new AjaxLink<Void>("doAdd") {
-			
-			@Override
-			public void onClick(AjaxRequestTarget target) {
-				configuracionEstadoEditPanel.setConfiguracionEstadoId(null);
-				configuracionEstadoEditWindow.show(target);
-			}
-		});
+		
 		
 		add(new OrderByBorder("orderByTipoItem", "tipoItem",
 				sortableConfiguracionEstadoDataProvider) {

@@ -56,7 +56,6 @@ public class TestItem {
 			eService.save(e);
 			
 			ConfiguracionEstado confEstado = new ConfiguracionEstado();
-			confEstado.setEstado(e);
 			ConfiguracionItem ci = new ConfiguracionItem();
 			ci.getProximosEstados().put(e, confEstado);
 			ci.setTipoItem(ti);

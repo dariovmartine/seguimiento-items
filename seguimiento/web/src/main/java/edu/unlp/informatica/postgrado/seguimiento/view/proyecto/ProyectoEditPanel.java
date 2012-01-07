@@ -73,7 +73,10 @@ public class ProyectoEditPanel extends Panel {
 						proyecto = DataSourceLocator.getInstance().getProyectoService()
 									.getById(newVersion.getId());
 						proyecto.setNombre(newVersion.getNombre());
-						
+						proyecto.setIntegrantes(newVersion.getIntegrantes());
+						proyecto.setItems(newVersion.getItems());
+						proyecto.setLider(newVersion.getLider());
+						proyecto.setTipoItemList(newVersion.getTipoItemList());
 						DataSourceLocator.getInstance().getProyectoService().update(proyecto);
 					} else {
 						
