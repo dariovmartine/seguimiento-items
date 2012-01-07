@@ -7,15 +7,12 @@ import org.apache.wicket.model.Model;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
 import edu.unlp.informatica.postgrado.seguimiento.validator.BaseEntityForm;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
 public class ConfiguracionEstadoEditForm extends BaseEntityForm<ConfiguracionEstado> {
 
-	private static final long serialVersionUID = 7499289901011022854L;	
-
-	private ListChoice<TipoItem> tipoItem;
+	private static final long serialVersionUID = 7499289901011022854L;
 
 	private ListChoice<Estado> estado;
 
@@ -25,14 +22,7 @@ public class ConfiguracionEstadoEditForm extends BaseEntityForm<ConfiguracionEst
 		
 		super("inputForm", new ConfiguracionEstado());		
 		
-		try {
-
-			add(tipoItem = new ListChoice<TipoItem>("tipoItem"));
-			tipoItem.setChoices(DataSourceLocator.getInstance().getTipoItemService().find());
-			tipoItem.setLabel(new Model<String>("TipoItem"));
-		} catch (ServiceException e) {
-			
-		}
+		
 		
 		try {
 

@@ -35,8 +35,7 @@ public class ConfiguracionEstado implements Serializable  {
 	@GeneratedValue(generator="CONFIG_ESTADO_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="CONFIG_ESTADO_ID_GEN", sequenceName="SEQ_CONFIG_ESTADO_ID")
 	private Long id;
-
-	@NotNull
+	
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_ESTADO")
 	private Estado estado;
