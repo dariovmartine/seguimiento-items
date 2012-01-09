@@ -21,7 +21,7 @@ import javax.validation.Payload;
 public @interface ValidUserName {
    String message() default "{rf.validUserName}";
  
-   Class<?>[] groups() default {};
+   Class<?>[] groups() default {}; // Comentario
  
    Class<? extends Payload>[] payload() default {};
 }
