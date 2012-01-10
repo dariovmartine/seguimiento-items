@@ -170,15 +170,17 @@ public class Proyecto implements Serializable {
 				confEstado.setConfiguracionItem(confItem);
 				confItem.setProyecto(this);
 				confItem.setTipoItem(tipoItem);
-				
+				Estado key = new Estado();
+				key.setId(1L);
+				confItem.getProximosEstados().put(key, confEstado);
 				tipoItems.put(tipoItem, confItem);
 			}
 		}
 		
 		for (TipoItem tipoItem : tipoItems.keySet()) {
 			
-			boolean b = newTipoItems.contains(tipoItem); // loco no? 
-			if (! b) {
+			 
+			if (! newTipoItems.contains(tipoItem)) {
 				
 				tipoItems.remove(tipoItem);
 			}
