@@ -3,11 +3,17 @@ package edu.unlp.informatica.postgrado.seguimiento.proyecto;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.hibernate.validator.constraints.ScriptAssert.List;
 import org.junit.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
@@ -17,40 +23,51 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.ConfiguracionItemRepository;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.EstadoRepository;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.PersonaRepository;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.ProyectoRepository;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.TipoItemRepository;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PersonaService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={
+	AppConfig.class, 
+	PersonaService.class,
+	ProyectoService.class,
+	TipoItemService.class, 
+	EstadoService.class, 
+	ConfiguracionItemService.class,
+	PersonaRepository.class,
+	ProyectoRepository.class,
+	TipoItemRepository.class, 
+	EstadoRepository.class, 
+	ConfiguracionItemRepository.class
+})
+@Transactional
 public class TestProyecto {
 
-
+	@Autowired
 	PersonaService myService;
+	
+	@Autowired
 	ProyectoService proService;
+	
+	@Autowired
 	TipoItemService tiService; 
+	
+	@Autowired
 	EstadoService eService; 
+	
+	@Autowired
 	ConfiguracionItemService ciService; 
-	AnnotationConfigApplicationContext ctx;
-	
-	
-	public  TestProyecto() {
-		ctx = new AnnotationConfigApplicationContext(
-			AppConfig.class);
-		ctx.scan("edu.unlp.informatica.postgrado.seguimiento.item");
-	}
-	
-	@Before
-	public void initTest() {
 		
-		myService = (PersonaService) ctx.getBean("personaService",PersonaService.class);
-		proService = (ProyectoService) ctx.getBean("proyectoService",ProyectoService.class);
-		tiService = (TipoItemService) ctx.getBean("tipoItemService",TipoItemService.class);
-		eService = (EstadoService) ctx.getBean("estadoService",EstadoService.class);
-		ciService = (ConfiguracionItemService) ctx.getBean("configuracionItemService",ConfiguracionItemService.class);
-	}
-	
 	@Test
+	@Rollback
 	public void test() {
 		
 		try {
@@ -85,7 +102,7 @@ public class TestProyecto {
 			ci.setTipoItem(ti);
 			proService.save(p);
 			
-			assertTrue("Debería haberse grabado algo.", myService.find().size() > 0);
+			assertTrue("Debería haberse grabado un proyecto.", proService.find().size() == 1);
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			fail(e.getMessage());
@@ -93,6 +110,7 @@ public class TestProyecto {
 	}
 	
 	@Test	
+	@Rollback
 	public void updateTipoItem() {
 		
 		
@@ -130,7 +148,7 @@ public class TestProyecto {
 			ci.setTipoItem(ti);
 			proService.save(p);
 			
-			assertTrue("Debería haberse grabado algo.", myService.find().size() > 0);
+			assertTrue("Debería haberse grabado un proyecto", proService.find().size() == 1);
 
 			
 			ConfiguracionItem ci2 = new ConfiguracionItem();
@@ -147,8 +165,9 @@ public class TestProyecto {
 			p.getTipoItems().put(ti2, ci2);
 			
 			proService.update(p);
+			p = proService.getById(p.getId());
 			
-			assertTrue("Debería haberse grabado algo.", p.getTipoItems().keySet().size() == 2);
+			assertTrue("Los tipo items del proyecto deberian ser 2.", p.getTipoItems().keySet().size() == 2);
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			fail(e.getMessage());
