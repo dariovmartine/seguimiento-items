@@ -3,7 +3,14 @@ package edu.unlp.informatica.postgrado.seguimiento.item;
 import static junit.framework.Assert.fail;
 
 import org.junit.Test;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado;
@@ -14,6 +21,13 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.ConfiguracionItemRepository;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.EstadoRepository;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.ItemRepository;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.PersonaRepository;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.PrioridadRepository;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.ProyectoRepository;
+import edu.unlp.informatica.postgrado.seguimiento.item.repository.TipoItemRepository;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ItemService;
@@ -22,25 +36,55 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.PrioridadService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={
+	AppConfig.class, 
+	PersonaService.class,
+	ProyectoService.class,
+	TipoItemService.class, 
+	EstadoService.class, 
+	ConfiguracionItemService.class,
+	ItemService.class,
+	PrioridadService.class,
+	PersonaRepository.class,
+	ProyectoRepository.class,
+	TipoItemRepository.class, 
+	EstadoRepository.class, 
+	ConfiguracionItemRepository.class,
+	ItemRepository.class,
+	PrioridadRepository.class
+})
+@Transactional
 public class TestItem {
 
+	@Autowired
+	PersonaService myService;
+	
+	@Autowired
+	ProyectoService proService;
+	
+	@Autowired
+	TipoItemService tiService; 
+	
+	@Autowired
+	EstadoService eService; 
+	
+	@Autowired
+	ConfiguracionItemService ciService; 
+		
+	@Autowired
+	ItemService iService;
+	
+	@Autowired
+	PrioridadService prService;
+	
 	@Test
+	@Rollback
 	public void test() {
 		
-		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(
-				AppConfig.class);
-		ctx.scan("edu.unlp.informatica.postgrado.seguimiento.item");
-		PersonaService myService = (PersonaService) ctx.getBean("personaService",PersonaService.class);
-		ItemService iService = (ItemService) ctx.getBean("itemService",ItemService.class);
-		ProyectoService proService = (ProyectoService) ctx.getBean("proyectoService",ProyectoService.class);
-		TipoItemService tiService = (TipoItemService) ctx.getBean("tipoItemService",TipoItemService.class);
-		EstadoService eService = (EstadoService) ctx.getBean("estadoService",EstadoService.class);
-		ConfiguracionItemService ciService = (ConfiguracionItemService) ctx.getBean("configuracionItemService",ConfiguracionItemService.class);
-		PrioridadService prService = (PrioridadService) ctx.getBean("prioridadService",PrioridadService.class);
-		
-		Persona i = new Persona();
-		i.setNombre("Jefi");
 		try {
+			Persona i = new Persona();
+			i.setNombre("Jefi");
 			myService.save(i);
 			
 			Prioridad pr = new Prioridad();
