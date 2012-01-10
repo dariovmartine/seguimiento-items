@@ -11,6 +11,7 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 
@@ -25,6 +26,7 @@ public class ItemBeanValidationTest {
 	}
 
 	@Test
+	@Rollback
 	public void test() {
 		Item bean = new Item();
 

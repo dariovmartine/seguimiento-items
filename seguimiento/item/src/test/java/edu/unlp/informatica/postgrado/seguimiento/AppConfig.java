@@ -19,8 +19,10 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.HibernateTransactionManager;
 import org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 
 /**
  * @author dariovmartine
@@ -28,6 +30,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMa
  */
 @Import({RepositoryConfig.class})
 @Configuration
+@EnableTransactionManagement(proxyTargetClass=true)
 public class AppConfig {
 
     @Bean
@@ -41,6 +44,7 @@ public class AppConfig {
 }
 
 @Configuration
+@EnableTransactionManagement(proxyTargetClass=true)
 class RepositoryConfig {
 
     @Value("${hibernate.connection.driver_class}")
