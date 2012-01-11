@@ -91,7 +91,7 @@ public class ConfiguracionEstadoListadoPanel extends Panel {
 				//item.add(new Label("detalle", configuracionEstadoSel.getProximosEstados().toString()));
 				item.add(new Label("proyecto", configuracionEstadoSel.getConfiguracionItem().getProyecto().toString()));
 				item.add(new Label("tipoItem", configuracionEstadoSel.getConfiguracionItem().getTipoItem().toString()));
-				item.add(new Label("estado", configuracionEstadoSel.getEstado().toString()));
+				item.add(new Label("estado", (configuracionEstadoSel.getEstado() == null ? "Sin estado" : configuracionEstadoSel.getEstado().toString())));
 				item.add(new Label("estadosPosibles", configuracionEstadoSel.getProximosEstados().toString()));
 				
 				item.add(AttributeModifier.replace("class",
