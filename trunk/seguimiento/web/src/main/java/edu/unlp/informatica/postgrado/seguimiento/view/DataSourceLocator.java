@@ -67,11 +67,11 @@ public class DataSourceLocator
 		try {
 			if (dataSource.getEstadoService().find().size() == 0) {
 				
-				Persona i = new Persona();
-				i.setNombre("Jefe");
-				dataSource.getPersonaService().save(i);
+				Persona lider = new Persona();
+				lider.setNombre("Jefe");
+				dataSource.getPersonaService().save(lider);
 				
-				i = new Persona();
+				Persona i = new Persona();
 				i.setNombre("Lujan");
 				dataSource.getPersonaService().save(i);
 				
@@ -123,8 +123,9 @@ public class DataSourceLocator
 				ci.getProximosEstados().put(e, confEstado);
 				
 				Proyecto p = new Proyecto();
-				p.setLider(i);
-				p.setNombre("ppp");
+				p.setLider(lider);
+				p.getIntegrantes().add(i);
+				p.setNombre("Seguimiento de Items");
 				p.getTipoItems().put(ti, ci);
 				ci.setProyecto(p);
 				ci.setTipoItem(ti);

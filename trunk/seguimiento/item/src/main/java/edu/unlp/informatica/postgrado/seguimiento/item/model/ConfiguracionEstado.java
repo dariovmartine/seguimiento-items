@@ -18,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.ForeignKey;
+
 /**
  * @author  Victor.Martinez
  */
@@ -38,6 +40,7 @@ public class ConfiguracionEstado implements Serializable  {
 	
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_ESTADO")
+	@ForeignKey(name="CONF_ESTADO_ESTADO")
 	private Estado estado;
 	
 	@NotNull
@@ -49,6 +52,7 @@ public class ConfiguracionEstado implements Serializable  {
     @JoinTable(name="PROXIMO_ESTADO",
     		joinColumns=@JoinColumn(name="CONF_ITEM_ID"),
 	        inverseJoinColumns=@JoinColumn(name="ESTADO_ID"))
+	@ForeignKey(name="CONF_ESTADO_PROX")
 	private List<Estado> proximosEstados = new ArrayList<Estado>();
 	
 	

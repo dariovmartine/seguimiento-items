@@ -72,16 +72,11 @@ public class ProyectoEditPanel extends Panel {
 						
 						proyecto = DataSourceLocator.getInstance().getProyectoService()
 									.getById(newVersion.getId());
-						proyecto.setNombre(newVersion.getNombre());
-						proyecto.setIntegrantes(newVersion.getIntegrantes());
-						proyecto.setItems(newVersion.getItems());
-						proyecto.setLider(newVersion.getLider());
-						proyecto.setTipoItemList(newVersion.getTipoItemList());
-						DataSourceLocator.getInstance().getProyectoService().update(proyecto);
+						proyecto.copyValues(newVersion);
+						proyecto = DataSourceLocator.getInstance().getProyectoService().update(proyecto);
 					} else {
 						
-						proyecto = newVersion;
-						DataSourceLocator.getInstance().getProyectoService().save(proyecto);
+						proyecto = DataSourceLocator.getInstance().getProyectoService().save(newVersion);
 					}				
 					
 					// Esto es para que se refresque la grilla de datos

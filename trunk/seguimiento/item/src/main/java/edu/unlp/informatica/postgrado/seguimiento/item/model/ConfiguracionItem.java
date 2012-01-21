@@ -1,9 +1,7 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -14,13 +12,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.ForeignKey;
 
 /**
  * @author  Victor.Martinez
@@ -43,18 +42,21 @@ public class ConfiguracionItem  implements Serializable {
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_TIPO_ITEM")
+	@ForeignKey(name="FK_CONF_ITEM_TIPO_ITEM")
 	private TipoItem tipoItem;
 		
 	@OneToMany(cascade={CascadeType.ALL})
-	@JoinTable(name="CONFIG_ITEM_ESTADO",
+	@JoinTable(name="CONFIG_ITEM_ESTADO", 
             joinColumns=@JoinColumn(name="CONFIG_ITEM_ID"),
             inverseJoinColumns=@JoinColumn(name="CONFIG_ESTADO_ID"))
     @MapKeyJoinColumn(name="ESTADO_ID")
+	@ForeignKey(name="FK_CONF_ITEM_PROX_ESTA")
 	Map<Estado, ConfiguracionEstado> proximosEstados = new HashMap<Estado, ConfiguracionEstado>();
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_PROYECTO")
+	@ForeignKey(name="FK_CONF_ITEM_PROYECTO")
 	private Proyecto proyecto;
 	
 	public Long getId() {
