@@ -18,7 +18,7 @@ public abstract class AbstractService<E, R extends AbstractRepository> {
 		
 	public abstract R getRepository();
 			
-	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS)
+	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public E save(E entity) throws ServiceException {
 		
 		try {
@@ -31,7 +31,7 @@ public abstract class AbstractService<E, R extends AbstractRepository> {
 		}		
 	}
 	
-	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS)
+	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public E update(E entity) throws ServiceException {
 		
 		try {
@@ -44,7 +44,7 @@ public abstract class AbstractService<E, R extends AbstractRepository> {
 		}
 	}
 	
-	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS)
+	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public void delete(E entity) throws ServiceException {
 		
 		try {
@@ -55,7 +55,7 @@ public abstract class AbstractService<E, R extends AbstractRepository> {
 		}
 	}
 	
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public List<E> find() throws ServiceException {
 		
 		try {
@@ -67,7 +67,7 @@ public abstract class AbstractService<E, R extends AbstractRepository> {
 		}
 	}	
 	
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public List<E> find(int first, int count, String sortParam ) throws ServiceException {
 	
 		try {
@@ -79,7 +79,7 @@ public abstract class AbstractService<E, R extends AbstractRepository> {
 		}
 	}
 	
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public long getCount() throws ServiceException {
 		
 		try {
@@ -91,7 +91,7 @@ public abstract class AbstractService<E, R extends AbstractRepository> {
 		}
 	}
 	
-	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public E getById(Long id) throws ServiceException {
 		
 		try {

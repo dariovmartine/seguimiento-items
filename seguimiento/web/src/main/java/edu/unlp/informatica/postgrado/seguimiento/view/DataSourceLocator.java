@@ -69,19 +69,51 @@ public class DataSourceLocator
 				
 				Persona i = new Persona();
 				i.setNombre("Jefe");
-
+				dataSource.getPersonaService().save(i);
+				
+				i = new Persona();
+				i.setNombre("Lujan");
+				dataSource.getPersonaService().save(i);
+				
+				i = new Persona();
+				i.setNombre("Dario");
+				dataSource.getPersonaService().save(i);
+				
+				i = new Persona();
+				i.setNombre("Juan");
 				dataSource.getPersonaService().save(i);
 							
 				TipoItem ti = new TipoItem();
-				ti.setNombre("Ampliació2");
+				ti.setNombre("Ampliación");
 				dataSource.getTipoItemService().save(ti);
 				
+				ti = new TipoItem();
+				ti.setNombre("Reporte de bug");
+				dataSource.getTipoItemService().save(ti);
+				
+				ti = new TipoItem();
+				ti.setNombre("Mejora");
+				dataSource.getTipoItemService().save(ti);
+				
+				ti = new TipoItem();
+				ti.setNombre("Nuevo requerimiento");
+				dataSource.getTipoItemService().save(ti);
+				
+				
 				Estado e = new Estado();
-				e.setNombre("Inicial");
+				e.setNombre("Creado");
 				dataSource.getEstadoService().save(e);
 				
 				Estado e2 = new Estado();
-				e2.setNombre("Finalizado");
+				e2.setNombre("Desarrollo");
+				dataSource.getEstadoService().save(e2);
+				
+				e2 = new Estado();
+				e2.setNombre("Validación");
+				dataSource.getEstadoService().save(e2);
+				
+				e2 = new Estado();
+				e2.setNombre("Terminado");
 				dataSource.getEstadoService().save(e2);
 				
 				ConfiguracionItem ci = new ConfiguracionItem();
