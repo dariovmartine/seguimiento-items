@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -166,18 +167,17 @@ public class Proyecto implements Serializable {
 			
 			if (! tipoItems.containsKey(tipoItem)) {
 				ConfiguracionItem confItem = new ConfiguracionItem();
-				ConfiguracionEstado confEstado = new ConfiguracionEstado();
-				confEstado.setConfiguracionItem(confItem);
+				//ConfiguracionEstado confEstado = new ConfiguracionEstado();
+				//confEstado.setConfiguracionItem(confItem);
 				confItem.setProyecto(this);
 				confItem.setTipoItem(tipoItem);
-				Estado key = new Estado();
-				key.setId(1L);
-				confItem.getProximosEstados().put(key, confEstado);
+				//confItem.getProximosEstados().put(key, confEstado);
 				tipoItems.put(tipoItem, confItem);
 			}
 		}
 		
-		for (TipoItem tipoItem : tipoItems.keySet()) {
+		Set<TipoItem> tipoItemsS = tipoItems.keySet();
+		for (TipoItem tipoItem : tipoItemsS) {
 			
 			 
 			if (! newTipoItems.contains(tipoItem)) {
@@ -186,6 +186,15 @@ public class Proyecto implements Serializable {
 			}
 		}
 	
+	}
+	
+	public void copyValues(Proyecto newVersion) {
+		
+		setNombre(newVersion.getNombre());
+		setIntegrantes(newVersion.getIntegrantes());
+		setItems(newVersion.getItems());
+		setLider(newVersion.getLider());
+		setTipoItemList(newVersion.getTipoItemList());
 	}
 
 	@Override

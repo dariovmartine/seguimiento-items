@@ -30,7 +30,6 @@ public class Estado implements Serializable {
 	Long id;
 	
 	@ValidUserName
-	@Size(min = 3, max = 12)
 	@Column(name = "nombre", unique=true)
 	@NotNull
 	private String nombre;

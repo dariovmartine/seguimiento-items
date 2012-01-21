@@ -40,7 +40,6 @@ public class Item implements Serializable {
 	
 	@ValidUserName
 	@NotNull
-	@Size(min = 3, max = 12)
 	@Column(name = "TITULO", unique=true)
 	private String titulo;
 	

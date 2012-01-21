@@ -118,20 +118,20 @@ public class TestProyecto {
 			
 			
 			Persona i = new Persona();
-			i.setNombre("Jefe3");
+			i.setNombre("Jefe test");
 
 			myService.save(i);
 						
 			TipoItem ti = new TipoItem();
-			ti.setNombre("Ampliació21");
+			ti.setNombre("Ampliación test");
 			tiService.save(ti);
 			
 			Estado e = new Estado();
-			e.setNombre("Inicial22");
+			e.setNombre("Inicial test");
 			eService.save(e);
 			
 			Estado e2 = new Estado();
-			e2.setNombre("Finalizado22");
+			e2.setNombre("Finalizado test");
 			eService.save(e2);
 			
 			ConfiguracionItem ci = new ConfiguracionItem();
@@ -142,7 +142,7 @@ public class TestProyecto {
 			
 			Proyecto p = new Proyecto();
 			p.setLider(i);
-			p.setNombre("ppp4");
+			p.setNombre("Proyecto test");
 			p.getTipoItems().put(ti, ci);
 			ci.setProyecto(p);
 			ci.setTipoItem(ti);
@@ -150,19 +150,21 @@ public class TestProyecto {
 			
 			assertTrue("Debería haberse grabado un proyecto", proService.find().size() == 1);
 
-			
+			Proyecto newVersion = proService.getById(p.getId());
 			ConfiguracionItem ci2 = new ConfiguracionItem();
 			ConfiguracionEstado confEstado2 = new ConfiguracionEstado();
 			confEstado2.setConfiguracionItem(ci2);
 			confEstado2.getProximosEstados().add(e2);
 			ci2.getProximosEstados().put(e, confEstado2);
-			ci2.setProyecto(p);
+			ci2.setProyecto(newVersion);
 			
 			TipoItem ti2 = new TipoItem();
-			ti2.setNombre("Ampliació3345");
+			ti2.setNombre("Mejora");
 			tiService.save(ti2);
 			ci2.setTipoItem(ti2);
-			p.getTipoItems().put(ti2, ci2);
+			newVersion.getTipoItems().put(ti2, ci2);
+			
+			p.copyValues(newVersion);
 			
 			proService.update(p);
 			p = proService.getById(p.getId());
