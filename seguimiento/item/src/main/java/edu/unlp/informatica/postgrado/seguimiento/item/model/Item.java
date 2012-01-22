@@ -35,7 +35,7 @@ public class Item implements Serializable {
 	@Id 
 	@Column(name = "ID")
 	@GeneratedValue(generator="ITEM_ID_GEN", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="ITEM_ID_GEN", sequenceName="SEQ_ITEM_ID")
+	@SequenceGenerator(name="ITEM_ID_GEN", sequenceName="SEQ_ITEM_ID", allocationSize=1, initialValue=1)
 	Long id;
 	
 	@ValidUserName

@@ -23,7 +23,7 @@ public class Persona  implements Serializable {
 	@Id 
 	@Column(name = "ID")
 	@GeneratedValue(generator="PERSONA_ID_GEN", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="PERSONA_ID_GEN", sequenceName="SEQ_PERSONA_ID")
+	@SequenceGenerator(name="PERSONA_ID_GEN", sequenceName="SEQ_PERSONA_ID", allocationSize=1, initialValue=1)
 	private Long id;
 			
 	@NotNull
