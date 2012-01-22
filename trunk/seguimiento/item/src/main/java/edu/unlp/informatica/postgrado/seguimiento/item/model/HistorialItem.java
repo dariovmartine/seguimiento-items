@@ -38,7 +38,7 @@ public class HistorialItem implements Serializable{
 	@Id 
 	@Column(name = "ID")
 	@GeneratedValue(generator="HIST_ITEM_ID_GEN", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="HIST_ITEM_ID_GEN", sequenceName="SEQ_HIST_ITEM_ID")
+	@SequenceGenerator(name="HIST_ITEM_ID_GEN", sequenceName="SEQ_HIST_ITEM_ID", allocationSize=1, initialValue=1)
 	Long id;
 	
 	@NotNull

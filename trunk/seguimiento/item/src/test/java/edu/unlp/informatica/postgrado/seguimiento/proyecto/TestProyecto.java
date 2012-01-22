@@ -3,7 +3,8 @@ package edu.unlp.informatica.postgrado.seguimiento.proyecto;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
-import org.hibernate.validator.constraints.ScriptAssert.List;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
@@ -124,15 +123,19 @@ public class TestProyecto {
 						
 			TipoItem ti = new TipoItem();
 			ti.setNombre("Ampliación test");
-			tiService.save(ti);
+			ti = tiService.save(ti);
 			
+			TipoItem ti2 = new TipoItem();
+			ti2.setNombre("Mejora");
+			ti2 = tiService.save(ti2);
+						
 			Estado e = new Estado();
 			e.setNombre("Inicial test");
-			eService.save(e);
+			e = eService.save(e);
 			
 			Estado e2 = new Estado();
 			e2.setNombre("Finalizado test");
-			eService.save(e2);
+			e2 = eService.save(e2);
 			
 			ConfiguracionItem ci = new ConfiguracionItem();
 			ConfiguracionEstado confEstado = new ConfiguracionEstado();
@@ -151,19 +154,10 @@ public class TestProyecto {
 			assertTrue("Debería haberse grabado un proyecto", proService.find().size() == 1);
 
 			Proyecto newVersion = proService.getById(p.getId());
-			ConfiguracionItem ci2 = new ConfiguracionItem();
-			ConfiguracionEstado confEstado2 = new ConfiguracionEstado();
-			confEstado2.setConfiguracionItem(ci2);
-			confEstado2.getProximosEstados().add(e2);
-			ci2.getProximosEstados().put(e, confEstado2);
-			ci2.setProyecto(newVersion);
 			
-			TipoItem ti2 = new TipoItem();
-			ti2.setNombre("Mejora");
-			tiService.save(ti2);
-			ci2.setTipoItem(ti2);
-			newVersion.getTipoItems().put(ti2, ci2);
-			
+			List<TipoItem> list = newVersion.getTipoItemList();
+			list.add(ti2);
+			newVersion.setTipoItemList(list);
 			p.copyValues(newVersion);
 			
 			proService.update(p);
@@ -174,7 +168,18 @@ public class TestProyecto {
 			// TODO Auto-generated catch block
 			fail(e.getMessage());
 		}
-		
-		
 	}
+//	
+//	@Test	
+//	@Rollback
+//	public void testito() {
+//		
+//		try {
+//			Proyecto newVersion = proService.getById(4L);
+//			newVersion.toString();
+//		} catch (ServiceException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 }

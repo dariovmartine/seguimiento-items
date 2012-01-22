@@ -36,7 +36,7 @@ public class ConfiguracionItem  implements Serializable {
 	@Id 
 	@Column(name = "ID")
 	@GeneratedValue(generator="CONF_ITEM_ID_GEN", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="CONF_ITEM_ID_GEN", sequenceName="SEQ_CONF_ITEM_ID")
+	@SequenceGenerator(name="CONF_ITEM_ID_GEN", sequenceName="SEQ_CONF_ITEM_ID", allocationSize=1, initialValue=1)
 	private Long id;
 	
 	@NotNull

@@ -35,7 +35,7 @@ public class ConfiguracionEstado implements Serializable  {
 	@Id 
 	@Column(name = "ID")
 	@GeneratedValue(generator="CONFIG_ESTADO_ID_GEN", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="CONFIG_ESTADO_ID_GEN", sequenceName="SEQ_CONFIG_ESTADO_ID")
+	@SequenceGenerator(name="CONFIG_ESTADO_ID_GEN", sequenceName="SEQ_CONFIG_ESTADO_ID", allocationSize=1, initialValue=1)
 	private Long id;
 	
 	@ManyToOne(cascade=CascadeType.DETACH)

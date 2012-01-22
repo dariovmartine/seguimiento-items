@@ -23,7 +23,7 @@ public class Prioridad  implements Serializable {
 	@Id 
 	@Column(name = "ID")
 	@GeneratedValue(generator="PRIORIDAD_ID_GEN", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="PRIORIDAD_ID_GEN", sequenceName="SEQ_PRIORIDAD_ID")
+	@SequenceGenerator(name="PRIORIDAD_ID_GEN", sequenceName="SEQ_PRIORIDAD_ID", allocationSize=1, initialValue=1)
 	private Long id;
 	
 	@NotNull

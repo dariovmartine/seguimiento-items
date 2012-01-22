@@ -3,6 +3,7 @@ package edu.unlp.informatica.postgrado.seguimiento.item.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class Proyecto implements Serializable {
 	@Id 
 	@Column(name = "ID")
 	@GeneratedValue(generator="PROYECTO_ID_GEN", strategy=GenerationType.SEQUENCE)
-	@SequenceGenerator(name="PROYECTO_ID_GEN", sequenceName="SEQ_PROYECTO_ID")
+	@SequenceGenerator(name="PROYECTO_ID_GEN", sequenceName="SEQ_PROYECTO_ID", allocationSize=1, initialValue=1)
 	Long id;
 	
 	@NotNull
@@ -167,19 +168,15 @@ public class Proyecto implements Serializable {
 			
 			if (! tipoItems.containsKey(tipoItem)) {
 				ConfiguracionItem confItem = new ConfiguracionItem();
-				//ConfiguracionEstado confEstado = new ConfiguracionEstado();
-				//confEstado.setConfiguracionItem(confItem);
 				confItem.setProyecto(this);
 				confItem.setTipoItem(tipoItem);
-				//confItem.getProximosEstados().put(key, confEstado);
 				tipoItems.put(tipoItem, confItem);
 			}
-		}
+		}		
 		
-		Set<TipoItem> tipoItemsS = tipoItems.keySet();
-		for (TipoItem tipoItem : tipoItemsS) {
-			
-			 
+		Object arr[] =  tipoItems.keySet().toArray();
+		for (Object tipoItem : arr) {
+		 
 			if (! newTipoItems.contains(tipoItem)) {
 				
 				tipoItems.remove(tipoItem);
