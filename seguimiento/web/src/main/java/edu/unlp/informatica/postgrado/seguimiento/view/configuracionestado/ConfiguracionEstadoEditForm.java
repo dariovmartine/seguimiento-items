@@ -29,6 +29,7 @@ public class ConfiguracionEstadoEditForm extends BaseEntityForm<ConfiguracionEst
 			add(estado = new ListChoice<Estado>("estado"));
 			estado.setChoices(DataSourceLocator.getInstance().getEstadoService().find());
 			estado.setLabel(new Model<String>("Estado"));
+			estado.setEnabled(false);
 		} catch (ServiceException e) {
 			
 		}

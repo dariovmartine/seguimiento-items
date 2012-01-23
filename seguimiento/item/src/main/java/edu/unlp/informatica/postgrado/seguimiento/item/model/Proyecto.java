@@ -182,7 +182,6 @@ public class Proyecto implements Serializable {
 				tipoItems.remove(tipoItem);
 			}
 		}
-	
 	}
 	
 	public void copyValues(Proyecto newVersion) {

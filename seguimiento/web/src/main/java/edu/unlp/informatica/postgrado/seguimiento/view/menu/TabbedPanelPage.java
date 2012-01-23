@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
 import edu.unlp.informatica.postgrado.seguimiento.view.configuracionestado.ConfiguracionEstadoListadoPanel;
+import edu.unlp.informatica.postgrado.seguimiento.view.configuraciontipoitem.ConfiguracionItemListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.estado.EstadoListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.item.ItemListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.persona.PersonaListadoPanel;
@@ -95,6 +96,15 @@ public class TabbedPanelPage extends WebPage
 			}
 		});
 
+		tabs.add(new AbstractTab(new Model<String>("Configuracion de Tipos de Items"))
+		{
+			@Override
+			public Panel getPanel(String panelId)
+			{
+				return new ConfiguracionItemListadoPanel(panelId);
+			}
+		});
+		
 		tabs.add(new AbstractTab(new Model<String>("Configuracion de Estados de Items"))
 		{
 			@Override
@@ -103,72 +113,7 @@ public class TabbedPanelPage extends WebPage
 				return new ConfiguracionEstadoListadoPanel(panelId);
 			}
 		});
+
 		add(new AjaxTabbedPanel("tabs", tabs));
 	}
-
-	/**
-	 * Panel representing the content panel for the first tab.
-	 */
-	private static class TabPanel1 extends Panel
-	{
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = -8591685660475063086L;
-
-		/**
-		 * Constructor
-		 * 
-		 * @param id
-		 *            component id
-		 */
-		public TabPanel1(String id)
-		{
-			super(id);
-		}
-	};
-
-	/**
-	 * Panel representing the content panel for the second tab.
-	 */
-	private static class TabPanel2 extends Panel
-	{
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 2159760903794539250L;
-
-		/**
-		 * Constructor
-		 * 
-		 * @param id
-		 *            component id
-		 */
-		public TabPanel2(String id)
-		{
-			super(id);
-		}
-	};
-
-	/**
-	 * Panel representing the content panel for the third tab.
-	 */
-	private static class TabPanel3 extends Panel
-	{
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 6938023480361767786L;
-
-		/**
-		 * Constructor
-		 * 
-		 * @param id
-		 *            component id
-		 */
-		public TabPanel3(String id)
-		{
-			super(id);
-		}
-	};
 }
