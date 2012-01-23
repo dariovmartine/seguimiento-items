@@ -1,7 +1,9 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -17,9 +19,12 @@ import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ForeignKey;
+
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.NotMapper;
 
 /**
  * @author  Victor.Martinez
@@ -73,6 +78,40 @@ public class ConfiguracionItem  implements Serializable {
 
 	public void setProximosEstados(Map<Estado, ConfiguracionEstado> proximosEstados) {
 		this.proximosEstados = proximosEstados;
+	}
+	
+	@Transient
+	private List<Estado> ret = new ArrayList<Estado>();
+	
+	@NotMapper
+	public List<Estado> getEstadosIniciales() {
+
+		ret.clear();
+		ret.addAll(proximosEstados.keySet());
+		return ret;
+	}
+	
+	@NotMapper
+	public void setEstadosIniciales(List<Estado> newEstados) {
+		
+		for (Estado estado : newEstados) {
+			
+			if (! proximosEstados.containsKey(estado)) {
+				ConfiguracionEstado confEstado = new ConfiguracionEstado();
+				confEstado.setEstado(estado);
+				confEstado.setConfiguracionItem(this);
+				proximosEstados.put(estado, confEstado);
+			}
+		}		
+		
+		Object arr[] =  proximosEstados.keySet().toArray();
+		for (Object estado : arr) {
+		 
+			if (! newEstados.contains(estado)) {
+				
+				proximosEstados.remove(estado);
+			}
+		}
 	}
 
 	public boolean canChangeState(Estado estadoActual, Estado estadoNuevo) {

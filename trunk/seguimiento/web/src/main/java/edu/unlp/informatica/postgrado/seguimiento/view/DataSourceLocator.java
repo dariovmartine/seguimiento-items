@@ -51,6 +51,9 @@ public class DataSourceLocator
 	private ConfiguracionEstadoService configuracionEstadoService;
 	
 	@Autowired
+	private ConfiguracionItemService configuracionItemService;
+	
+	@Autowired
 	private HistorialItemService historialItemService;
 
 	private static DataSourceLocator dataSource;
@@ -216,5 +219,13 @@ public class DataSourceLocator
 	public void setHistorialItemService(HistorialItemService historialItemService) {
 		this.historialItemService = historialItemService;
 	}
-
+	
+	public ConfiguracionItemService getConfiguracionItemService() {
+		return configuracionItemService;
+	}
+	
+	public void setConfiguracionItemService(
+			ConfiguracionItemService configuracionItemService) {
+		this.configuracionItemService = configuracionItemService;
+	}
 }
