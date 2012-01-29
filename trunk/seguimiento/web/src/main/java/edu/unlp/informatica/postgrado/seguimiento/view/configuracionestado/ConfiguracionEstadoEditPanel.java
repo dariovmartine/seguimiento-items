@@ -75,7 +75,7 @@ public class ConfiguracionEstadoEditPanel extends Panel {
 						confEstado.setEstado(newVersion.getEstado());
 						confEstado.setProximosEstados(newVersion.getProximosEstados());
 						
-						DataSourceLocator.getInstance().getConfiguracionEstadoService().update(confEstado);
+						DataSourceLocator.getInstance().getProyectoService().update(confEstado.getConfiguracionItem().getProyecto());
 					} else {
 						target.appendJavaScript("alert('No puede crear nuevas configuraciones de estado desde esta ventana!');");
 					}
