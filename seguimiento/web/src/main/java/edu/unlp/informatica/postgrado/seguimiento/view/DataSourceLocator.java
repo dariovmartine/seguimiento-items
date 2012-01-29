@@ -122,6 +122,7 @@ public class DataSourceLocator
 				ConfiguracionItem ci = new ConfiguracionItem();
 				ConfiguracionEstado confEstado = new ConfiguracionEstado();
 				confEstado.setConfiguracionItem(ci);
+				confEstado.setEstado(e);
 				confEstado.getProximosEstados().add(e2);
 				ci.getProximosEstados().put(e, confEstado);
 				

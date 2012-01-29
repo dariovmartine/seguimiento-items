@@ -70,7 +70,8 @@ public class ConfiguracionItemEditPanel extends Panel {
 									.getById(newVersion.getId());
 						confItem.setEstadosIniciales(newVersion.getEstadosIniciales());
 						
-						DataSourceLocator.getInstance().getConfiguracionItemService().update(confItem);
+						confItem = DataSourceLocator.getInstance().getProyectoService().update(confItem.getProyecto())
+								.getTipoItems().get(confItem.getTipoItem());
 					} else {
 						target.appendJavaScript("alert('No puede crear nuevas configuraciones de estado desde esta ventana!');");
 					}
