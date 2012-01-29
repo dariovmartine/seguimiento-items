@@ -169,6 +169,72 @@ public class TestProyecto {
 			fail(e.getMessage());
 		}
 	}
+	
+	@Test	
+	@Rollback
+	public void deleteTipoItemAndConfigItem() {		
+		try {
+			Persona i = new Persona();
+			i.setNombre("Jefe test");
+
+			myService.save(i);
+						
+			TipoItem ti = new TipoItem();
+			ti.setNombre("Ampliación test");
+			ti = tiService.save(ti);
+			
+			TipoItem ti2 = new TipoItem();
+			ti2.setNombre("Mejora");
+			ti2 = tiService.save(ti2);
+			
+			TipoItem ti3 = new TipoItem();
+			ti3.setNombre("bug");
+			ti3 = tiService.save(ti3);
+						
+			Estado e = new Estado();
+			e.setNombre("Inicial test");
+			e = eService.save(e);
+			
+			Estado e2 = new Estado();
+			e2.setNombre("Finalizado test");
+			e2 = eService.save(e2);
+			
+			ConfiguracionItem ci = new ConfiguracionItem();
+			ConfiguracionEstado confEstado = new ConfiguracionEstado();
+			confEstado.setConfiguracionItem(ci);
+			confEstado.setEstado(e);
+			confEstado.getProximosEstados().add(e2);
+			ci.getProximosEstados().put(e, confEstado);
+			
+			ConfiguracionItem ci1 = new ConfiguracionItem();
+			ConfiguracionEstado confEstado1 = new ConfiguracionEstado();
+			confEstado1.setConfiguracionItem(ci1);
+			confEstado1.setEstado(e);
+			confEstado1.getProximosEstados().add(e2);
+			ci1.getProximosEstados().put(e, confEstado1);
+			
+			Proyecto p = new Proyecto();
+			p.setLider(i);
+			p.setNombre("Proyecto test");
+			p.getTipoItems().put(ti, ci);
+			p.getTipoItems().put(ti3, ci1);
+			ci.setProyecto(p);
+			ci.setTipoItem(ti);
+			ci1.setProyecto(p);
+			ci1.setTipoItem(ti3);
+			proService.save(p);
+			assertTrue("Debería haberse generado 2 config del item", ciService.find().size() == 2);
+
+			p.getTipoItems().remove(ti);
+			proService.save(p);
+			
+			assertTrue("Debería haberse borrado 1 config del item", ciService.find().size() == 1);
+
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			fail(e.getMessage());
+		}
+	}
 //	
 //	@Test	
 //	@Rollback
