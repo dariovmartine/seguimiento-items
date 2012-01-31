@@ -18,13 +18,7 @@ public class ProyectoRepository extends AbstractRepository<Proyecto, Long> {
 	@Override
 	public Proyecto getById(Long id) {
 		
-		Proyecto byId = super.getById(id);
-		Map<TipoItem, ConfiguracionItem> tipoItems = byId.getTipoItems();
-		for (TipoItem ti : tipoItems.keySet()) {
-			ti.toString();
-		} 
-		
-		return byId;
+		return super.getById(id);
 	}
 
 	

@@ -181,15 +181,9 @@ public class Proyecto implements Serializable {
 			}
 		}
 	}
-	
-	public void copyValues(Proyecto newVersion) {
 		
-		setNombre(newVersion.getNombre());
-		setIntegrantes(newVersion.getIntegrantes());
-		setItems(newVersion.getItems());
-		setLider(newVersion.getLider());
-		setTipoItemList(newVersion.getTipoItemList());
-	}
+	
+	
 
 	@Override
 	public int hashCode() {
