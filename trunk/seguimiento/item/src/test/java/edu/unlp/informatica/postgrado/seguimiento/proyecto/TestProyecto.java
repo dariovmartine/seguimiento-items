@@ -8,6 +8,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -63,7 +64,10 @@ public class TestProyecto {
 	EstadoService eService; 
 	
 	@Autowired
-	ConfiguracionItemService ciService; 
+	ConfiguracionItemService ciService;
+	
+	@Autowired
+	HibernateTemplate hibernateTemplate;
 		
 	@Test
 	@Rollback
@@ -158,9 +162,8 @@ public class TestProyecto {
 			List<TipoItem> list = newVersion.getTipoItemList();
 			list.add(ti2);
 			newVersion.setTipoItemList(list);
-			p.copyValues(newVersion);
-			
-			proService.update(p);
+					
+			proService.update(newVersion);
 			p = proService.getById(p.getId());
 			
 			assertTrue("Los tipo items del proyecto deberian ser 2.", p.getTipoItems().keySet().size() == 2);
@@ -222,11 +225,12 @@ public class TestProyecto {
 			ci.setTipoItem(ti);
 			ci1.setProyecto(p);
 			ci1.setTipoItem(ti3);
-			proService.save(p);
+			Proyecto p1 = proService.save(p);
 			assertTrue("Debería haberse generado 2 config del item", ciService.find().size() == 2);
 
-			p.getTipoItems().remove(ti);
-			proService.save(p);
+			hibernateTemplate.evict(p);
+			p1.getTipoItems().remove(ti);
+			proService.update(p1);
 			
 			assertTrue("Debería haberse borrado 1 config del item", ciService.find().size() == 1);
 

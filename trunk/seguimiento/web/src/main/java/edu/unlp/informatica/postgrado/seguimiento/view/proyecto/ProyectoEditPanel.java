@@ -70,10 +70,8 @@ public class ProyectoEditPanel extends Panel {
 					
 					if (newVersion.getId() != null) {
 						
-						proyecto = DataSourceLocator.getInstance().getProyectoService()
-									.getById(newVersion.getId());
-						proyecto.copyValues(newVersion);
-						proyecto = DataSourceLocator.getInstance().getProyectoService().update(proyecto);
+						
+						proyecto = DataSourceLocator.getInstance().getProyectoService().update(newVersion);
 					} else {
 						
 						proyecto = DataSourceLocator.getInstance().getProyectoService().save(newVersion);

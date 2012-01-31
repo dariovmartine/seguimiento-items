@@ -98,11 +98,10 @@ public class DataSourceLocator
 				ti.setNombre("Mejora");
 				dataSource.getTipoItemService().save(ti);
 				
-				ti = new TipoItem();
-				ti.setNombre("Nuevo requerimiento");
-				dataSource.getTipoItemService().save(ti);
-				
-				
+				TipoItem ti2 = new TipoItem();
+				ti2.setNombre("Nuevo requerimiento");
+				dataSource.getTipoItemService().save(ti2);
+								
 				Estado e = new Estado();
 				e.setNombre("Creado");
 				dataSource.getEstadoService().save(e);
@@ -126,6 +125,13 @@ public class DataSourceLocator
 				confEstado.getProximosEstados().add(e2);
 				ci.getProximosEstados().put(e, confEstado);
 				
+				ConfiguracionItem ci2 = new ConfiguracionItem();
+				ConfiguracionEstado ce2 = new ConfiguracionEstado();
+				ce2.setConfiguracionItem(ci2);
+				ce2.setEstado(e);
+				ce2.getProximosEstados().add(e2);
+				ci2.getProximosEstados().put(e, ce2);
+				
 				Proyecto p = new Proyecto();
 				p.setLider(lider);
 				p.getIntegrantes().add(i);
@@ -133,6 +139,9 @@ public class DataSourceLocator
 				p.getTipoItems().put(ti, ci);
 				ci.setProyecto(p);
 				ci.setTipoItem(ti);
+				p.getTipoItems().put(ti2, ci2);
+				ci2.setProyecto(p);
+				ci2.setTipoItem(ti2);
 				dataSource.getProyectoService().save(p);
 				
 				
