@@ -3,10 +3,8 @@ package edu.unlp.informatica.postgrado.seguimiento.item.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -60,7 +58,7 @@ public class Proyecto implements Serializable {
 	@JoinColumn(name = "ID_LIDER")
 	Persona lider;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)	
 	@JoinTable(name="PROYECTO_CONF",
             joinColumns=@JoinColumn(name="PROYECTO_ID"),
             inverseJoinColumns=@JoinColumn(name="CONFIG_ITEM_ID"))
