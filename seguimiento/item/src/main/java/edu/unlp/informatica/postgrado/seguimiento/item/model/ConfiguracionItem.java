@@ -50,7 +50,7 @@ public class ConfiguracionItem  implements Serializable {
 	@ForeignKey(name="FK_CONF_ITEM_TIPO_ITEM")
 	private TipoItem tipoItem;
 		
-	@OneToMany(cascade={CascadeType.ALL})
+	@OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
 	@JoinTable(name="CONFIG_ITEM_ESTADO", 
             joinColumns=@JoinColumn(name="CONFIG_ITEM_ID"),
             inverseJoinColumns=@JoinColumn(name="CONFIG_ESTADO_ID"))
