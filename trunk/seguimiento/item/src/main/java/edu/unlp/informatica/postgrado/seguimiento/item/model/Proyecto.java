@@ -24,6 +24,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.mapper.NotMapper;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.Updateable;
 
 /**
  * @author  Victor.Martinez
@@ -68,10 +69,11 @@ public class Proyecto implements Serializable {
     @OneToMany(mappedBy="proyecto")
 	List<Item> items = new ArrayList<Item>();
 
-	public Long getId() {
+    public Long getId() {
 		return id;
 	}
 
+    @Updateable
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -80,6 +82,7 @@ public class Proyecto implements Serializable {
 		return nombre;
 	}
 
+	@Updateable
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -96,6 +99,7 @@ public class Proyecto implements Serializable {
 		return lider;
 	}
 
+	@Updateable
 	public void setLider(Persona lider) {
 		this.lider = lider;
 	}
@@ -104,6 +108,7 @@ public class Proyecto implements Serializable {
 		return items;
 	}
 
+	@Updateable
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}
@@ -160,6 +165,7 @@ public class Proyecto implements Serializable {
 	}
 	
 	@NotMapper
+	@Updateable
 	public void setTipoItemList(List<TipoItem> newTipoItems) {
 		
 		for (TipoItem tipoItem : newTipoItems) {

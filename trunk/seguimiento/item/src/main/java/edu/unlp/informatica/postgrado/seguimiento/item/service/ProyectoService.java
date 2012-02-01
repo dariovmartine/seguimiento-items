@@ -56,7 +56,8 @@ public class ProyectoService extends AbstractService<Proyecto, ProyectoRepositor
 	public Proyecto update(Proyecto entity) throws ServiceException {
 		
 		Proyecto original = getRepository().getById(entity.getId());
-		setValues(original, entity);		
+		setValues(original, entity);
+		//updateProperties(original, entity);		
 		return super.update(original);
 	}
 	

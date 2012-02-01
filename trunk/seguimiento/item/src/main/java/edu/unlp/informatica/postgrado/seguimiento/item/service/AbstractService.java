@@ -1,8 +1,14 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.service;
 
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.FatalBeanException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -101,6 +107,55 @@ public abstract class AbstractService<E, R extends AbstractRepository> {
 		} catch (Exception e) {
 			
 			throw new ServiceException(e);
+		}
+	}
+
+	public DefaultDozerBeanMapper getMapper() {
+		return mapper;
+	}
+	
+	public void updateProperties(Object source, Object target) throws BeansException {
+
+			
+		Class<?> actualEditable = target.getClass();
+
+		PropertyDescriptor[] targetPds = BeanUtils.getPropertyDescriptors(actualEditable);
+		
+		for (PropertyDescriptor targetPd : targetPds) {
+			if (targetPd.getWriteMethod() != null) {
+				PropertyDescriptor sourcePd = BeanUtils.getPropertyDescriptor(source.getClass(), targetPd.getName());
+					if (sourcePd != null && sourcePd.getReadMethod() != null) {
+						try {
+							Method readMethod = sourcePd.getReadMethod();
+							Method writeMethod = targetPd.getWriteMethod();
+							if (writeMethod.isAnnotationPresent(Updateable.class)) {
+								continue;
+							}
+							if (!Modifier.isPublic(readMethod.getDeclaringClass().getModifiers())) {
+								readMethod.setAccessible(true);
+							}
+							Object newValue = readMethod.invoke(source);
+
+							readMethod = targetPd.getReadMethod();
+							if (!Modifier.isPublic(readMethod.getDeclaringClass().getModifiers())) {
+								readMethod.setAccessible(true);
+							}
+							Object oldValue = readMethod.invoke(source);
+
+							// Solo seteo valores distintos
+							if ((newValue == null && oldValue == null) || (newValue != null && ! newValue.equals(oldValue))) { 
+								
+								if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
+									writeMethod.setAccessible(true);
+								}
+								writeMethod.invoke(target, newValue);
+							}
+						}
+						catch (Throwable ex) {
+							throw new FatalBeanException("Could not copy properties from source to target", ex);
+						}
+					}
+			}
 		}
 	}
 }
