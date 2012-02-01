@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
@@ -25,7 +27,7 @@ public class ProyectoService extends AbstractService<Proyecto, ProyectoRepositor
 	}
 
 	@SuppressWarnings("unchecked")
-	public void setValues(Proyecto original, Proyecto newVersion) {
+	private void setValues(Proyecto original, Proyecto newVersion) {
 		
 		Object v = newVersion.getNombre(); 
 		if (v != null && ! v.equals(original.getNombre())) {
@@ -50,6 +52,7 @@ public class ProyectoService extends AbstractService<Proyecto, ProyectoRepositor
 	}
 	
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public Proyecto update(Proyecto entity) throws ServiceException {
 		
 		Proyecto original = getRepository().getById(entity.getId());

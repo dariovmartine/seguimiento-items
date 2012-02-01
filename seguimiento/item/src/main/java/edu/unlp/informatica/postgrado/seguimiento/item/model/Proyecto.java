@@ -180,10 +180,7 @@ public class Proyecto implements Serializable {
 				tipoItems.remove(tipoItem);
 			}
 		}
-	}
-		
-	
-	
+	}	
 
 	@Override
 	public int hashCode() {
