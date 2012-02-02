@@ -21,8 +21,8 @@
 		<filter-class>org.apache.wicket.protocol.http.WicketFilter
 		</filter-class>
 		<init-param>
-			<param-name>applicationFactoryClassName</param-name>
-			<param-value>org.apache.wicket.spring.SpringWebApplicationFactory
+			<param-name>applicationClassName</param-name>
+			<param-value>edu.unlp.informatica.postgrado.seguimiento.WicketApplication
 			</param-value>
 		</init-param>
 	</filter>
@@ -49,4 +49,9 @@
 		<dispatcher>INCLUDE</dispatcher>
 	</filter-mapping>
 	
+	<session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
 </web-app>

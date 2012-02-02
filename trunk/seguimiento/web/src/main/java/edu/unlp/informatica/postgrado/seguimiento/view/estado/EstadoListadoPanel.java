@@ -6,6 +6,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.IAjaxCallDecorator;
 import org.apache.wicket.ajax.calldecorator.AjaxCallDecorator;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.authroles.authorization.strategies.role.annotations.AuthorizeInstantiation;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
 import org.apache.wicket.markup.html.basic.Label;
@@ -16,12 +17,11 @@ import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
-
-
-
 
 /**
  * page that demonstrates dataview and sorting
@@ -29,6 +29,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
  * @author dariovmartine
  * 
  */
+@WebAuthorizeInstantiation({ Rol.ROLE_USER })
 public class EstadoListadoPanel extends Panel {
 	
 	/**
@@ -51,10 +52,7 @@ public class EstadoListadoPanel extends Panel {
 		
 		super(id);
 		setOutputMarkupId(true);
-		final Label result;
-		//add(result = new Label("result", new PropertyModel<String>(this, "result")));
-		//result.setOutputMarkupId(true);
-	
+			
 		final ModalWindow estadoEditWindow;
 		add(estadoEditWindow = new ModalWindow("modal2"));
 				

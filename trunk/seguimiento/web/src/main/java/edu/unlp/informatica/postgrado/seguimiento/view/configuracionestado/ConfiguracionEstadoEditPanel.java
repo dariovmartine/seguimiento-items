@@ -11,11 +11,13 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
+import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
+@WebAuthorizeInstantiation({ Rol.ROLE_USER })
 public class ConfiguracionEstadoEditPanel extends Panel {
 
 	/**
@@ -24,7 +26,7 @@ public class ConfiguracionEstadoEditPanel extends Panel {
 	private static final long serialVersionUID = -3342982114735537862L;
 
 	private ConfiguracionEstadoEditForm formInput;
-
+	
 	@SuppressWarnings("serial")
 	public ConfiguracionEstadoEditPanel(String id) {
 		
