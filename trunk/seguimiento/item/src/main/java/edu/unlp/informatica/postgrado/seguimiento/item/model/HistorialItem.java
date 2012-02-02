@@ -63,6 +63,9 @@ public class HistorialItem implements Serializable, Numerable{
 	@NotNull
 	@Column(name = "F_FIN")
 	private Timestamp fechaFin;
+	
+	@Column(name = "COMENTARIO")
+	private String comentario;
 
 	public Persona getResponsable() {
 		return responsable;
@@ -109,7 +112,24 @@ public class HistorialItem implements Serializable, Numerable{
 	}
 	
 	public String toString(){
-		
-		return ""; //item.toString()+" "+estado.toString()+" "+fechaInicio.toString()+" "+fechaFin.toString();
+		String result="";
+		if (this.item != null)
+			result += "item "+item.toString();
+		if (this.estado != null)
+			result += " estado "+estado.toString();
+		if (fechaInicio != null)
+			result += " desde "+fechaInicio.toString();
+		if (fechaFin != null)
+			result += " hasta "+fechaFin.toString();
+		return result; //item.toString()+" "+estado.toString()+" "+fechaInicio.toString()+" "+fechaFin.toString();
 	}
+
+	public String getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+	
 }

@@ -21,6 +21,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.validators.ValidUserName;
 
 @Entity
@@ -92,29 +93,6 @@ public class Item implements Serializable, Numerable {
 	}
 
 	public void setEstado(Estado estado) {
-		
-		if (proyecto != null && getEstado() != null && estado != null && ! getEstado().equals(estado) ) {
-			
-			if (! proyecto.canChangeState(tipoItem, getEstado(), estado)) {
-				
-				throw new IllegalArgumentException("El estado al que se intenta cambiar no es válido.");
-			}
-		}
-		//guardar historial
-		HistorialItem historico = new HistorialItem();
-		historico.setEstado(estado);
-		historico.setFechaInicio(new Timestamp(new Date().getTime()));
-		historico.setItem(this);
-		historico.setResponsable(getResponsable());//esta bien esto????
-		this.getHistorial().add(historico);
-		
-		if(estado == null){
-			//es el primer estado, se supone q se esta creando el item
-		}else{
-			//esta cambiando de un estado a otro
-			//aca habria q poner la fecha de fin al estado anterior
-		}
-		
 		this.estado = estado;
 	}
 
@@ -250,5 +228,56 @@ public class Item implements Serializable, Numerable {
 
 	public void setFechaCarga(Timestamp fechaCarga) {
 		this.fechaCarga = fechaCarga;
-	}		
+	}
+	
+	public void cambiarEstado(Estado nuevoEstado, Persona quienLoCambia, String comentario){
+		//valida si la persona q quiere cambiar el estado puede hacerlo
+		
+		
+		
+		//valida q el estado al que va a pasar sea valido. 
+		//Se valida aca? se valida en el setEstado? en ambos lados?
+		if (proyecto != null && getEstado() != null && estado != null && ! getEstado().equals(estado) ) {	
+			if (! proyecto.canChangeState(tipoItem, getEstado(), estado)) {			
+				throw new IllegalArgumentException("El estado al que se intenta cambiar no es válido.");
+			}
+		}
+		
+		
+		//guardar historial
+		HistorialItem historicoNuevo = new HistorialItem();
+		historicoNuevo.setEstado(nuevoEstado);
+		Timestamp fechaCambio = new Timestamp(new Date().getTime());
+		historicoNuevo.setFechaInicio(fechaCambio);
+		historicoNuevo.setItem(this);
+		historicoNuevo.setResponsable(getResponsable());//esta bien esto????
+		
+		
+		if(estado == null){
+			//es el primer estado, se supone q se esta creando el item
+		}else{
+			//esta cambiando de un estado a otro
+			//aca habria q poner la fecha de fin al estado anterior
+			
+			//buscar el ultimo estado en el que esta en la lista de historial
+			HistorialItem actual = this.buscarHistorialActual();
+			if (actual != null){
+				actual.setFechaFin(fechaCambio);
+				actual.setComentario(comentario);
+			}
+		}
+		this.getHistorial().add(historicoNuevo);
+		
+		//aca se setea el estado propiamente
+		this.setEstado(nuevoEstado);
+	}
+	
+	private HistorialItem buscarHistorialActual(){
+		for (HistorialItem hist : this.getHistorial()) {
+			if (hist.getEstado().equals(estado) && hist.getFechaFin() == null){
+				return hist;
+			}
+		}
+		return null;
+	}
 }
