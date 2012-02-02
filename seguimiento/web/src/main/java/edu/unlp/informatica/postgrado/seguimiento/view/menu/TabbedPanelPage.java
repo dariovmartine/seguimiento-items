@@ -1,7 +1,9 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.menu;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
@@ -10,6 +12,8 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
+import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.view.configuracionestado.ConfiguracionEstadoListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.configuraciontipoitem.ConfiguracionItemListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.estado.EstadoListadoPanel;
@@ -19,13 +23,12 @@ import edu.unlp.informatica.postgrado.seguimiento.view.prioridad.PrioridadListad
 import edu.unlp.informatica.postgrado.seguimiento.view.proyecto.ProyectoListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.tipoitem.TipoItemListadoPanel;
 
-
-
 /**
  * Tabbed panel demo.
  * 
  * @author ivaynberg
  */
+@WebAuthorizeInstantiation({ Rol.ROLE_USER })
 public class TabbedPanelPage extends WebPage
 {
 	/**
@@ -33,6 +36,8 @@ public class TabbedPanelPage extends WebPage
 	 */
 	private static final long serialVersionUID = 8155537811236517031L;
 
+	private final Map<String, Class<? extends Panel>>  panels = new HashMap<String, Class<? extends Panel>>();
+	
 	/**
 	 * Constructor
 	 */
@@ -42,77 +47,36 @@ public class TabbedPanelPage extends WebPage
 		// create a list of ITab objects used to feed the tabbed panel
 		List<ITab> tabs = new ArrayList<ITab>();
 		
-		tabs.add(new AbstractTab(new Model<String>("Items"))
-		{
-			@Override
-			public Panel getPanel(String panelId)
-			{
-				return new ItemListadoPanel(panelId);
-			}
-		});
+		panels.put("Items", ItemListadoPanel.class);
+		panels.put("Proyectos", ProyectoListadoPanel.class);
+		panels.put("Estados", EstadoListadoPanel.class);
+		panels.put("Tipos de Items", TipoItemListadoPanel.class);
+		panels.put("Prioridades", PrioridadListadoPanel.class);
+		panels.put("Personas", PersonaListadoPanel.class);
+		panels.put("Configuracion de Tipos de Items", ConfiguracionItemListadoPanel.class);
+		panels.put("Configuracion de Estados de Items", ConfiguracionEstadoListadoPanel.class);
 		
-		tabs.add(new AbstractTab(new Model<String>("Proyectos"))
-		{
-			@Override
-			public Panel getPanel(String panelId)
-			{
-				return new ProyectoListadoPanel(panelId);
-			}
-		});
+		for (String title : panels.keySet()) {
 		
-		tabs.add(new AbstractTab(new Model<String>("Estados"))
-		{
-			@Override
-			public Panel getPanel(String panelId)
-			{
-				return new EstadoListadoPanel(panelId);
+			final Class<? extends Panel> panel = panels.get(title);
+			if (getApplication().getSecuritySettings().getAuthorizationStrategy().isInstantiationAuthorized(panel)) {
+				tabs.add(new AbstractTab(new Model<String>(title)) {
+					
+					@Override
+					public Panel getPanel(String panelId) {
+						
+						try {
+							
+							return panel.getConstructor(String.class).newInstance(panelId);
+						} catch (Exception e) {
+							
+							e.printStackTrace();
+						} 
+						return null;
+					}
+				});
 			}
-		});
-
-		tabs.add(new AbstractTab(new Model<String>("Tipos de Items"))
-		{
-			@Override
-			public Panel getPanel(String panelId)
-			{
-				return new TipoItemListadoPanel(panelId);
-			}
-		});
-
-		tabs.add(new AbstractTab(new Model<String>("Prioridades"))
-		{
-			@Override
-			public Panel getPanel(String panelId)
-			{
-				return new PrioridadListadoPanel(panelId);
-			}
-		});
-		
-		tabs.add(new AbstractTab(new Model<String>("Personas"))
-		{
-			@Override
-			public Panel getPanel(String panelId)
-			{
-				return new PersonaListadoPanel(panelId);
-			}
-		});
-
-		tabs.add(new AbstractTab(new Model<String>("Configuracion de Tipos de Items"))
-		{
-			@Override
-			public Panel getPanel(String panelId)
-			{
-				return new ConfiguracionItemListadoPanel(panelId);
-			}
-		});
-		
-		tabs.add(new AbstractTab(new Model<String>("Configuracion de Estados de Items"))
-		{
-			@Override
-			public Panel getPanel(String panelId)
-			{
-				return new ConfiguracionEstadoListadoPanel(panelId);
-			}
-		});
+		}
 
 		add(new AjaxTabbedPanel("tabs", tabs));
 	}

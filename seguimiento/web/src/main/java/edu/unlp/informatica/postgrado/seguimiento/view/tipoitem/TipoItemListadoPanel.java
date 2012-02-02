@@ -16,12 +16,11 @@ import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
-
-
-
 
 /**
  * page that demonstrates dataview and sorting
@@ -29,6 +28,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
  * @author dariovmartine
  * 
  */
+@WebAuthorizeInstantiation({ Rol.ROLE_USER })
 public class TipoItemListadoPanel extends Panel {
 	
 	/**
@@ -51,10 +51,7 @@ public class TipoItemListadoPanel extends Panel {
 		
 		super(id);
 		setOutputMarkupId(true);
-		final Label result;
-		//add(result = new Label("result", new PropertyModel<String>(this, "result")));
-		//result.setOutputMarkupId(true);
-	
+			
 		final ModalWindow tipoItemEditWindow;
 		add(tipoItemEditWindow = new ModalWindow("modal2"));
 				

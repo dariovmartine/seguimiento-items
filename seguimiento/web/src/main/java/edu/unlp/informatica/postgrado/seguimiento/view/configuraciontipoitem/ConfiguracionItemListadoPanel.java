@@ -13,7 +13,9 @@ import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 
 /**
  * page that demonstrates dataview and sorting
@@ -21,6 +23,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
  * @author dariovmartine
  * 
  */
+@WebAuthorizeInstantiation({ Rol.ROLE_USER })
 public class ConfiguracionItemListadoPanel extends Panel {
 	
 	private static final long serialVersionUID = 4716433213674160665L;
@@ -40,9 +43,6 @@ public class ConfiguracionItemListadoPanel extends Panel {
 		
 		super(id);
 		setOutputMarkupId(true);
-		final Label result;
-		//add(result = new Label("result", new PropertyModel<String>(this, "result")));
-		//result.setOutputMarkupId(true);
 	
 		final ModalWindow ConfiguracionItemEditWindow;
 		add(ConfiguracionItemEditWindow = new ModalWindow("modal2"));
