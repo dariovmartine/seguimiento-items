@@ -1,7 +1,11 @@
 package edu.unlp.informatica.postgrado.seguimiento.item;
 
 import static junit.framework.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
+import java.sql.Timestamp;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +13,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
@@ -78,51 +81,90 @@ public class TestItem {
 	@Autowired
 	PrioridadService prService;
 	
+	Persona per;
+	Prioridad pr;
+	TipoItem ti;
+	Estado e1, e2, e3;
+	ConfiguracionEstado confEstado;
+	Proyecto p;
+	
+	Item i;
+	
+	@Before
+	public void setUp(){
+		try {
+			per = new Persona();
+			per.setNombre("Jefi");
+			myService.save(per);
+			
+			pr = new Prioridad();
+			pr.setNombre("Altisi3");
+			prService.save(pr);
+						
+			ti = new TipoItem();
+			ti.setNombre("Ampliació3");
+			tiService.save(ti);
+			
+			e1 = new Estado();
+			e1.setNombre("inicial");
+			eService.save(e1);
+			
+			e2 = new Estado();
+			e2.setNombre("en proceso");
+			eService.save(e2);
+			
+			e3 = new Estado();
+			e3.setNombre("finalizado");
+			eService.save(e3);
+			
+			confEstado = new ConfiguracionEstado();
+			ConfiguracionItem ci = new ConfiguracionItem();
+			ci.getProximosEstados().put(e1, confEstado);
+			ci.setTipoItem(ti);
+			confEstado.setConfiguracionItem(ci);
+			confEstado.getProximosEstados().add(e2);
+			//ciService.save(ci);
+			
+			i = new Item();
+			i.cambiarEstado(e1, null, "estado inicial");
+			i.setFechaCarga(Timestamp.valueOf("2012-02-02 10:00:00"));
+			i.setTipoItem(ti);
+			i.setTitulo("prueba");
+			i.setDescripcion("descrip");
+			i.setPrioridad(pr);
+			i.setResponsable(per);
+			
+			p = new Proyecto();
+			p.setLider(per);
+			p.setNombre("ppp2");
+			p.getTipoItems().put(ti, ci);
+			p.getIntegrantes().add(per);
+			ci.setProyecto(p);
+			
+			proService.save(p);
+			i.setProyecto(p);
+			iService.save(i);
+				
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
 	@Test
 	@Rollback
 	public void test() {
 		
 		try {
-			Persona i = new Persona();
-			i.setNombre("Jefi");
-			myService.save(i);
-			
-			Prioridad pr = new Prioridad();
-			pr.setNombre("Altisi3");
-			prService.save(pr);
-						
-			TipoItem ti = new TipoItem();
-			ti.setNombre("Ampliació3");
-			tiService.save(ti);
-			
-			Estado e = new Estado();
-			e.setNombre("sss4");
-			eService.save(e);
-			
-			ConfiguracionEstado confEstado = new ConfiguracionEstado();
-			ConfiguracionItem ci = new ConfiguracionItem();
-			ci.getProximosEstados().put(e, confEstado);
-			ci.setTipoItem(ti);
-			confEstado.setConfiguracionItem(ci);
-			//ciService.save(ci);
-			
-			Proyecto p = new Proyecto();
-			p.setLider(i);
-			p.setNombre("ppp2");
-			p.getTipoItems().put(ti, ci);
-			p.getIntegrantes().add(i);
-			ci.setProyecto(p);
-			proService.save(p);
-			
 			
 			Item i1 = new Item();
 			i1.setTitulo("lu3333");
 			i1.setProyecto(p);
 			i1.setPrioridad(pr);
 			i1.setDescripcion("ss");
-			i1.setResponsable(i);
+			i1.setResponsable(per);
 			i1.setTipoItem(ti);
-			i1.setEstado(e);
+			i1.setEstado(e1);
 			iService.save(i1);
 			
 			
@@ -131,5 +173,22 @@ public class TestItem {
 			fail(e.getMessage());
 		}
 		
+	}
+	
+	@Test
+	@Rollback
+	public void tetsCambioEstadook() {
+		try {
+			int cantHistInicial, cantHistFinal;
+			cantHistInicial = i.getHistorial().size();
+			i.cambiarEstado(e2, per, "probando cambio de estado");
+			iService.save(i);
+			cantHistFinal = i.getHistorial().size();
+			
+			assertTrue("Debería habercambiado de estado", i.getEstado().equals(e2) && cantHistInicial == cantHistFinal-1);
+			} catch (ServiceException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 }
