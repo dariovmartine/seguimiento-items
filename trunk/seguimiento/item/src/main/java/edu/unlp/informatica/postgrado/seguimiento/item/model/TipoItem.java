@@ -16,7 +16,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "TIPO_ITEM")
-public class TipoItem  implements Serializable {
+public class TipoItem  implements Serializable, Numerable {
 
 	
 	/**

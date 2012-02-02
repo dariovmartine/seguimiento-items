@@ -64,17 +64,15 @@ public class ProyectoEditPanel extends Panel {
 			protected void onSubmit(AjaxRequestTarget target)
 			{
 				Proyecto newVersion = (Proyecto) getForm().getModelObject();
-				
-				Proyecto proyecto;
+								
 				try {
 					
 					if (newVersion.getId() != null) {
-						
-						
-						proyecto = DataSourceLocator.getInstance().getProyectoService().update(newVersion);
+												
+						DataSourceLocator.getInstance().getProyectoService().update(newVersion);
 					} else {
 						
-						proyecto = DataSourceLocator.getInstance().getProyectoService().save(newVersion);
+						DataSourceLocator.getInstance().getProyectoService().save(newVersion);
 					}				
 					
 					// Esto es para que se refresque la grilla de datos

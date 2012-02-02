@@ -18,30 +18,5 @@ public class ConfiguracionEstadoService extends AbstractService<ConfiguracionEst
 
 		return repository;
 	}
-
-	@Override
-	public ConfiguracionEstado save(ConfiguracionEstado entity)
-			throws ServiceException {
-		throw new ServiceException("No pueden crearse directamente una configuración de estado.");
-	}
-
-	@Override
-	public ConfiguracionEstado update(ConfiguracionEstado entity)
-			throws ServiceException {
-
-		if (entity != null && entity.getId() != null) {
-			return super.update(entity);
-		}
-		
-		throw new ServiceException("No pueden crearse directamente una configuración de estado.");
-	}
-
-	@Override
-	public void delete(ConfiguracionEstado entity) throws ServiceException {
-
-		throw new ServiceException("No pueden eliminarse directamente una configuración de estado.");
-	}
-	
-	
 	
 }

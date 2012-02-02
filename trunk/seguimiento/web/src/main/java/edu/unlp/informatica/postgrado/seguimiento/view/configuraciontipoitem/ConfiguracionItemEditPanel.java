@@ -60,18 +60,12 @@ public class ConfiguracionItemEditPanel extends Panel {
 			protected void onSubmit(AjaxRequestTarget target)
 			{
 				ConfiguracionItem newVersion = (ConfiguracionItem) getForm().getModelObject();
-				
-				ConfiguracionItem confItem;
+								
 				try {
 					
 					if (newVersion.getId() != null) {
 						
-						confItem = DataSourceLocator.getInstance().getConfiguracionItemService()
-									.getById(newVersion.getId());
-						confItem.setEstadosIniciales(newVersion.getEstadosIniciales());
-						
-						confItem = DataSourceLocator.getInstance().getProyectoService().update(confItem.getProyecto())
-								.getTipoItems().get(confItem.getTipoItem());
+						DataSourceLocator.getInstance().getConfiguracionItemService().update(newVersion);
 					} else {
 						target.appendJavaScript("alert('No puede crear nuevas configuraciones de estado desde esta ventana!');");
 					}

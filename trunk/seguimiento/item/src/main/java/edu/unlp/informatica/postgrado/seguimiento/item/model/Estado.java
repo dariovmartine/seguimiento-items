@@ -16,7 +16,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.validators.ValidUserName;
 
 @Entity
 @Table(name = "ESTADO")
-public class Estado implements Serializable {
+public class Estado implements Serializable, Numerable {
 	
 	/**
 	 * 

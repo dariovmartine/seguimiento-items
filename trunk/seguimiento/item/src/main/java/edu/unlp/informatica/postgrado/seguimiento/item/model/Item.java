@@ -25,7 +25,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.validators.ValidUserName;
 
 @Entity
 @Table(name = "ITEM")
-public class Item implements Serializable {
+public class Item implements Serializable, Numerable {
 
 	/**
 	 * 
