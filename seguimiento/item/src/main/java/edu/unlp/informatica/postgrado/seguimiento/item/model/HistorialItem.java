@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "HISTORIAL_ITEM")
 	
-public class HistorialItem implements Serializable{
+public class HistorialItem implements Serializable, Numerable{
 
 	private static final long serialVersionUID = -5069221919900164546L;
 

@@ -31,7 +31,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.mapper.NotMapper;
  */
 @Entity
 @Table(name = "CONFIG_ITEM")
-public class ConfiguracionItem  implements Serializable {
+public class ConfiguracionItem  implements Serializable, Numerable {
 
 	/**
 	 * 

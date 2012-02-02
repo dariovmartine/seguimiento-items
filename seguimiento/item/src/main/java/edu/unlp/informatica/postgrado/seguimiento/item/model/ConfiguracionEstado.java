@@ -25,7 +25,7 @@ import org.hibernate.annotations.ForeignKey;
  */
 @Entity
 @Table(name = "CONFIG_ESTADO")
-public class ConfiguracionEstado implements Serializable  {
+public class ConfiguracionEstado implements Serializable, Numerable  {
 	
 	/**
 	 * 

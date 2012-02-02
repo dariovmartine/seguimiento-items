@@ -25,41 +25,4 @@ public class ProyectoService extends AbstractService<Proyecto, ProyectoRepositor
 		// TODO Auto-generated method stub
 		return repository;
 	}
-
-	@SuppressWarnings("unchecked")
-	private void setValues(Proyecto original, Proyecto newVersion) {
-		
-		Object v = newVersion.getNombre(); 
-		if (v != null && ! v.equals(original.getNombre())) {
-			original.setNombre((String)v);
-		}
-		v = newVersion.getIntegrantes();
-		if (v != null && ! v.equals(original.getIntegrantes())) {
-			original.setIntegrantes((List<Persona>) v);
-		}
-		v = newVersion.getItems();
-		if (v != null && ! v.equals(original.getItems())) {
-			original.setItems((List<Item>) v);
-		}
-		v = newVersion.getLider();
-		if (v != null && ! v.equals(original.getLider())) {
-			original.setLider((Persona) v);
-		}
-		v = newVersion.getTipoItemList();
-		if (v != null && ! v.equals(original.getTipoItemList())) {
-			original.setTipoItemList((List<TipoItem>) v);
-		}
-	}
-	
-	@Override
-	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
-	public Proyecto update(Proyecto entity) throws ServiceException {
-		
-		Proyecto original = getRepository().getById(entity.getId());
-		setValues(original, entity);
-		//updateProperties(original, entity);		
-		return super.update(original);
-	}
-	
-	
 }

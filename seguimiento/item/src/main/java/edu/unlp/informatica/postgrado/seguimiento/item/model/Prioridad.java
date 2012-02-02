@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PRIORIDAD")
-public class Prioridad  implements Serializable {
+public class Prioridad  implements Serializable, Numerable {
 
 	/**
 	 * 

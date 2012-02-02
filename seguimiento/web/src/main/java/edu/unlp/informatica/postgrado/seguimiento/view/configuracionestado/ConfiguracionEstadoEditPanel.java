@@ -65,17 +65,11 @@ public class ConfiguracionEstadoEditPanel extends Panel {
 			{
 				ConfiguracionEstado newVersion = (ConfiguracionEstado) getForm().getModelObject();
 				
-				ConfiguracionEstado confEstado;
 				try {
 					
 					if (newVersion.getId() != null) {
 						
-						confEstado = DataSourceLocator.getInstance().getConfiguracionEstadoService()
-									.getById(newVersion.getId());
-						confEstado.setEstado(newVersion.getEstado());
-						confEstado.setProximosEstados(newVersion.getProximosEstados());
-						
-						DataSourceLocator.getInstance().getProyectoService().update(confEstado.getConfiguracionItem().getProyecto());
+						DataSourceLocator.getInstance().getConfiguracionEstadoService().update(newVersion);
 					} else {
 						target.appendJavaScript("alert('No puede crear nuevas configuraciones de estado desde esta ventana!');");
 					}
