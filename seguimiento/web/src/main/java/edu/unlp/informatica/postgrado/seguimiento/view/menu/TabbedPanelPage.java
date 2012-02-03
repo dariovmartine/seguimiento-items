@@ -12,8 +12,9 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
+import edu.unlp.informatica.postgrado.seguimiento.HeaderPage;
 import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.*;
 import edu.unlp.informatica.postgrado.seguimiento.view.configuracionestado.ConfiguracionEstadoListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.configuraciontipoitem.ConfiguracionItemListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.estado.EstadoListadoPanel;
@@ -28,7 +29,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.tipoitem.TipoItemListadoP
  * 
  * @author ivaynberg
  */
-@WebAuthorizeInstantiation({ Rol.ROLE_USER })
+@WebAuthorizeInstantiation({ ROLE_USER, ROLE_SUPERVISOR })
 public class TabbedPanelPage extends WebPage
 {
 	/**
@@ -46,6 +47,7 @@ public class TabbedPanelPage extends WebPage
 	{
 		// create a list of ITab objects used to feed the tabbed panel
 		List<ITab> tabs = new ArrayList<ITab>();
+		add(new HeaderPage("mainNavigation","Seguimiento de items", this));
 		
 		panels.put("Items", ItemListadoPanel.class);
 		panels.put("Proyectos", ProyectoListadoPanel.class);

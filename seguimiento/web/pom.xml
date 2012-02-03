@@ -12,11 +12,6 @@
 		<groupId>edu.unlp.informatica.postgrado.seguimiento</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<properties>
-		<slf4j.version>1.5.8</slf4j.version>
-		<jetty.version>6.1.25</jetty.version>
-		<wicket.version>1.5-RC5.1</wicket.version>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>edu.unlp.informatica.postgrado.seguimiento</groupId>

@@ -1,5 +1,6 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model.security;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,19 +15,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Numerable;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 
 @Entity
 @Table(name = "users")
-public class Usuario {
+public class Usuario implements Serializable, Numerable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 349512660083161617L;
+
 	@Column(name = "ID")
 	@GeneratedValue(generator="USUARIO_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="USUARIO_ID_GEN", sequenceName="SEQ_USUARIO_ID", allocationSize=1, initialValue=1)

@@ -1,5 +1,8 @@
 package edu.unlp.informatica.postgrado.seguimiento;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.wicket.authroles.authorization.strategies.role.IRoleCheckingStrategy;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AnnotationsRoleAuthorizationStrategy;
@@ -26,8 +29,11 @@ public class WebAnnotationsRoleAuthorizationStrategy extends
 		final WebAuthorizeInstantiation classAnnotation = componentClass.getAnnotation(WebAuthorizeInstantiation.class);
 		if (classAnnotation != null)
 		{
-			Rol[] roles = classAnnotation.value();
-			authorized = hasAny(new Roles(roles.toString()));
+			Roles roles = new Roles();
+			for (Rol rol : classAnnotation.value()) {
+				roles.add(rol.toString());
+			}
+			authorized = hasAny(roles);
 		}
 		else
 		{
@@ -38,8 +44,11 @@ public class WebAnnotationsRoleAuthorizationStrategy extends
 				final WebAuthorizeInstantiation packageAnnotation = componentPackage.getAnnotation(WebAuthorizeInstantiation.class);
 				if (packageAnnotation != null)
 				{
-					Rol[] roles = packageAnnotation.value();
-					authorized = hasAny(new Roles(roles.toString()));
+					Roles roles = new Roles();
+					for (Rol rol : packageAnnotation.value()) {
+						roles.add(rol.toString());
+					}
+					authorized = hasAny(roles);
 				}
 			}
 		}

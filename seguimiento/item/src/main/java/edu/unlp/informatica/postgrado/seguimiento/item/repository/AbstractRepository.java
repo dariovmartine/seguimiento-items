@@ -41,14 +41,23 @@ public class AbstractRepository<E, K> {
 		return entity;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<E> find() {
 		 
 		return hibernateTemplate.loadAll(clazz);
 	}
-	
+		
 	public E getById(Long id) {
 		return hibernateTemplate.load(clazz, id);
+	}
+	
+	public DetachedCriteria getCriteria() {
+		return DetachedCriteria.forClass(clazz);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<E> findByCriteria(DetachedCriteria c) {
+		 
+		return hibernateTemplate.findByCriteria(c);
 	}
 	
 	public long getCount() {

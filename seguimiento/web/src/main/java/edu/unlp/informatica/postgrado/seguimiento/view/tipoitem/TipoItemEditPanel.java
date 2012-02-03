@@ -14,10 +14,10 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.*;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
-@WebAuthorizeInstantiation({ Rol.ROLE_USER })
+@WebAuthorizeInstantiation({ ROLE_USER, ROLE_SUPERVISOR })
 public class TipoItemEditPanel extends Panel {
 
 	/**

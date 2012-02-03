@@ -15,7 +15,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.*;
 
 /**
  * page that demonstrates dataview and sorting
@@ -23,7 +23,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
  * @author dariovmartine
  * 
  */
-@WebAuthorizeInstantiation({ Rol.ROLE_USER })
+@WebAuthorizeInstantiation({ ROLE_USER , ROLE_SUPERVISOR})
 public class ConfiguracionEstadoListadoPanel extends Panel {
 	
 	/**
