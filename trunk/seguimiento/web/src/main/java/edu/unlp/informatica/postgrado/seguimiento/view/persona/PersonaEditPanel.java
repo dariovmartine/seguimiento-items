@@ -72,11 +72,9 @@ public class PersonaEditPanel extends Panel {
 					
 					if (newVersion.getId() != null) {
 						
-						persona = DataSourceLocator.getInstance().getPersonaService()
-									.getById(newVersion.getId());
-						persona.setNombre(newVersion.getNombre());
+						persona = DataSourceLocator.getInstance().getPersonaService().getById(newVersion.getId());
 						
-						DataSourceLocator.getInstance().getPersonaService().update(persona);
+						DataSourceLocator.getInstance().getPersonaService().update(newVersion);
 					} else {
 						
 						persona = newVersion;
