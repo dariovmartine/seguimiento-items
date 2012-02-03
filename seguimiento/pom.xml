@@ -16,7 +16,7 @@
 	<properties>
 		<slf4j.version>1.5.8</slf4j.version>
 		<jetty.version>6.1.25</jetty.version>
-		<wicket.version>1.5-RC5.1</wicket.version>
+		<wicket.version>1.5.4</wicket.version>
 		<hibernate.commons.annotations>3.2.0.Final</hibernate.commons.annotations>
 		<hibernate.version>3.6.7.Final</hibernate.version>
 		<hibernate.validator>4.2.0.Final</hibernate.validator>
