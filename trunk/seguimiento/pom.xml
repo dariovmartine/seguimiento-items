@@ -21,7 +21,6 @@
 		<hibernate.version>3.6.7.Final</hibernate.version>
 		<hibernate.validator>4.2.0.Final</hibernate.validator>
 		<org.springframework.version>3.1.0.RELEASE</org.springframework.version>
-		<org.springwebflow.version>2.2.0.RELEASE</org.springwebflow.version>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<dozer.version>5.3.2</dozer.version>
