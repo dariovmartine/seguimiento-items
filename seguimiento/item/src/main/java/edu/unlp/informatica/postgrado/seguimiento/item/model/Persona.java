@@ -1,18 +1,30 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.ForeignKey;
+
+import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 
 @Entity
-@Table(name = "PERSONA")
+@Table(name = "users")
 public class Persona  implements Serializable, Numerable {
 
 	/**
@@ -29,6 +41,27 @@ public class Persona  implements Serializable, Numerable {
 	@NotNull
 	@Column(name = "NOMBRE")
 	private String nombre;
+		
+	@NotNull
+	@Size(max=50)
+	@Column(name="username", unique=true, nullable=false)
+	String userName;
+	
+	@NotNull
+	@Size(max=50)
+	@Column(name="password")
+	String password;
+	
+	@NotNull	
+	@Column(name="enabled")
+	boolean habilitado;
+	
+	@ElementCollection(targetClass=Rol.class) 
+	@Enumerated(EnumType.STRING)
+	@CollectionTable(name = "authorities",   joinColumns = @JoinColumn(name = "username", referencedColumnName="username"))
+	@Column(name="authority", length=50 )
+	List<Rol> roles = new ArrayList<Rol>();
+
 
 	public Long getId() {
 		return id;
@@ -74,6 +107,38 @@ public class Persona  implements Serializable, Numerable {
 	@Override
 	public String toString() {
 		return  nombre;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isHabilitado() {
+		return habilitado;
+	}
+
+	public void setHabilitado(boolean habilitado) {
+		this.habilitado = habilitado;
+	}
+
+	public List<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Rol> roles) {
+		this.roles = roles;
 	}
 	
 	

@@ -37,6 +37,9 @@ public class TestPersona {
 		try {
 			Persona p = new Persona();
 			p.setNombre("Prueba");
+			p.setUserName("test");
+			p.setHabilitado(true);
+			p.setPassword("sss");
 			myService.save(p);
 
 			assertTrue("Debería haberse grabado una persona.", myService.find().size() == 1);

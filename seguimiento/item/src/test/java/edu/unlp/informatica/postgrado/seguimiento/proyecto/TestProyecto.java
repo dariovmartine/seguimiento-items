@@ -75,6 +75,9 @@ public class TestProyecto {
 		
 		try {
 			Persona i = new Persona();
+			i.setUserName("test");
+			i.setHabilitado(true);
+			i.setPassword("sss");
 			i.setNombre("Jefe");
 
 			myService.save(i);
@@ -116,11 +119,12 @@ public class TestProyecto {
 	@Rollback
 	public void updateTipoItem() {
 		
-		
 		try {
-			
-			
+						
 			Persona i = new Persona();
+			i.setUserName("test");
+			i.setHabilitado(true);
+			i.setPassword("sss");
 			i.setNombre("Jefe test");
 
 			myService.save(i);
@@ -178,6 +182,9 @@ public class TestProyecto {
 	public void deleteTipoItemAndConfigItem() {		
 		try {
 			Persona i = new Persona();
+			i.setUserName("test");
+			i.setHabilitado(true);
+			i.setPassword("sss");
 			i.setNombre("Jefe test");
 
 			myService.save(i);

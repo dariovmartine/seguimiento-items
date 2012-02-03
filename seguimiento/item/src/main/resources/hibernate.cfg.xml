@@ -23,7 +23,6 @@
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem" />
 		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.HistorialItem" />
-		<mapping class="edu.unlp.informatica.postgrado.seguimiento.item.model.security.Usuario" />
 		
 	</session-factory>
 </hibernate-configuration>

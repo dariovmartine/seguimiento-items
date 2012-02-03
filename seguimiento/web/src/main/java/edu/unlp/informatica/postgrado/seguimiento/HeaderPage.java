@@ -24,7 +24,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Usuario;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
 /**
@@ -69,8 +69,8 @@ public final class HeaderPage extends Panel
 
 	private String getNombre(String nombre) {
 		try {
-			Usuario usuario = DataSourceLocator.getInstance().getUsuarioService().findByUsername(nombre); 
-			String nombrePersona = usuario.getPersona().getNombre();
+			Persona usuario = DataSourceLocator.getInstance().getPersonaService().findByUsername(nombre); 
+			String nombrePersona = usuario.getNombre();
 			String roles = usuario.getRoles().toString();
 			return nombrePersona + ", Roles: " + roles;
 		} catch (ServiceException e) {
