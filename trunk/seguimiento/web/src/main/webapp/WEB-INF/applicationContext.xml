@@ -30,19 +30,9 @@
         <form-login login-page='/loginPage.html'/>
     </http>
 
-    <!--
-    Usernames/Passwords are
-        moez/moez
-        test/test
-    -->
     <authentication-manager alias="authenticationManager" >
         <authentication-provider>
             <jdbc-user-service data-source-ref="dataSource" />
-<!--             <password-encoder hash="md5"/> -->
-<!--             <user-service> -->
-<!--                 <user name="moez" password="f69471ca2c42621b8b8e731b2b4446e4" authorities="ROLE_SUPERVISOR, ROLE_USER, ROLE_TELLER" /> -->
-<!--                 <user name="test" password="098f6bcd4621d373cade4e832627b4f6" authorities="ROLE_USER" /> -->
-<!--             </user-service> -->
         </authentication-provider>
     </authentication-manager>
     <global-method-security secured-annotations="enabled" />
