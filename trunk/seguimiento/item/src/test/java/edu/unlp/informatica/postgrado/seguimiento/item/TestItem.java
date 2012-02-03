@@ -95,6 +95,9 @@ public class TestItem {
 		try {
 			per = new Persona();
 			per.setNombre("Jefi");
+			per.setUserName("test");
+			per.setHabilitado(true);
+			per.setPassword("sss");
 			myService.save(per);
 			
 			pr = new Prioridad();

@@ -11,7 +11,6 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Usuario;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionEstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
@@ -21,7 +20,6 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.PersonaService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PrioridadService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
-import edu.unlp.informatica.postgrado.seguimiento.item.service.UsuarioService;
 
 /**
  * Service locator class for contacts database
@@ -55,10 +53,7 @@ public class DataSourceLocator
 	
 	@Autowired
 	private ConfiguracionItemService configuracionItemService;
-	
-	@Autowired
-	private UsuarioService usuarioService;
-	
+		
 	@Autowired
 	private HistorialItemService historialItemService;
 
@@ -78,18 +73,34 @@ public class DataSourceLocator
 				
 				Persona lider = new Persona();
 				lider.setNombre("Jefe");
+				lider.setHabilitado(true);
+				lider.setUserName("test");
+				lider.setPassword("test");
+				lider.getRoles().add(Rol.ROLE_SUPERVISOR);
 				dataSource.getPersonaService().save(lider);
 				
 				Persona i = new Persona();
 				i.setNombre("Lujan");
+				i.setHabilitado(true);
+				i.setUserName("lu");
+				i.setPassword("lu");
+				i.getRoles().add(Rol.ROLE_USER);
 				dataSource.getPersonaService().save(i);
 				
 				i = new Persona();
-				i.setNombre("Dario");
+				i.setNombre("Dario");				
+				i.setHabilitado(true);
+				i.setUserName("dario");
+				i.setPassword("dario");
+				i.getRoles().add(Rol.ROLE_USER);
 				dataSource.getPersonaService().save(i);
 				
 				i = new Persona();
 				i.setNombre("Juan");
+				i.setHabilitado(true);
+				i.setUserName("juan");
+				i.setPassword("juan");
+				i.getRoles().add(Rol.ROLE_USER);
 				dataSource.getPersonaService().save(i);
 							
 				TipoItem ti = new TipoItem();
@@ -150,13 +161,9 @@ public class DataSourceLocator
 				ci2.setTipoItem(ti2);
 				dataSource.getProyectoService().save(p);
 				
-				Usuario usuario = new Usuario();
-				usuario.setHabilitado(true);
-				usuario.setPersona(lider);
-				usuario.setNombre("test");
-				usuario.setPassword("test");
-				usuario.getRoles().add(Rol.ROLE_SUPERVISOR);
-				dataSource.getUsuarioService().save(usuario);
+				
+				
+				
 			}
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
@@ -249,11 +256,5 @@ public class DataSourceLocator
 	public void setConfiguracionItemService(
 			ConfiguracionItemService configuracionItemService) {
 		this.configuracionItemService = configuracionItemService;
-	}
-	public UsuarioService getUsuarioService() {
-		return usuarioService;
-	}
-	public void setUsuarioService(UsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
 	}
 }
