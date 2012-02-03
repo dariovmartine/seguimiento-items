@@ -8,11 +8,13 @@ public enum Rol {
 	ROLE_TELLER("ROLE_TELLER");
 	
 	String value;
+	
 	Rol(String value) {
 		this.value= value;
 	}
 	
-	@Override public String toString() {
+	@Override 
+	public String toString() {
 		return value;
 	}
 }

@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
+import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 import edu.unlp.informatica.postgrado.seguimiento.view.menu.TabbedPanelPage;
 
 /**
@@ -27,6 +28,8 @@ public final class LoginPage extends WebPage {
 
     public LoginPage(final PageParameters parameters) {
         add(new LoginForm("loginform"));
+        add(new HeaderPage("mainNavigation","Seguimiento de items", this));
+        DataSourceLocator.getInstance();       
     }
 
     class LoginForm extends Form {
