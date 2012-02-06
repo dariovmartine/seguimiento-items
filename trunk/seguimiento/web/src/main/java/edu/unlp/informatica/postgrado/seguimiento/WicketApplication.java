@@ -44,12 +44,20 @@ public class WicketApplication extends AuthenticatedWebApplication {
 		return LoginPage.class;
 	}
 
-	class WebRoleAuthorizationStrategy extends RoleAuthorizationStrategy {
+	public static class WebRoleAuthorizationStrategy extends RoleAuthorizationStrategy {
+		
+		private WebAnnotationsRoleAuthorizationStrategy webAnnotationsRoleAuthorizationStrategy;
 		
 		public WebRoleAuthorizationStrategy(final IRoleCheckingStrategy roleCheckingStrategy)
 		{
 			super(roleCheckingStrategy);
-			add(new WebAnnotationsRoleAuthorizationStrategy(roleCheckingStrategy));
+			webAnnotationsRoleAuthorizationStrategy = 
+				new WebAnnotationsRoleAuthorizationStrategy(roleCheckingStrategy);
+			add(webAnnotationsRoleAuthorizationStrategy);
+		}
+
+		public WebAnnotationsRoleAuthorizationStrategy getWebAnnotationsRoleAuthorizationStrategy() {
+			return webAnnotationsRoleAuthorizationStrategy;
 		}
 	}
 }

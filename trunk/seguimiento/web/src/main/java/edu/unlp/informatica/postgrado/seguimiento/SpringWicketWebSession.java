@@ -81,9 +81,11 @@ public class SpringWicketWebSession extends AuthenticatedWebSession {
     }
 
     private void addRolesFromAuthentication(Roles roles, Authentication authentication) {
-        for (GrantedAuthority authority : authentication.getAuthorities()) {
-            roles.add(authority.getAuthority());
-        }
+    	if (authentication != null) {
+    		for (GrantedAuthority authority : authentication.getAuthorities()) {
+        		roles.add(authority.getAuthority());
+        	}
+    	}
     }
 
     

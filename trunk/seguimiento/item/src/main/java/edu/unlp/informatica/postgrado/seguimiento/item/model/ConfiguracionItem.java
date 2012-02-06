@@ -98,9 +98,9 @@ public class ConfiguracionItem  implements Serializable, Numerable {
 		
 		for (Estado estado : newEstados) {
 			
-			if (INICIAL != estado.getTipoEstado()) {
-				throw new IllegalArgumentException(estado + " no es un estado inicial.");
-			}
+//			if (INICIAL != estado.getTipoEstado()) {
+//				throw new IllegalArgumentException(estado + " no es un estado inicial.");
+//			}
 			
 			if (! proximosEstados.containsKey(estado)) {
 				ConfiguracionEstado confEstado = new ConfiguracionEstado();

@@ -4,11 +4,16 @@
 	<form wicket:id="inputForm" class="inputForm">
 		Estados iniciales: <!-- 		<select wicket:id="estadosIniciales" size="5"/> -->	<br/>
 		<span wicket:id="estadosIniciales">
-		<span wicket:id="estadosInicialesCheckBox">
-           <input type="checkbox" wicket:id="check"/><label wicket:id="estadoInicial" style="display:inline;"></label>
-        </span>
-        </span>                                
+    		<span wicket:id="estadosInicialesCheckBox">
+               <input type="checkbox" wicket:id="check"/><label wicket:id="estadoInicial" style="display:inline;"></label><br/>
+            </span>
+        </span>         
 		<input type="submit" value="Grabar"/>
 		<input type="button" value="Cancelar" wicket:id="closeCancel" />		
-	</form>	
+	</form>
+	<legend title="Nota">
+        Estos estados iniciales indican de que estado se puede ir a que otro.<br/>
+        No necesariamente tienen que ser iniciales. <br/>
+        Ya que sino no podrian definirse las transiciones intermedias. 
+    </legend>	
 </wicket:panel>
