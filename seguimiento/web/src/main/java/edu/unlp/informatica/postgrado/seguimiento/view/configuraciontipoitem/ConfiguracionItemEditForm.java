@@ -32,7 +32,7 @@ public class ConfiguracionItemEditForm extends
 			
 			add(checks);
 			ListView<Estado> checksList = new ListView<Estado>(
-					"estadosInicialesCheckBox", DataSourceLocator.getInstance().getEstadoService().findEstadosIniciales()) {
+					"estadosInicialesCheckBox", DataSourceLocator.getInstance().getEstadoService().find()) {
 				
 				private static final long serialVersionUID = -6087603235109311980L;
 

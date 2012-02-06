@@ -1,8 +1,5 @@
 package edu.unlp.informatica.postgrado.seguimiento;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.wicket.authroles.authorization.strategies.role.IRoleCheckingStrategy;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.authroles.authorization.strategies.role.annotations.AnnotationsRoleAuthorizationStrategy;

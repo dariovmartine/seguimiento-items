@@ -1,5 +1,10 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.item;
 
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.ADMINISTRADOR;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.DESARROLLADOR;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.LIDER_DE_PROYECTO;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.USUARIO;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.IAjaxCallDecorator;
@@ -12,9 +17,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
+import edu.unlp.informatica.postgrado.seguimiento.WicketApplication;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
-import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.*;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 import edu.unlp.informatica.postgrado.seguimiento.view.tipoitem.TipoItemEditPanel;
 
@@ -114,62 +119,26 @@ public class ItemEditPanel extends Panel {
 			}			
 		});
 		
-		/*final ModalWindow proyectoEditWindow;
-		final ProyectoEditPanel proyectoEditPanel;
-		add(proyectoEditWindow = new ModalWindow("modal2"));
-				
-		proyectoEditWindow.setContent(proyectoEditPanel = new ProyectoEditPanel(proyectoEditWindow.getContentId()));
-		proyectoEditWindow.setTitle("Proyecto");
-		proyectoEditWindow.setCookieName("modal-2");
-		
-		proyectoEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
-
-			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
-				// setResult("Modal window 2 - close button");
-				return true;
-			}
-		});
-
-		proyectoEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
-
-			
-			public void onClose(AjaxRequestTarget target) {
-				
-				target.add(formInput.updateProyecto());
-			}
-		});
-		
-		add(new AjaxLink<Void>("open")
-		{
-			@Override
-			public void onClick(AjaxRequestTarget target)
-			{
-				target.add(proyectoEditPanel.getFormInput());
-				proyectoEditPanel.getFormInput().clearInput();
-				proyectoEditWindow.show(target);
-				
-			}
-		});
-
-	}*/
-		
 		final ModalWindow tipoItemEditWindow;
 		final TipoItemEditPanel tipoItemEditPanel;
 		add(tipoItemEditWindow = new ModalWindow("modal2"));
-				
-		tipoItemEditWindow.setContent(tipoItemEditPanel = new TipoItemEditPanel(tipoItemEditWindow.getContentId()));
-		tipoItemEditWindow.setTitle("Tipo de Item");
-		tipoItemEditWindow.setCookieName("modal-2");
 		
-		tipoItemEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
+		if (((WicketApplication.WebRoleAuthorizationStrategy)getApplication().getSecuritySettings().getAuthorizationStrategy()).isInstantiationAuthorized(
+		   TipoItemEditPanel.class)) {
+								
+			tipoItemEditWindow.setContent(tipoItemEditPanel = new TipoItemEditPanel(tipoItemEditWindow.getContentId()));
+			tipoItemEditWindow.setTitle("Tipo de Item");
+			tipoItemEditWindow.setCookieName("modal-2");
+		
+			tipoItemEditWindow.setCloseButtonCallback(new ModalWindow.CloseButtonCallback() {
 
-			public boolean onCloseButtonClicked(AjaxRequestTarget target) {
-				// setResult("Modal window 2 - close button");
-				return true;
-			}
-		});
+				public boolean onCloseButtonClicked(AjaxRequestTarget target) {
+					// setResult("Modal window 2 - close button");
+					return true;
+				}
+			});
 
-		tipoItemEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
+			tipoItemEditWindow.setWindowClosedCallback(new ModalWindow.WindowClosedCallback() {
 
 			/**
 			 * 
@@ -188,10 +157,24 @@ public class ItemEditPanel extends Panel {
 				target.add(tipoItemEditPanel.getFormInput());
 				tipoItemEditPanel.getFormInput().clearInput();
 				tipoItemEditWindow.show(target);
-				
 			}
 		});
+		} else {
+		
+			add(new AjaxLink<Void>("open") {
+								
+				@Override
+				public void onClick(AjaxRequestTarget target) {
+						
+				}
 
+				@Override
+				public boolean isVisible() {
+					// TODO Auto-generated method stub
+					return false;
+				}
+			});
+		}
 	}
 	
 	public void setItemId(Long itemId) {
