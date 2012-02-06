@@ -25,6 +25,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.PersonaService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PrioridadService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.*;
 
 /**
  * Service locator class for contacts database
@@ -135,19 +136,28 @@ public class DataSourceLocator
 				dataSource.getTipoItemService().save(ti2);
 								
 				Estado e = new Estado();
+				e.setNombre("Aceptado");
+				e.setTipoEstado(INICIAL); 
+				dataSource.getEstadoService().save(e);
+
+				e = new Estado();
 				e.setNombre("Creado");
+				e.setTipoEstado(INICIAL); 
 				dataSource.getEstadoService().save(e);
 				
 				Estado e2 = new Estado();
 				e2.setNombre("Desarrollo");
+				e2.setTipoEstado(INTERMEDIO);
 				dataSource.getEstadoService().save(e2);
 				
 				e2 = new Estado();
 				e2.setNombre("Validación");
+				e2.setTipoEstado(INTERMEDIO);
 				dataSource.getEstadoService().save(e2);
 				
 				e2 = new Estado();
 				e2.setNombre("Terminado");
+				e2.setTipoEstado(FINAL);
 				dataSource.getEstadoService().save(e2);
 				
 				ConfiguracionItem ci = new ConfiguracionItem();
