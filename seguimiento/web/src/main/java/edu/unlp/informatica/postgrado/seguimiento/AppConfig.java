@@ -6,7 +6,6 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.dozer.DozerBeanMapper;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMa
 public class AppConfig {
 
     @Bean
-    public PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer()
+    public static PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer()
     {
         PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
         ppc.setLocation(new ClassPathResource("item.properties"));
