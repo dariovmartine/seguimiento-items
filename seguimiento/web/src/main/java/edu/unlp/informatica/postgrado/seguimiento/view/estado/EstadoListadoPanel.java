@@ -29,7 +29,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
  * @author dariovmartine
  * 
  */
-@WebAuthorizeInstantiation({ ROLE_USER , ROLE_SUPERVISOR})
+@WebAuthorizeInstantiation({ ADMINISTRADOR, LIDER_DE_PROYECTO})
 public class EstadoListadoPanel extends Panel {
 	
 	/**

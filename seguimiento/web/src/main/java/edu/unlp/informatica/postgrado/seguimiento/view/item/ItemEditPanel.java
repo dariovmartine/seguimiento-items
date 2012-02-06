@@ -18,7 +18,7 @@ import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 import edu.unlp.informatica.postgrado.seguimiento.view.tipoitem.TipoItemEditPanel;
 
-@WebAuthorizeInstantiation({ ROLE_USER , ROLE_SUPERVISOR})
+@WebAuthorizeInstantiation({ ADMINISTRADOR, USUARIO, LIDER_DE_PROYECTO, DESARROLLADOR})
 public class ItemEditPanel extends Panel {
 
 	/**
