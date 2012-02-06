@@ -68,9 +68,9 @@ public class Estado implements Serializable, Numerable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		result = prime * result
-				+ ((tipoEstado == null) ? 0 : tipoEstado.hashCode());
+//		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+//		result = prime * result
+//				+ ((tipoEstado == null) ? 0 : tipoEstado.hashCode());
 		return result;
 	}
 
