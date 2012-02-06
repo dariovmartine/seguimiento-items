@@ -19,8 +19,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.ADMINISTRADOR;
 
 /**
  * page that demonstrates dataview and sorting
@@ -28,7 +28,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
  * @author dariovmartine
  * 
  */
-@WebAuthorizeInstantiation({ Rol.ROLE_SUPERVISOR })
+@WebAuthorizeInstantiation({ ADMINISTRADOR })
 public class PersonaListadoPanel extends Panel {
 	
 	/**

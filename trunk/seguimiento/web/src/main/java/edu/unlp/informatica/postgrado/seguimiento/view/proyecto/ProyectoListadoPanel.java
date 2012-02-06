@@ -1,5 +1,8 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.proyecto;
 
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.ADMINISTRADOR;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.LIDER_DE_PROYECTO;
+
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -28,7 +31,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
  * @author dariovmartine
  * 
  */
-@WebAuthorizeInstantiation({ Rol.ROLE_SUPERVISOR })
+@WebAuthorizeInstantiation({ ADMINISTRADOR, LIDER_DE_PROYECTO })
 public class ProyectoListadoPanel extends Panel {
 	
 	/**

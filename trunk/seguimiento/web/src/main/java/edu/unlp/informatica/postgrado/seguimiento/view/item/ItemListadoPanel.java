@@ -30,7 +30,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
  * @author dariovmartine
  * 
  */
-@WebAuthorizeInstantiation({ ROLE_USER , ROLE_SUPERVISOR})
+@WebAuthorizeInstantiation({ ADMINISTRADOR, USUARIO, LIDER_DE_PROYECTO, DESARROLLADOR})
 public class ItemListadoPanel extends Panel {
 	
 	/**

@@ -1,5 +1,8 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.proyecto;
 
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.ADMINISTRADOR;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.LIDER_DE_PROYECTO;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.IAjaxCallDecorator;
@@ -14,10 +17,9 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 
-@WebAuthorizeInstantiation({ Rol.ROLE_SUPERVISOR })
+@WebAuthorizeInstantiation({ ADMINISTRADOR, LIDER_DE_PROYECTO })
 public class ProyectoEditPanel extends Panel {
 
 	/**

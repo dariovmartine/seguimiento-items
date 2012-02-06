@@ -23,7 +23,7 @@ import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol
  * @author dariovmartine
  * 
  */
-@WebAuthorizeInstantiation({ ROLE_USER , ROLE_SUPERVISOR})
+@WebAuthorizeInstantiation({ ADMINISTRADOR, LIDER_DE_PROYECTO})
 public class ConfiguracionItemListadoPanel extends Panel {
 	
 	private static final long serialVersionUID = 4716433213674160665L;

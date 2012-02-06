@@ -29,7 +29,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.tipoitem.TipoItemListadoP
  * 
  * @author ivaynberg
  */
-@WebAuthorizeInstantiation({ ROLE_USER, ROLE_SUPERVISOR })
+@WebAuthorizeInstantiation({ ADMINISTRADOR, USUARIO, LIDER_DE_PROYECTO, DESARROLLADOR})
 public class TabbedPanelPage extends WebPage
 {
 	/**

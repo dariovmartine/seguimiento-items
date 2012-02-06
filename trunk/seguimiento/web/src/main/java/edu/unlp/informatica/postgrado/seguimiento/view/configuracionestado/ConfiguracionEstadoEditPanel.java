@@ -17,7 +17,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.*;
 
-@WebAuthorizeInstantiation({ ROLE_USER , ROLE_SUPERVISOR})
+@WebAuthorizeInstantiation({ ADMINISTRADOR, LIDER_DE_PROYECTO})
 public class ConfiguracionEstadoEditPanel extends Panel {
 
 	/**

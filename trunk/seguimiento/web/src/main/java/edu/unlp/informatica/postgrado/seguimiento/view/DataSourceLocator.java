@@ -1,5 +1,10 @@
 package edu.unlp.informatica.postgrado.seguimiento.view;
 
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.ADMINISTRADOR;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.DESARROLLADOR;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.LIDER_DE_PROYECTO;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.USUARIO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,9 +13,9 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionEstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionItemService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
@@ -76,7 +81,7 @@ public class DataSourceLocator
 				lider.setHabilitado(true);
 				lider.setUserName("test");
 				lider.setPassword("test");
-				lider.getRoles().add(Rol.ROLE_SUPERVISOR);
+				lider.getRoles().add(ADMINISTRADOR);
 				dataSource.getPersonaService().save(lider);
 				
 				Persona i = new Persona();
@@ -84,7 +89,7 @@ public class DataSourceLocator
 				i.setHabilitado(true);
 				i.setUserName("lu");
 				i.setPassword("lu");
-				i.getRoles().add(Rol.ROLE_USER);
+				i.getRoles().add(LIDER_DE_PROYECTO);
 				dataSource.getPersonaService().save(i);
 				
 				i = new Persona();
@@ -92,7 +97,7 @@ public class DataSourceLocator
 				i.setHabilitado(true);
 				i.setUserName("dario");
 				i.setPassword("dario");
-				i.getRoles().add(Rol.ROLE_USER);
+				i.getRoles().add(DESARROLLADOR);
 				dataSource.getPersonaService().save(i);
 				
 				i = new Persona();
@@ -100,8 +105,18 @@ public class DataSourceLocator
 				i.setHabilitado(true);
 				i.setUserName("juan");
 				i.setPassword("juan");
-				i.getRoles().add(Rol.ROLE_USER);
+				i.getRoles().add(USUARIO);
 				dataSource.getPersonaService().save(i);
+				
+				Prioridad pr = new Prioridad();
+				pr.setNombre("ALTA");
+				dataSource.getPrioridadService().save(pr);
+				pr = new Prioridad();
+				pr.setNombre("BAJA");
+				dataSource.getPrioridadService().save(pr);
+				pr = new Prioridad();
+				pr.setNombre("MEDIA");
+				dataSource.getPrioridadService().save(pr);
 							
 				TipoItem ti = new TipoItem();
 				ti.setNombre("Ampliación");
