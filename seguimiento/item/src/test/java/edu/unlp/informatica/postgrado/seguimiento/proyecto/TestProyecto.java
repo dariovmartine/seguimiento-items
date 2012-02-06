@@ -33,6 +33,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PersonaService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={
@@ -87,12 +88,15 @@ public class TestProyecto {
 			tiService.save(ti);
 			
 			Estado e = new Estado();
-			e.setNombre("Inicial");
-			eService.save(e);
+			e.setNombre("Inicial test");
+			e.setTipoEstado(INICIAL);
+			e = eService.save(e);
 			
 			Estado e2 = new Estado();
-			e2.setNombre("Finalizado");
-			eService.save(e2);
+			e2.setNombre("Finalizado test");
+			e2.setTipoEstado(FINAL);
+			e2 = eService.save(e2);
+			
 			
 			ConfiguracionItem ci = new ConfiguracionItem();
 			ConfiguracionEstado confEstado = new ConfiguracionEstado();
@@ -139,11 +143,14 @@ public class TestProyecto {
 						
 			Estado e = new Estado();
 			e.setNombre("Inicial test");
+			e.setTipoEstado(INICIAL);
 			e = eService.save(e);
 			
 			Estado e2 = new Estado();
 			e2.setNombre("Finalizado test");
+			e2.setTipoEstado(FINAL);
 			e2 = eService.save(e2);
+			
 			
 			ConfiguracionItem ci = new ConfiguracionItem();
 			ConfiguracionEstado confEstado = new ConfiguracionEstado();
@@ -203,10 +210,12 @@ public class TestProyecto {
 						
 			Estado e = new Estado();
 			e.setNombre("Inicial test");
+			e.setTipoEstado(INICIAL);
 			e = eService.save(e);
 			
 			Estado e2 = new Estado();
 			e2.setNombre("Finalizado test");
+			e2.setTipoEstado(FINAL);
 			e2 = eService.save(e2);
 			
 			ConfiguracionItem ci = new ConfiguracionItem();

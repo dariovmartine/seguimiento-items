@@ -23,6 +23,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.*;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.ConfiguracionItemRepository;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.EstadoRepository;
@@ -110,14 +111,17 @@ public class TestItem {
 			
 			e1 = new Estado();
 			e1.setNombre("inicial");
+			e1.setTipoEstado(INICIAL);
 			eService.save(e1);
 			
 			e2 = new Estado();
 			e2.setNombre("en proceso");
+			e2.setTipoEstado(INTERMEDIO);
 			eService.save(e2);
 			
 			e3 = new Estado();
 			e3.setNombre("finalizado");
+			e3.setTipoEstado(FINAL);
 			eService.save(e3);
 			
 			confEstado = new ConfiguracionEstado();

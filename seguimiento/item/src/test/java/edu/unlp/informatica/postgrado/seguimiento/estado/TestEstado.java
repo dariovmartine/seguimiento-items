@@ -15,8 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.EstadoRepository;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.INICIAL;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={
@@ -36,6 +38,7 @@ public class TestEstado {
 		
 		try {
 			Estado i = new Estado();
+			i.setTipoEstado(INICIAL);
 			i.setNombre("prueba");
 			estadoService.save(i);
 			
