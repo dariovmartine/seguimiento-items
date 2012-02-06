@@ -18,6 +18,7 @@ package edu.unlp.informatica.postgrado.seguimiento;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.link.PopupSettings;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.springframework.security.core.Authentication;
@@ -54,13 +55,19 @@ public final class HeaderPage extends Panel
 		super(id);
 		
 		add(new Label("exampleTitle", exampleTitle));
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (authentication != null && authentication.isAuthenticated()) {
-			add(new Label("usuario", "Usuario: " + authentication.getName()));
-			add(new Label("nombre", "Nombre: " + getNombre(authentication.getName())));
-		} else {
+		if (SpringWicketWebSession.getSpringWicketWebSession().isSignedIn()) {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			if (authentication.isAuthenticated()) {
+				add(new Label("usuario", "Usuario: " + authentication.getName()));
+				add(new Label("nombre", "Nombre: " + getNombre(authentication.getName())));
+				add(new LogoutLink("logout", true));
+			}
+		}
+		else {
 			add(new Label("usuario", ""));
 			add(new Label("nombre", ""));
+			add(new LogoutLink("logout", false));
+
 		}
 		PopupSettings settings = new PopupSettings("sources", PopupSettings.RESIZABLE);
 		settings.setWidth(800);
@@ -77,5 +84,33 @@ public final class HeaderPage extends Panel
 			e.printStackTrace();
 		}
 		return "Error al recuperar usuario!";
+	}
+	
+	class LogoutLink extends Link {
+		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1327746219372775393L;
+		
+		private boolean visible;
+
+		public LogoutLink(String id, boolean visible) {
+			super(id);
+			this.visible = visible;
+		}
+
+		@Override
+		public void onClick(){
+			SpringWicketWebSession.getSpringWicketWebSession().invalidate();
+			setResponsePage(LoginPage.class);
+		}
+
+		@Override
+		public boolean isVisible() {
+			// TODO Auto-generated method stub
+			return visible;
+		}
+		
 	}
 }

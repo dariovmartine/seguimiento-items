@@ -34,7 +34,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 public class AppConfig {
 
     @Bean
-    public PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer()
+    public static PropertyPlaceholderConfigurer getPropertyPlaceholderConfigurer()
     {
         PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
         ppc.setLocation(new ClassPathResource("item.properties"));

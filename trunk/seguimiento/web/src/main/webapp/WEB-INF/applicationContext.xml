@@ -25,10 +25,16 @@
   	<beans:bean id="wicketApplication" class="edu.unlp.informatica.postgrado.seguimiento.WicketApplication"/>
 	
 	<http create-session="never" auto-config="true" >
-        <remember-me/>
-        <intercept-url pattern="/**"/>
-        <form-login login-page='/loginPage.html'/>
+<!--         <remember-me/> -->
+        <intercept-url pattern="/**" />
+        <form-login login-page="/loginPage.html"/>
     </http>
+    
+<!--     <http use-expressions="true"> -->
+<!--         <intercept-url pattern="/**" access="isAuthenticated()" /> -->
+<!--         <form-login login-page="/loginPage.html"/> -->
+<!--         <logout logout-url="/logout" logout-success-url="/loginPage.html"/> -->
+<!--     </http> -->
 
     <authentication-manager alias="authenticationManager" >
         <authentication-provider>

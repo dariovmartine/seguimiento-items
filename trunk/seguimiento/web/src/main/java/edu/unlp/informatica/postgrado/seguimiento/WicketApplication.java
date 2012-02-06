@@ -1,10 +1,10 @@
 package edu.unlp.informatica.postgrado.seguimiento;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.IRoleCheckingStrategy;
 import org.apache.wicket.authroles.authorization.strategies.role.RoleAuthorizationStrategy;
-import org.apache.wicket.authroles.authorization.strategies.role.metadata.MetaDataRoleAuthorizationStrategy;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
@@ -17,16 +17,10 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 public class WicketApplication extends AuthenticatedWebApplication {
 
 	boolean isInitialized = false;
-	
-	/**
-	 * Constructor
-	 */
-	public WicketApplication() {
-
-	}
 
 	@Override
 	protected void init() {
+		
 		if (!isInitialized) {
 			super.init();
 			getComponentInstantiationListeners().add(new SpringComponentInjector(this));
@@ -36,7 +30,7 @@ public class WicketApplication extends AuthenticatedWebApplication {
 	}
 	
 	@Override
-	public Class<LoginPage> getHomePage() {
+	public Class<? extends Page> getHomePage() {
 		return LoginPage.class;
 	}
 
