@@ -1,8 +1,12 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.service;
 
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.INICIAL;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -33,5 +37,18 @@ public class EstadoService extends AbstractService<Estado, EstadoRepository> {
 		}
 		
 		return list;
-	}	
+	}
+	
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
+	public List<Estado> findEstadosIniciales() throws ServiceException {
+		
+		try {
+			DetachedCriteria criteria = getRepository().getCriteria();
+			criteria.add( Restrictions.eq("tipoEstado", INICIAL));
+			return getMapper().map(getRepository().findByCriteria(criteria), ArrayList.class);
+		} catch (Exception e) {
+			
+			throw new ServiceException(e);
+		}
+	}
 }
