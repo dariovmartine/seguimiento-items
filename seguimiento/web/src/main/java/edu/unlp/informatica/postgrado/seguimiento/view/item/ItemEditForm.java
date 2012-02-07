@@ -1,11 +1,9 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.item;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.FormComponent;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.WildcardListModel;
@@ -42,7 +40,6 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 		return proyecto;
 	}
 
-	@SuppressWarnings("serial")
 	public ItemEditForm() {
 		
 		super("inputForm", new Item());
@@ -50,12 +47,14 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 		titulo = new TextField<String>("titulo").setLabel(new Model<String>("Nombre"));
 		add(titulo);
 
-		descripcion = new TextField<String>("descripcion").setLabel(new Model<String>("Descripcion"));
+		descripcion = new TextArea<String>("descripcion").setLabel(new Model<String>("Descripcion"));
 		add(descripcion);
-		
+				   		   
 		try {
 
 			add(estado = new DropDownChoice<Estado>("estado",new WildcardListModel<Estado>(DataSourceLocator.getInstance().getEstadoService().find())){
+
+				private static final long serialVersionUID = 6528477869073116250L;
 
 				@Override
 				public void updateModel() {
@@ -98,20 +97,25 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 			
 		}
 
-		add(proyecto = new DropDownChoice<Proyecto>("proyecto",new ArrayList<Proyecto>()));
-		proyecto.setLabel(new Model<String>("Proyecto"));
-		updateProyecto();
-	}
-
-	public Component updateProyecto() {
-
 		try {
-			proyecto.setChoices(DataSourceLocator.getInstance().getProyectoService().find());	
+			
+			add(proyecto = new DropDownChoice<Proyecto>("proyecto", DataSourceLocator.getInstance().getProyectoService().find()));
+			proyecto.setLabel(new Model<String>("Proyecto"));
 		} catch (ServiceException e) {
-			// TODO: Que hago?			
+			
 		}
-		return proyecto;
+		//updateProyecto();
 	}
+
+//	public Component updateProyecto() {
+//
+//		try {
+//			proyecto.setChoices(DataSourceLocator.getInstance().getProyectoService().find());	
+//		} catch (ServiceException e) {
+//			// TODO: Que hago?			
+//		}
+//		return proyecto;
+//	}
 	
 	public Component updateTipoItem() {
 

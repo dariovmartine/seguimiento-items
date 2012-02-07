@@ -79,27 +79,14 @@ public class ItemEditPanel extends Panel {
 				}
 				Item newVersion = (Item) getForm().getModelObject();
 				
-				Item item;
 				try {
 					
 					if (newVersion.getId() != null) {
 						
-						item = DataSourceLocator.getInstance().getItemService()
-									.getById(newVersion.getId());
-						
-						item.setTitulo(newVersion.getTitulo());
-						item.setDescripcion(newVersion.getDescripcion());
-						item.setPrioridad(newVersion.getPrioridad());
-						item.setProyecto(newVersion.getProyecto());
-						item.setResponsable(newVersion.getResponsable());
-						item.setTipoItem(newVersion.getTipoItem());
-						item.setTitulo(newVersion.getTitulo());
-						
-						DataSourceLocator.getInstance().getItemService().update(item);
+						DataSourceLocator.getInstance().getItemService().update(newVersion);
 					} else {
 						
-						item = newVersion;
-						DataSourceLocator.getInstance().getItemService().save(item);
+						DataSourceLocator.getInstance().getItemService().save(newVersion);
 					}				
 					
 					// Esto es para que se refresque la grilla de datos

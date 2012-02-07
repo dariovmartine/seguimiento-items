@@ -192,7 +192,6 @@ public class Proyecto implements Serializable, Numerable {
 		int result = 1;
 		result = prime * result
 				+ ((integrantes == null) ? 0 : integrantes.hashCode());
-		result = prime * result + ((items == null) ? 0 : items.hashCode());
 		result = prime * result + ((lider == null) ? 0 : lider.hashCode());
 		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
 		result = prime * result
@@ -213,11 +212,6 @@ public class Proyecto implements Serializable, Numerable {
 			if (other.integrantes != null)
 				return false;
 		} else if (!integrantes.equals(other.integrantes))
-			return false;
-		if (items == null) {
-			if (other.items != null)
-				return false;
-		} else if (!items.equals(other.items))
 			return false;
 		if (lider == null) {
 			if (other.lider != null)
