@@ -2,8 +2,13 @@
 <wicket:panel xmlns:wicket="http://wicket.apache.org">
 	<div wicket:id="feedback"></div>
 	<form wicket:id="inputForm" class="inputForm">
-		Estado: <select wicket:id="estado"  size="5"/><br/>
-		Pr&oacute;ximos estados: <select wicket:id="proximosEstados"  size="5"/><br/>
+		Desde el estado: <input wicket:id="estado" type="text" size="10"/><br/>    
+		Pr&oacute;ximos estados:<br/> 
+        <span wicket:id="proximosEstados">
+            <span wicket:id="proximosEstadosCheckBox">
+               <input type="checkbox" wicket:id="check"/><label wicket:id="proximoEstado" style="display:inline;"></label><br/>
+            </span>
+        </span>    
 		<input type="submit" value="Grabar"/>
 		<input type="button" value="Cancelar" wicket:id="closeCancel" />		
 	</form>	
