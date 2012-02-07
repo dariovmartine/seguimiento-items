@@ -24,6 +24,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.mapper.NotMapper;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 
 /**
  * @author  Victor.Martinez
@@ -97,6 +98,9 @@ public class Proyecto implements Serializable, Numerable {
 	}
 
 	public void setLider(Persona lider) {
+		if (! lider.getRoles().contains(Rol.LIDER_DE_PROYECTO)) {
+			throw new IllegalArgumentException("La persona no tiene el rol de lider de proyecto.");
+		}
 		this.lider = lider;
 	}
 

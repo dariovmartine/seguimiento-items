@@ -25,6 +25,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
 import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.*;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.ConfiguracionItemRepository;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.EstadoRepository;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.ItemRepository;
@@ -99,6 +100,7 @@ public class TestItem {
 			per.setUserName("test");
 			per.setHabilitado(true);
 			per.setPassword("sss");
+			per.getRoles().add(Rol.LIDER_DE_PROYECTO);
 			myService.save(per);
 			
 			pr = new Prioridad();
