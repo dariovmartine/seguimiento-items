@@ -5,6 +5,7 @@ import org.apache.wicket.markup.html.form.ListChoice;
 import org.apache.wicket.markup.html.form.ListMultipleChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.util.WildcardListModel;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
@@ -34,9 +35,26 @@ public class ProyectoEditForm extends BaseEntityForm<Proyecto> {
 		
 		try {
 
-			add(lider = new ListChoice<Persona>("lider"));
-			lider.setChoices(DataSourceLocator.getInstance().getPersonaService().find());
+			lider = new ListChoice<Persona>("lider", 
+					new WildcardListModel<Persona>(DataSourceLocator.getInstance().getPersonaService().find()))
+			{
+				private static final long serialVersionUID = -2056220703101217095L;
+
+				@Override
+				public void updateModel() {
+					try {
+						super.updateModel();	
+					} catch (Exception e) {
+						this.getForm().error(e.getCause().getMessage());
+					}
+					
+				}
+				
+				
+			};
+			
 			lider.setLabel(new Model<String>("Lider"));
+			add(lider);
 		} catch (ServiceException e) {
 			
 		}
