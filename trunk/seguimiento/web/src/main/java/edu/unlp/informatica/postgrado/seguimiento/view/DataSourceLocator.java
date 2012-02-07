@@ -77,23 +77,23 @@ public class DataSourceLocator
 		try {
 			if (dataSource.getEstadoService().find().size() == 0) {
 				
+				Persona admin = new Persona();
+				admin.setNombre("Jefe");
+				admin.setHabilitado(true);
+				admin.setUserName("test");
+				admin.setPassword("test");
+				admin.getRoles().add(ADMINISTRADOR);
+				dataSource.getPersonaService().save(admin);
+				
 				Persona lider = new Persona();
-				lider.setNombre("Jefe");
+				lider.setNombre("Lujan");
 				lider.setHabilitado(true);
-				lider.setUserName("test");
-				lider.setPassword("test");
-				lider.getRoles().add(ADMINISTRADOR);
+				lider.setUserName("lu");
+				lider.setPassword("lu");
+				lider.getRoles().add(LIDER_DE_PROYECTO);
 				dataSource.getPersonaService().save(lider);
 				
 				Persona i = new Persona();
-				i.setNombre("Lujan");
-				i.setHabilitado(true);
-				i.setUserName("lu");
-				i.setPassword("lu");
-				i.getRoles().add(LIDER_DE_PROYECTO);
-				dataSource.getPersonaService().save(i);
-				
-				i = new Persona();
 				i.setNombre("Dario");				
 				i.setHabilitado(true);
 				i.setUserName("dario");

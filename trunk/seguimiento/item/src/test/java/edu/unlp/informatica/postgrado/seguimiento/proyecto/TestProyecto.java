@@ -23,6 +23,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.ConfiguracionItemRepository;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.EstadoRepository;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.PersonaRepository;
@@ -80,7 +81,7 @@ public class TestProyecto {
 			i.setHabilitado(true);
 			i.setPassword("sss");
 			i.setNombre("Jefe");
-
+			i.getRoles().add(Rol.LIDER_DE_PROYECTO);
 			myService.save(i);
 						
 			TipoItem ti = new TipoItem();
@@ -128,6 +129,7 @@ public class TestProyecto {
 			Persona i = new Persona();
 			i.setUserName("test");
 			i.setHabilitado(true);
+			i.getRoles().add(Rol.LIDER_DE_PROYECTO);
 			i.setPassword("sss");
 			i.setNombre("Jefe test");
 
@@ -192,6 +194,7 @@ public class TestProyecto {
 			i.setUserName("test");
 			i.setHabilitado(true);
 			i.setPassword("sss");
+			i.getRoles().add(Rol.LIDER_DE_PROYECTO);
 			i.setNombre("Jefe test");
 
 			myService.save(i);
