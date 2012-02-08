@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.util.WildcardListModel;
+import org.apache.wicket.util.string.JavaScriptUtils;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
@@ -99,8 +100,24 @@ public class ItemEditForm extends BaseEntityForm<Item> {
 
 		try {
 			
-			add(proyecto = new DropDownChoice<Proyecto>("proyecto", DataSourceLocator.getInstance().getProyectoService().find()));
+			proyecto = new DropDownChoice<Proyecto>("proyecto", DataSourceLocator.getInstance().getProyectoService().find()) {
+				/**
+				 * 
+				 */
+				private static final long serialVersionUID = 569707133447084433L;
+
+				@Override
+				public void updateModel() {
+					try {
+						super.updateModel();	
+					} catch (Exception e) {
+						this.getForm().error(e.getCause().getMessage());
+					}
+					
+				}
+			};
 			proyecto.setLabel(new Model<String>("Proyecto"));
+			add(proyecto);
 		} catch (ServiceException e) {
 			
 		}

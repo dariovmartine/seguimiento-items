@@ -90,6 +90,15 @@ public class Proyecto implements Serializable, Numerable {
 	}
 
 	public void setIntegrantes(List<Persona> integrantes) {
+	
+		if (items != null) {
+			for (Item item : items) {
+				if (! integrantes.contains(item.getResponsable())) {
+					throw new IllegalArgumentException(item.getResponsable()  + " no puede eliminarse porque es responsable del item " 
+						+ item );		
+				}
+			}
+		}
 		this.integrantes = integrantes;
 	}
 
@@ -122,12 +131,18 @@ public class Proyecto implements Serializable, Numerable {
 		this.tipoItems = tipoItems;
 	}
 	
-	public void addItem(Item item) {
-		
-		if (tipoItems.containsKey(item.getTipoItem())) {
-			items.add(item);
-		} else
-			throw new IllegalArgumentException("El tipo de item no existe en el proyecto");
+	public boolean canAddItem(Item item) {
+		if (item != null && item.getTipoItem() != null) {
+			return tipoItems.containsKey(item.getTipoItem());
+		}
+		return true;
+	}
+	
+	public boolean canUseTipoItem(TipoItem tipoItem) {
+		if (tipoItem != null) {
+			return tipoItems.containsKey(tipoItem);
+		}
+		return true;
 	}
 	
 	public boolean canChangeState(TipoItem tipoItem, Estado estadoActual, Estado estadoNuevo) {
@@ -151,7 +166,11 @@ public class Proyecto implements Serializable, Numerable {
 	}
 	
 	public boolean isPersonInPoject(Persona persona){
-		return this.getIntegrantes().contains(persona);
+		if (persona != null) {
+			return this.getIntegrantes().contains(persona) || 
+				persona.equals(lider);
+		}
+		return false;
 	}
 	
 	@Transient

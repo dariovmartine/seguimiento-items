@@ -122,7 +122,11 @@ public class Item implements Serializable, Numerable {
 	}
 
 	public void setTipoItem(TipoItem tipoItem) {
-		this.tipoItem = tipoItem;
+		if (proyecto == null || proyecto.canUseTipoItem(tipoItem)) {
+			this.tipoItem = tipoItem;
+		} else
+			throw new IllegalArgumentException("El tipo de item '" + tipoItem + "' no existe en el proyecto");
+		
 	}
 
 	public Proyecto getProyecto() {
@@ -130,7 +134,10 @@ public class Item implements Serializable, Numerable {
 	}
 
 	public void setProyecto(Proyecto proyecto) {
-		this.proyecto = proyecto;
+		if (proyecto == null || proyecto.canAddItem(this)) {
+			this.proyecto = proyecto;
+		} else
+			throw new IllegalArgumentException("El tipo de item '" + this.tipoItem + "' no existe en el proyecto");
 	}
 
 	public String getTitulo() {
