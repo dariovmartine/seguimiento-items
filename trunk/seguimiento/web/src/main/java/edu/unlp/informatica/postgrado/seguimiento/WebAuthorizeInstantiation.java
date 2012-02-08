@@ -9,6 +9,9 @@ import java.lang.annotation.Target;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 
+/**
+ * @author dariovmartine
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.PACKAGE, ElementType.TYPE })
 @Documented

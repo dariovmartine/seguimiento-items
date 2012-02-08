@@ -29,7 +29,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.mapper.NotMapper;
 import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.INICIAL;
 
 /**
- * @author  Victor.Martinez
+ * @author  dariovmartine
  */
 @Entity
 @Table(name = "CONFIG_ITEM")

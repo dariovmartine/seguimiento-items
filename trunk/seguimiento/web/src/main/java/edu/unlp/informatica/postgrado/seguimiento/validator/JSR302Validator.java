@@ -25,7 +25,7 @@ import org.apache.wicket.validation.ValidationError;
 
 /**
  *
- * @author juliano
+ * @author dariovmartine
  */
 class JSR302Validator<T> implements IValidator<T>, INullAcceptingValidator<T> {
     

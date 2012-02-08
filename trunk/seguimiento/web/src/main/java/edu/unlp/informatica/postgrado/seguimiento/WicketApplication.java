@@ -13,7 +13,10 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
  * application without deploying, run the Start class.
  * 
  * @see edu.unlp.informatica.postgrado.seguimiento.Start#main(String[])
- */
+ *
+ * @author dariovmartine
+ *
+ **/
 public class WicketApplication extends AuthenticatedWebApplication {
 
 	boolean isInitialized = false;

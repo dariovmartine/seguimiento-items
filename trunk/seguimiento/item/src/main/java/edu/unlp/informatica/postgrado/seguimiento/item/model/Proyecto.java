@@ -27,7 +27,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.mapper.NotMapper;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 
 /**
- * @author  Victor.Martinez
+ * @author dariovmartine
  */
 @Entity
 @Table(name = "PROYECTO")

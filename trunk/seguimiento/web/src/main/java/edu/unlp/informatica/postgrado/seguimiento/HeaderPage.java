@@ -31,7 +31,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 /**
  * Navigation panel for the examples project.
  * 
- * @author Eelco Hillenius
+ * @author dariovmartine
  */
 public final class HeaderPage extends Panel
 {
