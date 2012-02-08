@@ -101,11 +101,11 @@ public class Item implements Serializable, Numerable {
 	}
 
 	public void setResponsable(Persona responsable) {
-		/*if (proyecto != null) {
+		if (proyecto != null) {
 			if (!proyecto.isPersonInPoject(responsable)){
 				throw new IllegalArgumentException("La persona que intenta asignar como responsable no forma parte del proyecto.");
 			}
-		}*/
+		}
 		this.responsable = responsable;
 	}
 
@@ -134,7 +134,6 @@ public class Item implements Serializable, Numerable {
 	}
 
 	public String getTitulo() {
-		System.out.println(this.getHistorial());
 		return titulo;
 	}
 
