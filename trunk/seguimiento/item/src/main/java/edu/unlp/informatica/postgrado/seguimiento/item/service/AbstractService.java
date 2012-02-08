@@ -145,6 +145,7 @@ public abstract class AbstractService<E extends Numerable, R extends AbstractRep
 						Object oldValue = readMethod.invoke(source);
 
 						// Solo seteo valores distintos
+						// Pero que haces cuando queres poner un null? Hay que usar NullObject?
 						if ((newValue == null && oldValue == null) || (newValue != null && ! newValue.equals(oldValue))) { 
 							
 							// Es un map
