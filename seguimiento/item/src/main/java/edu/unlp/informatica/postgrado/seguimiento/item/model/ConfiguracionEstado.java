@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.ForeignKey;
 
 /**
- * @author  Victor.Martinez
+ * @author  dariovmartine
  */
 @Entity
 @Table(name = "CONFIG_ESTADO")

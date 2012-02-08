@@ -13,8 +13,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
 import edu.unlp.informatica.postgrado.seguimiento.view.menu.TabbedPanelPage;
 
 /**
- *
- * @author mbenrhouma
+ * @author dariovmartine
  */
 public final class LoginPage extends WebPage {
 

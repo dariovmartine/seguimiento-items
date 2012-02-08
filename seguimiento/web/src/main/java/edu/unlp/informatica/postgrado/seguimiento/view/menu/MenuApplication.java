@@ -7,7 +7,7 @@ import edu.unlp.informatica.postgrado.seguimiento.WicketApplication;
 /**
  * Application class.
  * 
- * @author Jonathan Locke
+ * @author dariovmartine
  */
 public class MenuApplication extends WicketApplication
 {

@@ -22,7 +22,7 @@ import org.apache.wicket.util.visit.IVisitor;
  *
  * This is a base default form for JPA entities.
  * It supports bean validation using the JSR 303 API.
- * @author juliano
+ * @author dariovmartine
  */
 public class BaseEntityForm<T> extends Form<T> {
 

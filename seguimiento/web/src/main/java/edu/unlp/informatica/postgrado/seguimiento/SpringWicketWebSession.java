@@ -15,8 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
- *
- * @author mbenrhouma
+ * @author dariovmartine
  */
 public class SpringWicketWebSession extends AuthenticatedWebSession {
 

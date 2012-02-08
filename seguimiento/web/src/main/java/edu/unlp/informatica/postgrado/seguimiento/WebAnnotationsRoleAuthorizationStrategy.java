@@ -7,6 +7,9 @@ import org.apache.wicket.request.component.IRequestableComponent;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 
+/**
+ * @author dariovmartine
+ */
 public class WebAnnotationsRoleAuthorizationStrategy extends
 		AnnotationsRoleAuthorizationStrategy {
 

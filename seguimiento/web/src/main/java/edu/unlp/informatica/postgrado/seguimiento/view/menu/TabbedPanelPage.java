@@ -27,7 +27,7 @@ import edu.unlp.informatica.postgrado.seguimiento.view.tipoitem.TipoItemListadoP
 /**
  * Tabbed panel demo.
  * 
- * @author ivaynberg
+ * @author dariovmartine
  */
 @WebAuthorizeInstantiation({ ADMINISTRADOR, USUARIO, LIDER_DE_PROYECTO, DESARROLLADOR})
 public class TabbedPanelPage extends WebPage
