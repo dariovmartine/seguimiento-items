@@ -1,10 +1,13 @@
 package edu.unlp.informatica.postgrado.seguimiento.proyecto;
 
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.FINAL;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.INICIAL;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +37,6 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.PersonaService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
-import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={
@@ -73,7 +75,7 @@ public class TestProyecto {
 		
 	@Test
 	@Rollback
-	public void test() {
+	public void testSaveProject() {
 		
 		try {
 			Persona i = new Persona();
@@ -122,7 +124,7 @@ public class TestProyecto {
 	
 	@Test	
 	@Rollback
-	public void updateTipoItem() {
+	public void updateProjectAddTipoItem() {
 		
 		try {
 						
@@ -184,11 +186,11 @@ public class TestProyecto {
 			// TODO Auto-generated catch block
 			fail(e.getMessage());
 		}
-	}
+	}	
 	
 	@Test	
 	@Rollback
-	public void deleteTipoItemAndConfigItem() {		
+	public void updateProjectRemoveTipoItem() {		
 		try {
 			Persona i = new Persona();
 			i.setUserName("test");
@@ -248,7 +250,9 @@ public class TestProyecto {
 			assertTrue("Debería haberse generado 2 config del item", ciService.find().size() == 2);
 
 			hibernateTemplate.evict(p);
-			p1.getTipoItems().remove(ti);
+			List<TipoItem> til = p1.getTipoItemList();
+			til.remove(ti);
+			p1.setTipoItemList(til);
 			proService.update(p1);
 			
 			assertTrue("Debería haberse borrado 1 config del item", ciService.find().size() == 1);
@@ -258,17 +262,40 @@ public class TestProyecto {
 			fail(e.getMessage());
 		}
 	}
-//	
-//	@Test	
-//	@Rollback
-//	public void testito() {
-//		
-//		try {
-//			Proyecto newVersion = proService.getById(4L);
-//			newVersion.toString();
-//		} catch (ServiceException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	
+	@Test	
+	public void cantChangeStateTipoItemNotSet() {
+		
+		Proyecto proyecto = new Proyecto();
+		
+		TipoItem tipoItem = new TipoItem();
+		
+		Estado actual = new Estado();
+		
+		Estado nuevo = new Estado();
+		
+		Assert.assertFalse("Debe dar null", proyecto.canChangeState(tipoItem, actual, nuevo));
+	}
+	
+	@Test	
+	public void canChangeState() {
+		
+		Proyecto proyecto = new Proyecto();
+		
+		TipoItem tipoItem = new TipoItem();
+		
+		Estado actual = new Estado();
+		
+		Estado nuevo = new Estado();
+		
+		ConfiguracionItem c  = new ConfiguracionItem();
+		
+		ConfiguracionEstado ce = new ConfiguracionEstado();
+		ce.getProximosEstados().add(nuevo);
+		c.getProximosEstados().put(actual, ce);
+		
+		proyecto.getTipoItems().put(tipoItem, c);
+		
+		Assert.assertTrue("Debe funcionar", proyecto.canChangeState(tipoItem, actual, nuevo));
+	}
 }
