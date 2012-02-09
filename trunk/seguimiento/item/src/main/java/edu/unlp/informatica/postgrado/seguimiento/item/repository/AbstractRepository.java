@@ -1,5 +1,6 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.repository;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.criterion.DetachedCriteria;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 
-public class AbstractRepository<E, K> {
+public class AbstractRepository<E, K extends Serializable> {
 	
 	@Autowired
 	HibernateTemplate hibernateTemplate;

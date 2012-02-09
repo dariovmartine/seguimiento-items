@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.EstadoRepository;
@@ -22,6 +23,7 @@ import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.I
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={
+	DefaultDozerBeanMapper.class,
 	AppConfig.class, 
 	EstadoService.class,
 	EstadoRepository.class})

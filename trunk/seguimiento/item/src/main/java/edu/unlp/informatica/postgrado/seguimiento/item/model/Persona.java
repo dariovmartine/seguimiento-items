@@ -19,8 +19,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.ForeignKey;
-
 import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 
 @Entity

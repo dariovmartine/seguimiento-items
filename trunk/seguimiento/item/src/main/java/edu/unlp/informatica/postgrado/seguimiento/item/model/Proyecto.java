@@ -113,12 +113,10 @@ public class Proyecto implements Serializable, Numerable {
 		this.lider = lider;
 	}
 
-	@NotMapper   // Esto es para que cortar el mapper en algun punto
 	public List<Item> getItems() {
 		return items;
 	}
 
-	@NotMapper // Esto es para que cortar el mapper en algun punto
 	public void setItems(List<Item> items) {
 		this.items = items;
 	}

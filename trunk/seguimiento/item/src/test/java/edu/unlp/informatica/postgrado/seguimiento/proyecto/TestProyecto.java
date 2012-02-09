@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
@@ -40,6 +41,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={
+	DefaultDozerBeanMapper.class,
 	AppConfig.class, 
 	PersonaService.class,
 	ProyectoService.class,
@@ -115,7 +117,9 @@ public class TestProyecto {
 			ci.setTipoItem(ti);
 			proService.save(p);
 			
-			assertTrue("Debería haberse grabado un proyecto.", proService.find().size() == 1);
+			List<Proyecto> list = proService.find();
+			
+			assertTrue("Debería haberse grabado un proyecto.", list.size() == 1);
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			fail(e.getMessage());
@@ -247,7 +251,8 @@ public class TestProyecto {
 			ci1.setProyecto(p);
 			ci1.setTipoItem(ti3);
 			Proyecto p1 = proService.save(p);
-			assertTrue("Debería haberse generado 2 config del item", ciService.find().size() == 2);
+			List<ConfiguracionItem> list = ciService.find();
+			assertTrue("Debería haberse generado 2 config del item", list.size() == 2);
 
 			hibernateTemplate.evict(p);
 			List<TipoItem> til = p1.getTipoItemList();
@@ -255,7 +260,8 @@ public class TestProyecto {
 			p1.setTipoItemList(til);
 			proService.update(p1);
 			
-			assertTrue("Debería haberse borrado 1 config del item", ciService.find().size() == 1);
+			list = ciService.find();
+			assertTrue("Debería haberse borrado 1 config del item", list.size() == 1);
 
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
