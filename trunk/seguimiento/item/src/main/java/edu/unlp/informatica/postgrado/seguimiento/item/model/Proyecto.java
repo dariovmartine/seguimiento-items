@@ -93,7 +93,7 @@ public class Proyecto implements Serializable, Numerable {
 	
 		if (items != null) {
 			for (Item item : items) {
-				if (! integrantes.contains(item.getResponsable())) {
+				if (! integrantes.contains(item.getResponsable()) && ! integrantes.contains(getLider()) ) {
 					throw new IllegalArgumentException(item.getResponsable()  + " no puede eliminarse porque es responsable del item " 
 						+ item );		
 				}
