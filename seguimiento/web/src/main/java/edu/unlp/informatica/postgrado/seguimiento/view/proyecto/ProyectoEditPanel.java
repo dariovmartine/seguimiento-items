@@ -35,7 +35,8 @@ public class ProyectoEditPanel extends Panel {
 		
 		super(id);
 		// create a feedback panel
-		final Component feedback = new FeedbackPanel("feedback").setOutputMarkupPlaceholderTag(true);
+		final FeedbackPanel feedback = new FeedbackPanel("feedback");
+		feedback.setOutputMarkupPlaceholderTag(true);
 		add(feedback);
 		
 		add(formInput = new ProyectoEditForm());
@@ -86,7 +87,8 @@ public class ProyectoEditPanel extends Panel {
 					((ModalWindow) getForm().getParent().getParent()).close(target);	
 				} catch (ServiceException e) {
 					
-					target.appendJavaScript("alert('" +	e.getCause().getCause().getCause().getLocalizedMessage() + "');");
+					feedback.error(e.getCause().getCause().getCause().getLocalizedMessage());
+					target.add(feedback);		
 				}
 			}
 

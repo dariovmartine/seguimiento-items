@@ -1,5 +1,7 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.prioridad;
 
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.ADMINISTRADOR;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.IAjaxCallDecorator;
@@ -14,9 +16,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.view.DataSourceLocator;
-import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.ADMINISTRADOR;
 
 @WebAuthorizeInstantiation({ ADMINISTRADOR })
 public class PrioridadEditPanel extends Panel {
@@ -90,7 +90,8 @@ public class PrioridadEditPanel extends Panel {
 					((ModalWindow) getForm().getParent().getParent()).close(target);	
 				} catch (ServiceException e) {
 					
-					target.appendJavaScript("alert('" +	e.getCause().getCause().getCause().getLocalizedMessage() + "');");
+					feedback.error(e.getCause().getCause().getCause().getLocalizedMessage());
+					target.add(feedback);
 				}
 			}
 
