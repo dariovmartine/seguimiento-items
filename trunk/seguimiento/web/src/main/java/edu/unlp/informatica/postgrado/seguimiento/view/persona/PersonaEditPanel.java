@@ -88,7 +88,8 @@ public class PersonaEditPanel extends Panel {
 					((ModalWindow) getForm().getParent().getParent()).close(target);	
 				} catch (ServiceException e) {
 					
-					target.appendJavaScript("alert('" +	e.getCause().getCause().getCause().getLocalizedMessage() + "');");
+					feedback.error(e.getCause().getCause().getCause().getLocalizedMessage());
+					target.add(feedback);
 				}
 			}
 

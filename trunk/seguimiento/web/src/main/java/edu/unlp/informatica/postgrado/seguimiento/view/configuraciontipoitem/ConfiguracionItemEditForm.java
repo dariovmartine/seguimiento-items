@@ -2,7 +2,6 @@ package edu.unlp.informatica.postgrado.seguimiento.view.configuraciontipoitem;
 
 import org.apache.wicket.markup.html.form.Check;
 import org.apache.wicket.markup.html.form.CheckGroup;
-import org.apache.wicket.markup.html.form.ListMultipleChoice;
 import org.apache.wicket.markup.html.form.SimpleFormComponentLabel;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -18,8 +17,6 @@ public class ConfiguracionItemEditForm extends
 		BaseEntityForm<ConfiguracionItem> {
 
 	private static final long serialVersionUID = -7324919205048906667L;
-
-	private ListMultipleChoice<Estado> estadosIniciales;
 
 	public ConfiguracionItemEditForm() {
 
