@@ -26,8 +26,6 @@ import org.hibernate.annotations.ForeignKey;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.mapper.NotMapper;
 
-import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.INICIAL;
-
 /**
  * @author  dariovmartine
  */
@@ -97,11 +95,7 @@ public class ConfiguracionItem  implements Serializable, Numerable {
 	public void setEstadosIniciales(List<Estado> newEstados) {
 		
 		for (Estado estado : newEstados) {
-			
-//			if (INICIAL != estado.getTipoEstado()) {
-//				throw new IllegalArgumentException(estado + " no es un estado inicial.");
-//			}
-			
+		
 			if (! proximosEstados.containsKey(estado)) {
 				ConfiguracionEstado confEstado = new ConfiguracionEstado();
 				confEstado.setEstado(estado);

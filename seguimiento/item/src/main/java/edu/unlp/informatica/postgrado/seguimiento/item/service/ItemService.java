@@ -16,6 +16,5 @@ public class ItemService extends AbstractService<Item, ItemRepository> {
 	public ItemRepository getRepository() {
 		// TODO Auto-generated method stub
 		return repository;
-	}
-	
+	}	
 }

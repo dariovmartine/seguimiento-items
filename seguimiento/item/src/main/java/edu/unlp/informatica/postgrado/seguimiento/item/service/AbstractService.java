@@ -1,6 +1,7 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.service;
 
 import java.beans.PropertyDescriptor;
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -21,10 +22,10 @@ import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMa
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Numerable;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.AbstractRepository;
 
-public abstract class AbstractService<E extends Numerable, R extends AbstractRepository> {
+public abstract class AbstractService<E extends Numerable, R extends AbstractRepository<E, ? extends Serializable>> {
 
 	@Autowired
-	private DefaultDozerBeanMapper mapper; 
+	private DefaultDozerBeanMapper<E> mapper; 
 		
 	public abstract R getRepository();
 			
@@ -34,7 +35,7 @@ public abstract class AbstractService<E extends Numerable, R extends AbstractRep
 		try {
 			
 			E newEntity = (E) getRepository().save(entity);
-			return (E) mapper.map(newEntity, entity.getClass());	
+			return (E) getMapper().map(newEntity, entity.getClass());	
 		} catch (Exception e) {
 			
 			throw new ServiceException(e);
@@ -48,7 +49,7 @@ public abstract class AbstractService<E extends Numerable, R extends AbstractRep
 			E original = (E) getRepository().getById(entity.getId());
 			updateProperties(original, entity);		
 			E updateEntity = (E) getRepository().update(original);
-			return (E) mapper.map(updateEntity, entity.getClass());
+			return (E) getMapper().map(updateEntity, entity.getClass());
 		} catch (Exception e) {
 			
 			throw new ServiceException(e);
@@ -71,7 +72,7 @@ public abstract class AbstractService<E extends Numerable, R extends AbstractRep
 		
 		try {
 			
-			return mapper.map(getRepository().find(), ArrayList.class);
+			return getMapper().map(getRepository().find(), ArrayList.class);
 		} catch (Exception e) {
 			
 			throw new ServiceException(e);
@@ -108,17 +109,26 @@ public abstract class AbstractService<E extends Numerable, R extends AbstractRep
 		try {
 			
 			E entity = (E) getRepository().getById(id);
-			return (E) mapper.map(entity, entity.getClass());
+			return (E) getMapper().map(entity, entity.getClass());
 		} catch (Exception e) {
 			
 			throw new ServiceException(e);
 		}
 	}
 
-	public DefaultDozerBeanMapper getMapper() {
+	public DefaultDozerBeanMapper<E> getMapper() {
+		if (! mapper.isInitialized()) {
+			beforeInitialize(mapper);
+			mapper.initialize();
+		}
+			
 		return mapper;
 	}
 	
+	public void beforeInitialize(DefaultDozerBeanMapper<E> mapper) {
+		 
+	}
+
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public void updateProperties(Object source, Object target) throws BeansException {
 			
