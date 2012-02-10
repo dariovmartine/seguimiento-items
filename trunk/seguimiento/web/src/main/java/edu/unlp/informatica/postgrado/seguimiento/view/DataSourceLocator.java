@@ -12,6 +12,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Item;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Prioridad;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
@@ -140,10 +141,10 @@ public class DataSourceLocator
 				e.setTipoEstado(INICIAL); 
 				dataSource.getEstadoService().save(e);
 
-				e = new Estado();
-				e.setNombre("Creado");
-				e.setTipoEstado(INICIAL); 
-				dataSource.getEstadoService().save(e);
+				Estado ex = new Estado();
+				ex.setNombre("Creado");
+				ex.setTipoEstado(INICIAL); 
+				dataSource.getEstadoService().save(ex);
 				
 				Estado e2 = new Estado();
 				e2.setNombre("Desarrollo");
@@ -163,9 +164,9 @@ public class DataSourceLocator
 				ConfiguracionItem ci = new ConfiguracionItem();
 				ConfiguracionEstado confEstado = new ConfiguracionEstado();
 				confEstado.setConfiguracionItem(ci);
-				confEstado.setEstado(e);
+				confEstado.setEstado(ex);
 				confEstado.getProximosEstados().add(e2);
-				ci.getProximosEstados().put(e, confEstado);
+				ci.getProximosEstados().put(ex, confEstado);
 				
 				ConfiguracionItem ci2 = new ConfiguracionItem();
 				ConfiguracionEstado ce2 = new ConfiguracionEstado();
@@ -186,8 +187,15 @@ public class DataSourceLocator
 				ci2.setTipoItem(ti2);
 				dataSource.getProyectoService().save(p);
 				
-				
-				
+				Item ii = new Item();
+				ii.setDescripcion("sss");
+				ii.setPrioridad(pr);
+				ii.setResponsable(lider);
+				ii.setTitulo("ss");
+				ii.setTipoItem(ti);
+				ii.setEstado(ex);
+				ii.setProyecto(p);
+				dataSource.getItemService().save(ii);
 				
 			}
 		} catch (ServiceException e) {
