@@ -1,5 +1,10 @@
 package edu.unlp.informatica.postgrado.seguimiento.view.menu;
 
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.ADMINISTRADOR;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.DESARROLLADOR;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.LIDER_DE_PROYECTO;
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.USUARIO;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +19,10 @@ import org.apache.wicket.model.Model;
 
 import edu.unlp.informatica.postgrado.seguimiento.HeaderPage;
 import edu.unlp.informatica.postgrado.seguimiento.WebAuthorizeInstantiation;
-import static edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol.*;
 import edu.unlp.informatica.postgrado.seguimiento.view.configuracionestado.ConfiguracionEstadoListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.configuraciontipoitem.ConfiguracionItemListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.estado.EstadoListadoPanel;
+import edu.unlp.informatica.postgrado.seguimiento.view.historialitem.HistorialItemListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.item.ItemListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.persona.PersonaListadoPanel;
 import edu.unlp.informatica.postgrado.seguimiento.view.prioridad.PrioridadListadoPanel;
@@ -57,6 +62,8 @@ public class TabbedPanelPage extends WebPage
 		panels.put("Personas", PersonaListadoPanel.class);
 		panels.put("Configuracion de Tipos de Items", ConfiguracionItemListadoPanel.class);
 		panels.put("Configuracion de Estados de Items", ConfiguracionEstadoListadoPanel.class);
+		panels.put("Historial de cambios de estado", HistorialItemListadoPanel.class);
+		
 		
 		for (String title : panels.keySet()) {
 		

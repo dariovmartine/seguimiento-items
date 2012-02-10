@@ -18,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang.time.DateUtils;
+
 import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
 
 
@@ -140,5 +142,66 @@ public class HistorialItem implements Serializable, Numerable{
 	public void setComentario(String comentario) {
 		this.comentario = comentario;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((comentario == null) ? 0 : comentario.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result
+				+ ((fechaFin == null) ? 0 : fechaFin.hashCode());
+		result = prime * result
+				+ ((fechaInicio == null) ? 0 : fechaInicio.hashCode());
+		result = prime * result + ((item == null) ? 0 : item.hashCode());
+		result = prime * result
+				+ ((responsable == null) ? 0 : responsable.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HistorialItem other = (HistorialItem) obj;
+		if (comentario == null) {
+			if (other.comentario != null)
+				return false;
+		} else if (!comentario.equals(other.comentario))
+			return false;
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
+			return false;
+		if (fechaFin == null) {
+			if (other.fechaFin != null)
+				return false;
+		} else if (!DateUtils.isSameDay(fechaFin,other.fechaFin))
+			return false;
+		if (fechaInicio == null) {
+			if (other.fechaInicio != null)
+				return false;
+		} else if (!DateUtils.isSameDay(fechaInicio,other.fechaInicio))
+			return false;
+		if (item == null) {
+			if (other.item != null)
+				return false;
+		} else if (!item.equals(other.item))
+			return false;
+		if (responsable == null) {
+			if (other.responsable != null)
+				return false;
+		} else if (!responsable.equals(other.responsable))
+			return false;
+		return true;
+	}
+	
+	
 	
 }

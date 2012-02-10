@@ -123,29 +123,33 @@ public abstract class AbstractService<E extends Numerable, R extends AbstractRep
 	}
 		
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
-	public void updateProperties(Object source, Object target) throws BeansException {
+	public void updateProperties(Object original, Object nueva) throws BeansException {
 			
-		PropertyDescriptor[] targetPds = BeanUtils.getPropertyDescriptors(source.getClass());
+		PropertyDescriptor[] originalPds = BeanUtils.getPropertyDescriptors(original.getClass());
 		
-		for (PropertyDescriptor targetPd : targetPds) {
-			if (targetPd.getWriteMethod() != null) {
-				PropertyDescriptor sourcePd = BeanUtils.getPropertyDescriptor(target.getClass(), targetPd.getName());
+		for (PropertyDescriptor originalPd : originalPds) {
+			
+			if (originalPd.getWriteMethod() != null) {
+				
+				PropertyDescriptor sourcePd = BeanUtils.getPropertyDescriptor(nueva.getClass(), originalPd.getName());
 				if (sourcePd != null && sourcePd.getReadMethod() != null) {
+					
 					try {
 						Method readMethod = sourcePd.getReadMethod();
-						Method writeMethod = targetPd.getWriteMethod();
-						if (! checkAnotations(target, sourcePd.getName())) {
+						Method writeMethod = originalPd.getWriteMethod();
+						
+						if (! checkAnotations(nueva, sourcePd.getName())) {
 							continue;
-						}
+						}						
 						if (!Modifier.isPublic(readMethod.getDeclaringClass().getModifiers())) {
 							readMethod.setAccessible(true);
 						}
-						Object newValue = readMethod.invoke(target);
-						readMethod = targetPd.getReadMethod();
+						Object newValue = readMethod.invoke(nueva);
+						readMethod = originalPd.getReadMethod();
 						if (!Modifier.isPublic(readMethod.getDeclaringClass().getModifiers())) {
 							readMethod.setAccessible(true);
 						}
-						Object oldValue = readMethod.invoke(source);
+						Object oldValue = readMethod.invoke(original);
 
 						// Solo seteo valores distintos
 						// Pero que haces cuando queres poner un null? Hay que usar NullObject?
@@ -197,7 +201,7 @@ public abstract class AbstractService<E extends Numerable, R extends AbstractRep
 							if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
 								writeMethod.setAccessible(true);
 							}
-							writeMethod.invoke(source, newValue);
+							writeMethod.invoke(original, newValue);
 						}
 					}
 					catch (Throwable ex) {
