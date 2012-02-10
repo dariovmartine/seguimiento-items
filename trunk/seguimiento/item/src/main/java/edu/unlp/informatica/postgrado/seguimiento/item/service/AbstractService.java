@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.FatalBeanException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +25,15 @@ import edu.unlp.informatica.postgrado.seguimiento.item.repository.AbstractReposi
 
 public abstract class AbstractService<E extends Numerable, R extends AbstractRepository<E, ? extends Serializable>> {
 
-	@Autowired
-	private DefaultDozerBeanMapper<E> mapper; 
+	public abstract DefaultDozerBeanMapper<E,? extends AbstractService<E, R>> getMapper(); 
 		
 	public abstract R getRepository();
+	
+	@PostConstruct
+	public void postConstruct() {
+		
+		getMapper().setS(this);
+	}
 			
 	@Transactional(readOnly = false, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public E save(E entity) throws ServiceException {
@@ -115,20 +121,7 @@ public abstract class AbstractService<E extends Numerable, R extends AbstractRep
 			throw new ServiceException(e);
 		}
 	}
-
-	public DefaultDozerBeanMapper<E> getMapper() {
-		if (! mapper.isInitialized()) {
-			beforeInitialize(mapper);
-			mapper.initialize();
-		}
-			
-		return mapper;
-	}
-	
-	public void beforeInitialize(DefaultDozerBeanMapper<E> mapper) {
-		 
-	}
-
+		
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public void updateProperties(Object source, Object target) throws BeansException {
 			

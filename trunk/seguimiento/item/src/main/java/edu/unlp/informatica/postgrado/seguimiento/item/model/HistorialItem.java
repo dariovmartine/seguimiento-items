@@ -18,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
+
 
 
 /**
@@ -39,32 +41,39 @@ public class HistorialItem implements Serializable, Numerable{
 	@Column(name = "ID")
 	@GeneratedValue(generator="HIST_ITEM_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="HIST_ITEM_ID_GEN", sequenceName="SEQ_HIST_ITEM_ID", allocationSize=1, initialValue=1)
+	@MappingOptions(order=1)
 	Long id;
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_PERSONA")
+	@MappingOptions(order=2)
 	private Persona responsable;
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_ITEM")
+	@MappingOptions(order=3)
 	private Item item;
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_ESTADO")
+	@MappingOptions(order=4)
 	private Estado estado;
 	
 	@NotNull
 	@Column(name = "F_INICIO")
+	@MappingOptions(order=5)
 	private Timestamp fechaInicio;
 	
 	@NotNull
 	@Column(name = "F_FIN")
+	@MappingOptions(order=6)
 	private Timestamp fechaFin;
 	
 	@Column(name = "COMENTARIO")
+	@MappingOptions(order=7)
 	private String comentario;
 
 	public Persona getResponsable() {

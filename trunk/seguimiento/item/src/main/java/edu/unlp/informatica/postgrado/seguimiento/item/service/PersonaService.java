@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.PersonaRepository;
 
@@ -16,12 +17,21 @@ public class PersonaService extends AbstractService<Persona, PersonaRepository> 
 	
 	@Autowired
 	private PersonaRepository repository;
+	
+	@Autowired
+	private DefaultDozerBeanMapper<Persona, PersonaService> mapper;
 
 	@Override
 	public PersonaRepository getRepository() {
-		// TODO Auto-generated method stub
+		
 		return repository;
 	}	
+		
+	@Override
+	public DefaultDozerBeanMapper<Persona, ? extends AbstractService<Persona, PersonaRepository>> getMapper() {
+	
+		return mapper;
+	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public Persona findByUsername(String nombre) throws ServiceException {

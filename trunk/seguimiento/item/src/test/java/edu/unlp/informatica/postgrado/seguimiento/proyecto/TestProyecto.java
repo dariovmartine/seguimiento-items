@@ -110,11 +110,12 @@ public class TestProyecto {
 			ci.getProximosEstados().put(e, confEstado);
 			
 			Proyecto p = new Proyecto();
-			p.setLider(i);
+			
 			p.setNombre("ppp");
 			p.getTipoItems().put(ti, ci);
 			ci.setProyecto(p);
 			ci.setTipoItem(ti);
+			p.setLider(i);
 			proService.save(p);
 			
 			List<Proyecto> list = proService.find();

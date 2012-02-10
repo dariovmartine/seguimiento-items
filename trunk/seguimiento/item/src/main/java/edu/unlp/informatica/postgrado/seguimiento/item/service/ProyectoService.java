@@ -13,17 +13,18 @@ public class ProyectoService extends AbstractService<Proyecto, ProyectoRepositor
 	@Autowired
 	private ProyectoRepository repository;
 	
+	@Autowired
+	private DefaultDozerBeanMapper<Proyecto, ProyectoService> mapper;
 	
-
 	@Override
 	public ProyectoRepository getRepository() {
-		// TODO Auto-generated method stub
+
 		return repository;
 	}
-
+	
 	@Override
-	public void beforeInitialize(DefaultDozerBeanMapper<Proyecto> mapper) {
-				
-		mapper.getMapperBuilders().get(Proyecto.class).getFieldsToExcluded().add("items");
-	}	
+	public DefaultDozerBeanMapper<Proyecto, ? extends AbstractService<Proyecto, ProyectoRepository>> getMapper() {
+
+		return mapper;
+	}
 }

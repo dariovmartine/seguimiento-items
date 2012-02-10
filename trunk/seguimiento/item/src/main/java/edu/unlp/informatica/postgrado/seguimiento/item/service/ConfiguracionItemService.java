@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.ConfiguracionItemRepository;
 
 @Service("configuracionItemService")
@@ -13,21 +12,21 @@ public class ConfiguracionItemService extends AbstractService<ConfiguracionItem,
 	
 	@Autowired
 	private ConfiguracionItemRepository repository;
+	
+	@Autowired
+	private DefaultDozerBeanMapper<ConfiguracionItem, ConfiguracionItemService> mapper;
 
 	@Override
 	public ConfiguracionItemRepository getRepository() {
-		// TODO Auto-generated method stub
+
 		return repository;
 	}
-	
+
 	@Override
-	public void beforeInitialize(DefaultDozerBeanMapper<ConfiguracionItem> mapper) {
-				
-		mapper.getMapperBuilders().get(Proyecto.class).getFieldsToExcluded().add("integrantes");
-		mapper.getMapperBuilders().get(Proyecto.class).getFieldsToExcluded().add("lider");
-		mapper.getMapperBuilders().get(Proyecto.class).getFieldsToExcluded().add("tipoItems");
-		mapper.getMapperBuilders().get(Proyecto.class).getFieldsToExcluded().add("items");
-	}		
+	public DefaultDozerBeanMapper<ConfiguracionItem, ? extends AbstractService<ConfiguracionItem, ConfiguracionItemRepository>> getMapper() {
+ 
+		return mapper;
+	}
 }
 
 

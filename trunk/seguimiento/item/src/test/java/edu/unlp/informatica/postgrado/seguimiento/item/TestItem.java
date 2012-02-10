@@ -93,6 +93,8 @@ public class TestItem {
 	Proyecto p;
 	
 	Item i;
+
+	private Persona usu;
 	
 	@Before
 	public void setUp(){
@@ -104,6 +106,14 @@ public class TestItem {
 			per.setPassword("sss");
 			per.getRoles().add(Rol.LIDER_DE_PROYECTO);
 			myService.save(per);
+			
+			usu = new Persona();
+			usu.setNombre("Jefi2");
+			usu.setUserName("test2");
+			usu.setHabilitado(true);
+			usu.setPassword("sss2");
+			usu.getRoles().add(Rol.DESARROLLADOR);
+			myService.save(usu);
 			
 			pr = new Prioridad();
 			pr.setNombre("Altisi3");
@@ -135,6 +145,15 @@ public class TestItem {
 			confEstado.setConfiguracionItem(ci);
 			confEstado.getProximosEstados().add(e2);
 			//ciService.save(ci);
+						
+			p = new Proyecto();
+			p.setLider(per);
+			p.setNombre("ppp2");
+			p.getTipoItems().put(ti, ci);
+			p.getIntegrantes().add(usu);
+			ci.setProyecto(p);
+			
+			proService.save(p);
 			
 			i = new Item();
 			i.cambiarEstado(e1, null, "estado inicial");
@@ -144,16 +163,8 @@ public class TestItem {
 			i.setDescripcion("descrip");
 			i.setPrioridad(pr);
 			i.setResponsable(per);
-			
-			p = new Proyecto();
-			p.setLider(per);
-			p.setNombre("ppp2");
-			p.getTipoItems().put(ti, ci);
-			p.getIntegrantes().add(per);
-			ci.setProyecto(p);
-			
-			proService.save(p);
 			i.setProyecto(p);
+			
 			iService.save(i);
 				
 		}catch (Exception e) {
@@ -173,13 +184,13 @@ public class TestItem {
 			i1.setProyecto(p);
 			i1.setPrioridad(pr);
 			i1.setDescripcion("ss");
-			i1.setResponsable(per);
+			i1.setResponsable(usu);
 			i1.setTipoItem(ti);
 			i1.setEstado(e1);
 			iService.save(i1);
 			
 			
-			//assertTrue("Debería haberse grabado algo.", myService.find().size() > 0);	
+			assertTrue("Debería haberse grabado dos items.", myService.find().size() == 2);	
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
