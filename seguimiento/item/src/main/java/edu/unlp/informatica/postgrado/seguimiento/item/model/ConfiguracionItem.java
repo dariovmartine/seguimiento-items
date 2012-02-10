@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ForeignKey;
 
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.NotMapper;
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
 
 /**
  * @author  dariovmartine
@@ -42,12 +42,14 @@ public class ConfiguracionItem  implements Serializable, Numerable {
 	@Column(name = "ID")
 	@GeneratedValue(generator="CONF_ITEM_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="CONF_ITEM_ID_GEN", sequenceName="SEQ_CONF_ITEM_ID", allocationSize=1, initialValue=1)
+	@MappingOptions(order=1)
 	private Long id;
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_TIPO_ITEM")
 	@ForeignKey(name="FK_CONF_ITEM_TIPO_ITEM")
+	@MappingOptions(order=2)
 	private TipoItem tipoItem;
 		
 	@OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
@@ -56,12 +58,14 @@ public class ConfiguracionItem  implements Serializable, Numerable {
             inverseJoinColumns=@JoinColumn(name="CONFIG_ESTADO_ID"))
     @MapKeyJoinColumn(name="ESTADO_ID")
 	@ForeignKey(name="FK_CONF_ITEM_PROX_ESTA")
+	@MappingOptions(order=3)
 	Map<Estado, ConfiguracionEstado> proximosEstados = new HashMap<Estado, ConfiguracionEstado>();
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_PROYECTO")
 	@ForeignKey(name="FK_CONF_ITEM_PROYECTO")
+	@MappingOptions(order=4)
 	private Proyecto proyecto;
 	
 	public Long getId() {
@@ -83,7 +87,6 @@ public class ConfiguracionItem  implements Serializable, Numerable {
 	@Transient
 	private List<Estado> ret = new ArrayList<Estado>();
 	
-	@NotMapper
 	public List<Estado> getEstadosIniciales() {
 
 		ret.clear();
@@ -91,7 +94,6 @@ public class ConfiguracionItem  implements Serializable, Numerable {
 		return ret;
 	}
 	
-	@NotMapper
 	public void setEstadosIniciales(List<Estado> newEstados) {
 		
 		for (Estado estado : newEstados) {

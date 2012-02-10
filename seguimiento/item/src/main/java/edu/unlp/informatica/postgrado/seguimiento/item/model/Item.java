@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
 import edu.unlp.informatica.postgrado.seguimiento.item.validators.ValidUserName;
 
 @Entity
@@ -35,48 +36,56 @@ public class Item implements Serializable, Numerable {
 	@Column(name = "ID")
 	@GeneratedValue(generator="ITEM_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="ITEM_ID_GEN", sequenceName="SEQ_ITEM_ID", allocationSize=1, initialValue=1)
+	@MappingOptions(order=1)
 	Long id;
 	
 	@ValidUserName
 	@NotNull
 	@Column(name = "TITULO", unique=true)
+	@MappingOptions(order=2)
 	private String titulo;
 	
 	@NotNull
 	@Column(name = "DESCRIPCION")
+	@MappingOptions(order=3)
 	private String descripcion;
 		
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_ESTADO")
+	@MappingOptions(order=4)
 	private Estado estado;	
 		
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_PERSONA")
+	@MappingOptions(order=5)
 	private Persona responsable;
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_PRIORIDAD")
+	@MappingOptions(order=6)
 	private Prioridad prioridad;
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_TIPO_ITEM")
+	@MappingOptions(order=7)
 	private TipoItem tipoItem;
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_PROYECTO")
+	@MappingOptions(order=8)
 	private Proyecto proyecto;
+	
+	@OneToMany(mappedBy="item")
+	@MappingOptions(order=9)
+	List<HistorialItem> historial = new ArrayList<HistorialItem>();
 	
 	@Transient //hasta ver con Dary si va o no
 	private Timestamp fechaCarga;
-	
-	@OneToMany(mappedBy="item")
-	List<HistorialItem> historial = new ArrayList<HistorialItem>();
-	
 
 	public Long getId() {
 		return id;

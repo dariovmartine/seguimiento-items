@@ -23,8 +23,11 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.NotMapper;
+import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionEstadoService;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.ConfiguracionItemService;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
 
 /**
  * @author dariovmartine
@@ -42,21 +45,25 @@ public class Proyecto implements Serializable, Numerable {
 	@Column(name = "ID")
 	@GeneratedValue(generator="PROYECTO_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="PROYECTO_ID_GEN", sequenceName="SEQ_PROYECTO_ID", allocationSize=1, initialValue=1)
+	@MappingOptions(order=1)
 	Long id;
 	
 	@NotNull
 	@Column(name = "NOMBRE", unique=true)
+	@MappingOptions(order=2)
 	String nombre;
 	
 	@ManyToMany(targetEntity=Persona.class)
     @JoinTable(name="INTEGRANTES",
     		joinColumns=@JoinColumn(name="PROYECTO_ID"),
 	        inverseJoinColumns=@JoinColumn(name="PERSONA_ID"))
+    @MappingOptions(order=3, exclude={ConfiguracionEstadoService.class, ConfiguracionItemService.class})
 	List<Persona> integrantes = new ArrayList<Persona>();
 	
 	@NotNull
 	@ManyToOne(cascade=CascadeType.DETACH)
 	@JoinColumn(name = "ID_LIDER")
+	@MappingOptions(order=4, exclude={ConfiguracionEstadoService.class, ConfiguracionItemService.class})	
 	Persona lider;
 	
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true)	
@@ -64,11 +71,13 @@ public class Proyecto implements Serializable, Numerable {
             joinColumns=@JoinColumn(name="PROYECTO_ID"),
             inverseJoinColumns=@JoinColumn(name="CONFIG_ITEM_ID"))
     @MapKeyJoinColumn(name="TIPO_ITEM_ID")
-	Map<TipoItem, ConfiguracionItem> tipoItems = new HashMap<TipoItem, ConfiguracionItem>();
+	@MappingOptions(order=5, exclude={ConfiguracionEstadoService.class, ConfiguracionItemService.class})
+    Map<TipoItem, ConfiguracionItem> tipoItems = new HashMap<TipoItem, ConfiguracionItem>();
 
     @OneToMany(mappedBy="proyecto")
+    @MappingOptions(order=6, exclude={ConfiguracionEstadoService.class, ConfiguracionItemService.class, ProyectoService.class})
 	List<Item> items = new ArrayList<Item>();
-
+    
     public Long getId() {
 		return id;
 	}
@@ -174,7 +183,6 @@ public class Proyecto implements Serializable, Numerable {
 	@Transient
 	private List<TipoItem> ret = new ArrayList<TipoItem>();
 	
-	@NotMapper
 	public List<TipoItem> getTipoItemList() {
 
 		ret.clear();
@@ -182,7 +190,6 @@ public class Proyecto implements Serializable, Numerable {
 		return ret;
 	}
 	
-	@NotMapper
 	public void setTipoItemList(List<TipoItem> newTipoItems) {
 		
 		for (TipoItem tipoItem : newTipoItems) {

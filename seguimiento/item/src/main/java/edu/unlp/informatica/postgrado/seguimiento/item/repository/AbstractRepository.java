@@ -8,8 +8,10 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Numerable;
 
-public class AbstractRepository<E, K extends Serializable> {
+
+public class AbstractRepository<E extends Numerable, K extends Serializable> {
 	
 	@Autowired
 	HibernateTemplate hibernateTemplate;
