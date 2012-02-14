@@ -54,7 +54,7 @@ public class HistorialItemListadoPanel extends Panel {
 				
 				item.add(new Label("comentario", historialItemSel.getComentario()));
 				item.add(new Label("estado", historialItemSel.getEstado().toString()));
-				item.add(new Label("fechaFin", historialItemSel.getFechaFin().toLocaleString()));
+				item.add(new Label("fechaFin", historialItemSel.getFechaFin() != null ? historialItemSel.getFechaFin().toLocaleString() : ""));
 				item.add(new Label("fechaInicio", historialItemSel.getFechaInicio().toLocaleString()));
 				item.add(new Label("responsable", historialItemSel.getResponsable().toString()));
 				item.add(new Label("item", historialItemSel.getItem().toString()));
