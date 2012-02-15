@@ -1,5 +1,8 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
+import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Persona;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.PersonaRepository;
 
@@ -18,20 +21,12 @@ public class PersonaService extends AbstractService<Persona, PersonaRepository> 
 	@Autowired
 	private PersonaRepository repository;
 	
-	@Autowired
-	private DefaultDozerBeanMapper<Persona, PersonaService> mapper;
-
 	@Override
 	public PersonaRepository getRepository() {
 		
 		return repository;
 	}	
 		
-	@Override
-	public DefaultDozerBeanMapper<Persona, ? extends AbstractService<Persona, PersonaRepository>> getMapper() {
-	
-		return mapper;
-	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS,rollbackFor=ServiceException.class)
 	public Persona findByUsername(String nombre) throws ServiceException {
@@ -39,7 +34,12 @@ public class PersonaService extends AbstractService<Persona, PersonaRepository> 
 		try {
 			DetachedCriteria criteria = getRepository().getCriteria();
 			criteria.add( Restrictions.eq("userName", nombre));
-			return getMapper().map(getRepository().findByCriteria(criteria).get(0), Persona.class);
+			
+			Persona entity = (Persona) getRepository().findByCriteria(criteria).get(0);
+			Persona res = new Persona();
+			copyFields(entity, res);	
+			
+			return res;
 		} catch (Exception e) {
 			
 			throw new ServiceException(e);

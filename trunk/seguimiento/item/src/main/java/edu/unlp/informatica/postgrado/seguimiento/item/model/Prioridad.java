@@ -11,7 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 
 @Entity
 @Table(name = "PRIORIDAD")
@@ -26,12 +26,12 @@ public class Prioridad  implements Serializable, Numerable {
 	@Column(name = "ID")
 	@GeneratedValue(generator="PRIORIDAD_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="PRIORIDAD_ID_GEN", sequenceName="SEQ_PRIORIDAD_ID", allocationSize=1, initialValue=1)
-	@MappingOptions(order=1)
+	@MappingOptions
 	private Long id;
 	
 	@NotNull
 	@Column(name = "NOMBRE", unique=true)
-	@MappingOptions(order=2)
+	@MappingOptions
 	private String nombre;
 
 	public Long getId() {

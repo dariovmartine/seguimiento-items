@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionEstado;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
@@ -41,7 +40,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={
-	DefaultDozerBeanMapper.class,
+	
 	AppConfig.class, 
 	PersonaService.class,
 	ProyectoService.class,
@@ -305,4 +304,68 @@ public class TestProyecto {
 		
 		Assert.assertTrue("Debe funcionar", proyecto.canChangeState(tipoItem, actual, nuevo));
 	}
+	
+	@Test	
+	@Rollback
+	public void testConversion() {
+		
+		try {
+						
+			Persona i = new Persona();
+			i.setUserName("testXX");
+			i.setHabilitado(true);
+			i.getRoles().add(Rol.LIDER_DE_PROYECTO);
+			i.setPassword("sssXXX");
+			i.setNombre("Jefe test");
+			
+			myService.save(i);
+						
+			TipoItem ti = new TipoItem();
+			ti.setNombre("Ampliación testX");
+			ti = tiService.save(ti);
+			
+			TipoItem ti2 = new TipoItem();
+			ti2.setNombre("MejoraX");
+			ti2 = tiService.save(ti2);
+						
+			Estado e = new Estado();
+			e.setNombre("Inicial testX");
+			e.setTipoEstado(INICIAL);
+			e = eService.save(e);
+			
+			Estado e2 = new Estado();
+			e2.setNombre("Finalizado testX");
+			e2.setTipoEstado(FINAL);
+			e2 = eService.save(e2);
+			
+			
+			ConfiguracionItem ci = new ConfiguracionItem();
+			ConfiguracionEstado confEstado = new ConfiguracionEstado();
+			confEstado.setConfiguracionItem(ci);
+			confEstado.getProximosEstados().add(e2);
+			ci.getProximosEstados().put(e, confEstado);
+			
+			Proyecto p = new Proyecto();
+			p.setLider(i);
+			p.getIntegrantes().add(i);
+			p.setNombre("Proyecto test");
+			p.getTipoItems().put(ti, ci);
+			ci.setProyecto(p);
+			ci.setTipoItem(ti);
+			proService.save(p);
+			
+			
+			Proyecto p2 = new Proyecto();
+			proService.copyFields(p, p2);
+			assertTrue(p2.getLider().equals(p.getLider()));
+			assertTrue(p2.getNombre().equals(p.getNombre()));
+			//assertTrue(p2.getTipoItems().equals(p.getTipoItems()));
+
+			
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			fail(e.getMessage());
+		}
+	}	
+	
 }

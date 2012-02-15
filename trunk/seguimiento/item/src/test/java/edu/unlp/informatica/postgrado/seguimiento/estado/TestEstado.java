@@ -1,5 +1,6 @@
 package edu.unlp.informatica.postgrado.seguimiento.estado;
 
+import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.INICIAL;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
@@ -14,16 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.EstadoRepository;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.EstadoService;
-import static edu.unlp.informatica.postgrado.seguimiento.item.model.TipoEstado.INICIAL;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={
-	DefaultDozerBeanMapper.class,
 	AppConfig.class, 
 	EstadoService.class,
 	EstadoRepository.class})

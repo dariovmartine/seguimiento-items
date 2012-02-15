@@ -67,19 +67,15 @@ public class PersonaEditPanel extends Panel {
 			protected void onSubmit(AjaxRequestTarget target)
 			{
 				Persona newVersion = (Persona) getForm().getModelObject();
-				
-				Persona persona;
+								
 				try {
 					
 					if (newVersion.getId() != null) {
 						
-						persona = DataSourceLocator.getInstance().getPersonaService().getById(newVersion.getId());
-						
 						DataSourceLocator.getInstance().getPersonaService().update(newVersion);
 					} else {
 						
-						persona = newVersion;
-						DataSourceLocator.getInstance().getPersonaService().save(persona);
+						DataSourceLocator.getInstance().getPersonaService().save(newVersion);
 					}				
 					
 					// Esto es para que se refresque la grilla de datos

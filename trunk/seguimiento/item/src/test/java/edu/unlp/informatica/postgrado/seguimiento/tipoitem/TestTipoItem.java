@@ -14,14 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.AppConfig;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.TipoItem;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.TipoItemRepository;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.TipoItemService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(loader=AnnotationConfigContextLoader.class, classes={
-	DefaultDozerBeanMapper.class,
+	
 	AppConfig.class, 
 	TipoItemService.class,
 	TipoItemRepository.class})

@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 import edu.unlp.informatica.postgrado.seguimiento.item.validators.ValidUserName;
 
 @Entity
@@ -29,18 +29,18 @@ public class Estado implements Serializable, Numerable {
 	@Column(name = "ID")
 	@GeneratedValue(generator="ESTADO_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="ESTADO_ID_GEN", sequenceName="SEQ_ESTADO_ID", allocationSize=1, initialValue=1)
-	@MappingOptions(order=1)
+	@MappingOptions
 	Long id;
 	
 	@ValidUserName
 	@NotNull
 	@Column(name = "nombre", unique=true)
-	@MappingOptions(order=2)
+	@MappingOptions
 	private String nombre;
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@MappingOptions(order=3)
+	@MappingOptions
 	private TipoEstado tipoEstado;
 		
 	public Long getId() {

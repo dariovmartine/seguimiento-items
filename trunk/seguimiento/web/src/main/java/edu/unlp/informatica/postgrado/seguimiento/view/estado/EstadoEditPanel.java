@@ -68,21 +68,15 @@ public class EstadoEditPanel extends Panel {
 			protected void onSubmit(AjaxRequestTarget target)
 			{
 				Estado newVersion = (Estado) getForm().getModelObject();
-				
-				Estado estado;
+								
 				try {
 					
 					if (newVersion.getId() != null) {
 						
-						estado = DataSourceLocator.getInstance().getEstadoService()
-									.getById(newVersion.getId());
-						estado.setNombre(newVersion.getNombre());
-						
-						DataSourceLocator.getInstance().getEstadoService().update(estado);
+						DataSourceLocator.getInstance().getEstadoService().update(newVersion);
 					} else {
 						
-						estado = newVersion;
-						DataSourceLocator.getInstance().getEstadoService().save(estado);
+						DataSourceLocator.getInstance().getEstadoService().save(newVersion);
 					}				
 					
 					// Esto es para que se refresque la grilla de datos

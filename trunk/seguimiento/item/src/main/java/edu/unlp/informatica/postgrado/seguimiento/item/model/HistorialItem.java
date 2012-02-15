@@ -4,9 +4,8 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +19,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang.time.DateUtils;
 
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 
 
 
@@ -43,39 +42,39 @@ public class HistorialItem implements Serializable, Numerable{
 	@Column(name = "ID")
 	@GeneratedValue(generator="HIST_ITEM_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="HIST_ITEM_ID_GEN", sequenceName="SEQ_HIST_ITEM_ID", allocationSize=1, initialValue=1)
-	@MappingOptions(order=1)
+	@MappingOptions
 	Long id;
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_PERSONA")
-	@MappingOptions(order=2)
+	@MappingOptions
 	private Persona responsable;
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_ITEM")
-	@MappingOptions(order=3)
+	@MappingOptions
 	private Item item;
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_ESTADO")
-	@MappingOptions(order=4)
+	@MappingOptions
 	private Estado estado;
 	
 	@NotNull
 	@Column(name = "F_INICIO")
-	@MappingOptions(order=5)
-	private Timestamp fechaInicio;
+	@MappingOptions
+	private Date fechaInicio;
 	
-	@NotNull
+	// @NotNull  no se
 	@Column(name = "F_FIN")
-	@MappingOptions(order=6)
-	private Timestamp fechaFin;
-	
+	@MappingOptions
+	private Date fechaFin;
+		
 	@Column(name = "COMENTARIO")
-	@MappingOptions(order=7)
+	@MappingOptions
 	private String comentario;
 
 	public Persona getResponsable() {
@@ -102,19 +101,19 @@ public class HistorialItem implements Serializable, Numerable{
 		this.estado = estado;
 	}
 
-	public Timestamp getFechaInicio() {
+	public Date getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(Timestamp fechaInicio) {
+	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public Timestamp getFechaFin() {
+	public Date getFechaFin() {
 		return fechaFin;
 	}
 
-	public void setFechaFin(Timestamp fechaFin) {
+	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -169,26 +168,27 @@ public class HistorialItem implements Serializable, Numerable{
 		if (getClass() != obj.getClass())
 			return false;
 		HistorialItem other = (HistorialItem) obj;
-		if (comentario == null) {
-			if (other.comentario != null)
-				return false;
-		} else if (!comentario.equals(other.comentario))
-			return false;
+//		if (comentario == null) {
+//			if (other.comentario != null)
+//				return false;
+//		} else if (!comentario.equals(other.comentario))
+//			return false;
 		if (estado == null) {
 			if (other.estado != null)
 				return false;
 		} else if (!estado.equals(other.estado))
 			return false;
-		if (fechaFin == null) {
-			if (other.fechaFin != null)
-				return false;
-		} else if (!DateUtils.isSameDay(fechaFin,other.fechaFin))
-			return false;
-		if (fechaInicio == null) {
-			if (other.fechaInicio != null)
-				return false;
-		} else if (!DateUtils.isSameDay(fechaInicio,other.fechaInicio))
-			return false;
+		//  --------- >fechas raras
+//		if (fechaFin == null) {
+//			if (other.fechaFin != null)
+//				return false;
+//		} else if (other.fechaFin != null && !DateUtils.isSameDay(fechaFin,other.fechaFin))
+//			return false;
+//		if (fechaInicio == null) {
+//			if (other.fechaInicio != null)
+//				return false;
+//		} else if (other.fechaInicio != null && !DateUtils.isSameDay(fechaInicio,other.fechaInicio))
+//			return false;
 		if (item == null) {
 			if (other.item != null)
 				return false;

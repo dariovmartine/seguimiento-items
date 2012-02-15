@@ -67,21 +67,15 @@ public class PrioridadEditPanel extends Panel {
 			protected void onSubmit(AjaxRequestTarget target)
 			{
 				Prioridad newVersion = (Prioridad) getForm().getModelObject();
-				
-				Prioridad prioridad;
+								
 				try {
 					
-					if (newVersion.getId() != null) {
+					if (newVersion.getId() != null) {						
 						
-						prioridad = DataSourceLocator.getInstance().getPrioridadService()
-									.getById(newVersion.getId());
-						prioridad.setNombre(newVersion.getNombre());
-						
-						DataSourceLocator.getInstance().getPrioridadService().update(prioridad);
+						DataSourceLocator.getInstance().getPrioridadService().update(newVersion);
 					} else {
-						
-						prioridad = newVersion;
-						DataSourceLocator.getInstance().getPrioridadService().save(prioridad);
+												
+						DataSourceLocator.getInstance().getPrioridadService().save(newVersion);
 					}				
 					
 					// Esto es para que se refresque la grilla de datos

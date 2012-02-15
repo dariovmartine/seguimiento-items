@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.DefaultDozerBeanMapper;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Estado;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.EstadoRepository;
 
@@ -23,15 +22,7 @@ public class EstadoService extends AbstractService<Estado, EstadoRepository> {
 	@Autowired
 	private EstadoRepository repository;
 	
-	@Autowired
-	private DefaultDozerBeanMapper<Estado, EstadoService> mapper;
-	
-	@Override
-	public DefaultDozerBeanMapper<Estado, ? extends AbstractService<Estado, EstadoRepository>> getMapper() {
-
-		return mapper;
-	}
-	
+		
 	@Override
 	public EstadoRepository getRepository() {
 
@@ -55,7 +46,11 @@ public class EstadoService extends AbstractService<Estado, EstadoRepository> {
 		try {
 			DetachedCriteria criteria = getRepository().getCriteria();
 			criteria.add( Restrictions.eq("tipoEstado", INICIAL));
-			return getMapper().map(getRepository().findByCriteria(criteria), ArrayList.class);
+			
+			List<Estado> res = new ArrayList<Estado>();
+			copyFields(getRepository().findByCriteria(criteria), res);
+			
+			return res;
 		} catch (Exception e) {
 			
 			throw new ServiceException(e);

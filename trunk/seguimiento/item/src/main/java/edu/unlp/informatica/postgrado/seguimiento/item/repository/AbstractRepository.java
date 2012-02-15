@@ -17,10 +17,13 @@ public class AbstractRepository<E extends Numerable, K extends Serializable> {
 	HibernateTemplate hibernateTemplate;
 	
 	private final Class<E> clazz  ;
-
 	
 	public AbstractRepository(Class<E> clazz) {
 		this.clazz = clazz;
+	}
+	
+	public Class<E> getClazz() {
+		return clazz;
 	}
 	
 	public E save(E entity) {
@@ -66,5 +69,6 @@ public class AbstractRepository<E extends Numerable, K extends Serializable> {
 	public long getCount() {
 		return (Long)hibernateTemplate.findByCriteria(DetachedCriteria.forClass(clazz).setProjection(	Projections.rowCount())).get(0);
 	}
+
 
 }

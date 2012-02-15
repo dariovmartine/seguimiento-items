@@ -23,7 +23,6 @@
 		<org.springframework.version>3.1.0.RELEASE</org.springframework.version>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-		<dozer.version>5.3.2</dozer.version>
 		<hsqldb.version>2.2.4</hsqldb.version>
 	</properties>
 	<repositories>
@@ -121,11 +120,10 @@
 			<artifactId>aopalliance</artifactId>
 			<version>1.0</version>
 		</dependency>
-		<!-- DOZER -->
 		<dependency>
-   			<groupId>net.sf.dozer</groupId>
-   			<artifactId>dozer</artifactId>
-   			<version>${dozer.version}</version>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
 		</dependency>
 	</dependencies>		
 	<modules>
