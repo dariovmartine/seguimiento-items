@@ -14,6 +14,6 @@ public @interface MappingOptions {
 	
 	Class<?>[] exclude() default {};
 	
-	int order() default -1;
+	
 	
 }
