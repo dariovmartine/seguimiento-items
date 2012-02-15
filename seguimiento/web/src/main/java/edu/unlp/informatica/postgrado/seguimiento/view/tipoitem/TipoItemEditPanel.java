@@ -68,20 +68,14 @@ public class TipoItemEditPanel extends Panel {
 			{
 				TipoItem newVersion = (TipoItem) getForm().getModelObject();
 				
-				TipoItem tipoItem;
 				try {
 					
 					if (newVersion.getId() != null) {
 						
-						tipoItem = DataSourceLocator.getInstance().getTipoItemService()
-									.getById(newVersion.getId());
-						tipoItem.setNombre(newVersion.getNombre());
-						
-						DataSourceLocator.getInstance().getTipoItemService().update(tipoItem);
+						DataSourceLocator.getInstance().getTipoItemService().update(newVersion);
 					} else {
 						
-						tipoItem = newVersion;
-						DataSourceLocator.getInstance().getTipoItemService().save(tipoItem);
+						DataSourceLocator.getInstance().getTipoItemService().save(newVersion);
 					}				
 					
 					// Esto es para que se refresque la grilla de datos

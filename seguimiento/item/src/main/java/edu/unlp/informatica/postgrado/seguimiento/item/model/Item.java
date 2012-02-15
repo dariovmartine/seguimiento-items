@@ -1,7 +1,6 @@
 package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.HistorialItemService;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 import edu.unlp.informatica.postgrado.seguimiento.item.validators.ValidUserName;
 
 @Entity
@@ -36,56 +36,56 @@ public class Item implements Serializable, Numerable {
 	@Column(name = "ID")
 	@GeneratedValue(generator="ITEM_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="ITEM_ID_GEN", sequenceName="SEQ_ITEM_ID", allocationSize=1, initialValue=1)
-	@MappingOptions(order=1)
+	@MappingOptions
 	Long id;
 	
 	@ValidUserName
 	@NotNull
 	@Column(name = "TITULO", unique=true)
-	@MappingOptions(order=2)
+	@MappingOptions
 	private String titulo;
 	
 	@NotNull
 	@Column(name = "DESCRIPCION")
-	@MappingOptions(order=3)
+	@MappingOptions(exclude={HistorialItemService.class})
 	private String descripcion;
 		
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_ESTADO")
-	@MappingOptions(order=4)
+	@MappingOptions(exclude={HistorialItemService.class})
 	private Estado estado;	
 		
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_PERSONA")
-	@MappingOptions(order=5)
+	@MappingOptions(exclude={HistorialItemService.class})
 	private Persona responsable;
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_PRIORIDAD")
-	@MappingOptions(order=6)
+	@MappingOptions(exclude={HistorialItemService.class})
 	private Prioridad prioridad;
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_TIPO_ITEM")
-	@MappingOptions(order=7)
+	@MappingOptions(exclude={HistorialItemService.class})
 	private TipoItem tipoItem;
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_PROYECTO")
-	@MappingOptions(order=8)
+	@MappingOptions(exclude={HistorialItemService.class})
 	private Proyecto proyecto;
 	
-	@OneToMany(mappedBy="item")
-	@MappingOptions(order=9)
-	List<HistorialItem> historial = new ArrayList<HistorialItem>();
+	@OneToMany(mappedBy="item", cascade= CascadeType.ALL)
+	@MappingOptions(exclude={HistorialItemService.class})
+	private List<HistorialItem> historial = new ArrayList<HistorialItem>();
 	
 	@Transient //hasta ver con Dary si va o no
-	private Timestamp fechaCarga;
+	private Date fechaCarga;
 
 	public Long getId() {
 		return id;
@@ -104,14 +104,20 @@ public class Item implements Serializable, Numerable {
 		cambiarEstado(estado, responsable, "");
 	}
 	
-	public void cambiarEstado(Estado nuevoEstado, Persona quienLoCambia, String comentario) {
+	private void cambiarEstado(Estado nuevoEstado, Persona quienLoCambia, String comentario) {
 		
+		if (estado == null && proyecto != null && ! proyecto.isStateInitial(tipoItem, nuevoEstado)) {			
+			throw new IllegalArgumentException("El estado al que se intenta cambiar no es válido.");
+		}		
+		
+		if (estado != null && estado.equals(nuevoEstado)) {
+			throw new IllegalArgumentException("El item ya se encuentra en ese estado.");
+		}
 		//valida si la persona q quiere cambiar el estado puede hacerlo
-		
 		
 		//valida q el estado al que va a pasar sea valido. 
 		//Se valida aca? se valida en el setEstado? en ambos lados?
-		if (proyecto != null && getEstado() != null && estado != null && ! estado.equals(nuevoEstado) ) {	
+		if (proyecto != null && getEstado() != null) {	
 			if (! proyecto.canChangeState(tipoItem, estado, nuevoEstado)) {			
 				throw new IllegalArgumentException("El estado al que se intenta cambiar no es válido.");
 			}
@@ -119,8 +125,9 @@ public class Item implements Serializable, Numerable {
 			//guardar historial
 			HistorialItem historicoNuevo = new HistorialItem();
 			historicoNuevo.setEstado(nuevoEstado);
-			Timestamp fechaCambio = new Timestamp(new Date().getTime());
+			Date fechaCambio = new Date(new Date().getTime());
 			historicoNuevo.setFechaInicio(fechaCambio);
+			historicoNuevo.setFechaFin(null);
 			historicoNuevo.setItem(this);
 			historicoNuevo.setResponsable(getResponsable());//esta bien esto????
 			
@@ -178,6 +185,7 @@ public class Item implements Serializable, Numerable {
 	}
 
 	public void setProyecto(Proyecto proyecto) {
+		
 		if (proyecto == null || proyecto.canAddItem(this)) {
 			this.proyecto = proyecto;
 		} else
@@ -241,11 +249,11 @@ public class Item implements Serializable, Numerable {
 				return false;
 		} else if (!descripcion.equals(other.descripcion))
 			return false;
-		if (estado == null) {
-			if (other.estado != null)
-				return false;
-		} else if (!estado.equals(other.estado))
-			return false;
+//		if (estado == null) {      <<<<<----  no tiene sentido, dos item en distinto estado "son iguales"
+//			if (other.estado != null)
+//				return false;
+//		} else if (!estado.equals(other.estado))
+//			return false;
 		if (prioridad == null) {
 			if (other.prioridad != null)
 				return false;
@@ -279,11 +287,11 @@ public class Item implements Serializable, Numerable {
 		return titulo;
 	}
 
-	public Timestamp getFechaCarga() {
+	public Date getFechaCarga() {
 		return fechaCarga;
 	}
 
-	public void setFechaCarga(Timestamp fechaCarga) {
+	public void setFechaCarga(Date fechaCarga) {
 		this.fechaCarga = fechaCarga;
 	}
 	

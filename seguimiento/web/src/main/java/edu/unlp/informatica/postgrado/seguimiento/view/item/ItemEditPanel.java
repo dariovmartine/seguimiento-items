@@ -71,12 +71,6 @@ public class ItemEditPanel extends Panel {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target)
 			{
-				if (getForm().hasError()) {
-					
-					target.appendJavaScript("alert('" +	getForm().getFeedbackMessages() + "');");
-					return;
-					
-				}
 				Item newVersion = (Item) getForm().getModelObject();
 				
 				try {

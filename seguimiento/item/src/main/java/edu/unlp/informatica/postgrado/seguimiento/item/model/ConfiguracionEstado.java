@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ForeignKey;
 
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 
 /**
  * @author  dariovmartine
@@ -38,19 +38,19 @@ public class ConfiguracionEstado implements Serializable, Numerable  {
 	@Column(name = "ID")
 	@GeneratedValue(generator="CONFIG_ESTADO_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="CONFIG_ESTADO_ID_GEN", sequenceName="SEQ_CONFIG_ESTADO_ID", allocationSize=1, initialValue=1)
-	@MappingOptions(order=1)
+	@MappingOptions
 	private Long id;
 	
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_ESTADO")
 	@ForeignKey(name="CONF_ESTADO_ESTADO")
-	@MappingOptions(order=2)
+	@MappingOptions
 	private Estado estado;
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_CONFIGURACION_ITEM")
-	@MappingOptions(order=3)
+	@MappingOptions
 	private ConfiguracionItem configuracionItem;
 	
 	@ManyToMany(targetEntity=Estado.class)
@@ -58,7 +58,7 @@ public class ConfiguracionEstado implements Serializable, Numerable  {
     		joinColumns=@JoinColumn(name="CONF_ITEM_ID"),
 	        inverseJoinColumns=@JoinColumn(name="ESTADO_ID"))
 	@ForeignKey(name="CONF_ESTADO_PROX")
-	@MappingOptions(order=4)
+	@MappingOptions
 	private List<Estado> proximosEstados = new ArrayList<Estado>();
 	
 	

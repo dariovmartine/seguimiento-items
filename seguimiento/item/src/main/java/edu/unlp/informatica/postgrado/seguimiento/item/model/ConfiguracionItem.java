@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ForeignKey;
 
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 
 /**
  * @author  dariovmartine
@@ -42,14 +42,14 @@ public class ConfiguracionItem  implements Serializable, Numerable {
 	@Column(name = "ID")
 	@GeneratedValue(generator="CONF_ITEM_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="CONF_ITEM_ID_GEN", sequenceName="SEQ_CONF_ITEM_ID", allocationSize=1, initialValue=1)
-	@MappingOptions(order=1)
+	@MappingOptions
 	private Long id;
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_TIPO_ITEM")
 	@ForeignKey(name="FK_CONF_ITEM_TIPO_ITEM")
-	@MappingOptions(order=2)
+	@MappingOptions
 	private TipoItem tipoItem;
 		
 	@OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
@@ -58,14 +58,14 @@ public class ConfiguracionItem  implements Serializable, Numerable {
             inverseJoinColumns=@JoinColumn(name="CONFIG_ESTADO_ID"))
     @MapKeyJoinColumn(name="ESTADO_ID")
 	@ForeignKey(name="FK_CONF_ITEM_PROX_ESTA")
-	@MappingOptions(order=3)
+	@MappingOptions
 	Map<Estado, ConfiguracionEstado> proximosEstados = new HashMap<Estado, ConfiguracionEstado>();
 	
 	@NotNull
-	@ManyToOne(cascade=CascadeType.DETACH)
+	@ManyToOne
 	@JoinColumn(name = "ID_PROYECTO")
 	@ForeignKey(name="FK_CONF_ITEM_PROYECTO")
-	@MappingOptions(order=4)
+	@MappingOptions
 	private Proyecto proyecto;
 	
 	public Long getId() {
@@ -124,7 +124,12 @@ public class ConfiguracionItem  implements Serializable, Numerable {
 		}
 		
 		return proximosEstados.get(estadoActual).canChange(estadoNuevo);
-	}	
+	}
+	
+	public boolean isStateInitial(Estado estadoActual) {
+		// TODO Auto-generated method stub
+		return proximosEstados.get(estadoActual) != null;
+	}
 
 	public Proyecto getProyecto() {
 		return proyecto;
@@ -183,6 +188,8 @@ public class ConfiguracionItem  implements Serializable, Numerable {
 			return false;
 		return true;
 	}
+
+	
 
 
 }

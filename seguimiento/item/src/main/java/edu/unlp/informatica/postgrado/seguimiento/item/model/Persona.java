@@ -19,8 +19,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import edu.unlp.informatica.postgrado.seguimiento.item.mapper.MappingOptions;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
+import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 
 @Entity
 @Table(name = "users")
@@ -35,36 +35,36 @@ public class Persona  implements Serializable, Numerable {
 	@Column(name = "ID")
 	@GeneratedValue(generator="PERSONA_ID_GEN", strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="PERSONA_ID_GEN", sequenceName="SEQ_PERSONA_ID", allocationSize=1, initialValue=1)
-	@MappingOptions(order=1)
+	@MappingOptions
 	private Long id;
 			
 	@NotNull
 	@Column(name = "NOMBRE")
-	@MappingOptions(order=2)
+	@MappingOptions
 	private String nombre;
 		
 	@NotNull
 	@Size(max=50)
 	@Column(name="username", unique=true, nullable=false)
-	@MappingOptions(order=3)
+	@MappingOptions
 	String userName;
 	
 	@NotNull
 	@Size(max=50)
 	@Column(name="password")
-	@MappingOptions(order=4)
+	@MappingOptions
 	String password;
 	
 	@NotNull	
 	@Column(name="enabled")
-	@MappingOptions(order=5)
+	@MappingOptions
 	boolean habilitado;
 	
 	@ElementCollection(targetClass=Rol.class) 
 	@Enumerated(EnumType.STRING)
 	@CollectionTable(name = "authorities",   joinColumns = @JoinColumn(name = "username", referencedColumnName="username"))
 	@Column(name="authority", length=50 )
-	@MappingOptions(order=6)
+	@MappingOptions
 	List<Rol> roles = new ArrayList<Rol>();
 
 	public Long getId() {

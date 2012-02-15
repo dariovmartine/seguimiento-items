@@ -76,7 +76,7 @@ public class DataSourceLocator
 	public static DataSourceLocator getInstance()
 	{
 		try {
-			if (dataSource.getEstadoService().find().size() == 0) {
+			if (dataSource.getPersonaService().find().size() == 0) {
 				
 				Persona admin = new Persona();
 				admin.setNombre("Jefe");
