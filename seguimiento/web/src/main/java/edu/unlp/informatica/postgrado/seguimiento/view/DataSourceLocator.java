@@ -81,32 +81,32 @@ public class DataSourceLocator
 				Persona admin = new Persona();
 				admin.setNombre("Jefe");
 				admin.setHabilitado(true);
-				admin.setUserName("test");
-				admin.setPassword("test");
+				admin.setUserName("admin");
+				admin.setPassword("admin");
 				admin.getRoles().add(ADMINISTRADOR);
 				dataSource.getPersonaService().save(admin);
 				
 				Persona lider = new Persona();
 				lider.setNombre("Lujan");
 				lider.setHabilitado(true);
-				lider.setUserName("lu");
-				lider.setPassword("lu");
+				lider.setUserName("lider");
+				lider.setPassword("lider");
 				lider.getRoles().add(LIDER_DE_PROYECTO);
 				dataSource.getPersonaService().save(lider);
 				
 				Persona i = new Persona();
 				i.setNombre("Dario");				
 				i.setHabilitado(true);
-				i.setUserName("dario");
-				i.setPassword("dario");
+				i.setUserName("desa");
+				i.setPassword("desa");
 				i.getRoles().add(DESARROLLADOR);
 				dataSource.getPersonaService().save(i);
 				
 				i = new Persona();
 				i.setNombre("Juan");
 				i.setHabilitado(true);
-				i.setUserName("juan");
-				i.setPassword("juan");
+				i.setUserName("user");
+				i.setPassword("user");
 				i.getRoles().add(USUARIO);
 				dataSource.getPersonaService().save(i);
 				
