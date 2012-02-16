@@ -2,6 +2,8 @@ package edu.unlp.informatica.postgrado.seguimiento.item.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,6 +19,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 import edu.unlp.informatica.postgrado.seguimiento.item.validators.ValidUserName;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "ESTADO")
 public class Estado implements Serializable, Numerable {
 	
@@ -84,15 +87,15 @@ public class Estado implements Serializable, Numerable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Estado))
 			return false;
 		Estado other = (Estado) obj;
 		if (nombre == null) {
-			if (other.nombre != null)
+			if (other.getNombre() != null)
 				return false;
-		} else if (!nombre.equals(other.nombre))
+		} else if (!nombre.equals(other.getNombre()))
 			return false;
-		if (tipoEstado != other.tipoEstado)
+		if (tipoEstado != other.getTipoEstado())
 			return false;
 		return true;
 	}

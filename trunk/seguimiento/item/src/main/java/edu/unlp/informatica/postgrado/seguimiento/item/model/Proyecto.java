@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,6 +35,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.ProyectoService;
  * @author dariovmartine
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "PROYECTO")
 public class Proyecto implements Serializable, Numerable {
 
@@ -251,28 +254,28 @@ public class Proyecto implements Serializable, Numerable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (!(obj instanceof Proyecto))
 			return false;
 		Proyecto other = (Proyecto) obj;
 		if (integrantes == null) {
-			if (other.integrantes != null)
+			if (other.getIntegrantes() != null)
 				return false;
-		} else if (!integrantes.equals(other.integrantes))
+		} else if (!integrantes.equals(other.getIntegrantes()))
 			return false;
 		if (lider == null) {
-			if (other.lider != null)
+			if (other.getLider() != null)
 				return false;
-		} else if (!lider.equals(other.lider))
+		} else if (!lider.equals(other.getLider()))
 			return false;
 		if (nombre == null) {
-			if (other.nombre != null)
+			if (other.getNombre() != null)
 				return false;
-		} else if (!nombre.equals(other.nombre))
+		} else if (!nombre.equals(other.getNombre()))
 			return false;
 		if (tipoItems == null) {
-			if (other.tipoItems != null)
+			if (other.getTipoItems() != null)
 				return false;
-		} else if (!tipoItems.equals(other.tipoItems))
+		} else if (!tipoItems.equals(other.getTipoItems()))
 			return false;
 		return true;
 	}

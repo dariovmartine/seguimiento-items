@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
  * @author  dariovmartine
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "CONFIG_ESTADO")
 public class ConfiguracionEstado implements Serializable, Numerable  {
 	
@@ -125,19 +127,19 @@ public class ConfiguracionEstado implements Serializable, Numerable  {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (! (obj instanceof ConfiguracionEstado))
 			return false;
 		ConfiguracionEstado other = (ConfiguracionEstado) obj;
 	
 		if (estado == null) {
-			if (other.estado != null)
+			if (other.getEstado() != null)
 				return false;
-		} else if (!estado.equals(other.estado))
+		} else if (!estado.equals(other.getEstado()))
 			return false;
 		if (proximosEstados == null) {
-			if (other.proximosEstados != null)
+			if (other.getProximosEstados() != null)
 				return false;
-		} else if (!proximosEstados.equals(other.proximosEstados))
+		} else if (!proximosEstados.equals(other.getProximosEstados()))
 			return false;
 		return true;
 	}

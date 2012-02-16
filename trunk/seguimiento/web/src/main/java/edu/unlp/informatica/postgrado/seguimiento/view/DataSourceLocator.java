@@ -136,44 +136,68 @@ public class DataSourceLocator
 				ti2.setNombre("Nuevo requerimiento");
 				dataSource.getTipoItemService().save(ti2);
 								
-				Estado e = new Estado();
-				e.setNombre("Aceptado");
-				e.setTipoEstado(INICIAL); 
-				dataSource.getEstadoService().save(e);
+				Estado eAceptado = new Estado();
+				eAceptado.setNombre("Aceptado");
+				eAceptado.setTipoEstado(INICIAL); 
+				dataSource.getEstadoService().save(eAceptado);
 
-				Estado ex = new Estado();
-				ex.setNombre("Creado");
-				ex.setTipoEstado(INICIAL); 
-				dataSource.getEstadoService().save(ex);
+				Estado eCreado = new Estado();
+				eCreado.setNombre("Creado");
+				eCreado.setTipoEstado(INICIAL); 
+				dataSource.getEstadoService().save(eCreado);
 				
-				Estado e2 = new Estado();
-				e2.setNombre("Desarrollo");
-				e2.setTipoEstado(INTERMEDIO);
-				dataSource.getEstadoService().save(e2);
+				Estado eDesarrollo = new Estado();
+				eDesarrollo.setNombre("Desarrollo");
+				eDesarrollo.setTipoEstado(INTERMEDIO);
+				dataSource.getEstadoService().save(eDesarrollo);
 				
-				e2 = new Estado();
-				e2.setNombre("Validación");
-				e2.setTipoEstado(INTERMEDIO);
-				dataSource.getEstadoService().save(e2);
+				Estado eValidacion = new Estado();
+				eValidacion.setNombre("Validación");
+				eValidacion.setTipoEstado(INTERMEDIO);
+				dataSource.getEstadoService().save(eValidacion);
 				
-				e2 = new Estado();
-				e2.setNombre("Terminado");
-				e2.setTipoEstado(FINAL);
-				dataSource.getEstadoService().save(e2);
+				Estado eTerminado = new Estado();
+				eTerminado.setNombre("Terminado");
+				eTerminado.setTipoEstado(FINAL);
+				dataSource.getEstadoService().save(eTerminado);
 				
 				ConfiguracionItem ci = new ConfiguracionItem();
 				ConfiguracionEstado confEstado = new ConfiguracionEstado();
 				confEstado.setConfiguracionItem(ci);
-				confEstado.setEstado(ex);
-				confEstado.getProximosEstados().add(e2);
-				ci.getProximosEstados().put(ex, confEstado);
+				confEstado.setEstado(eCreado);
+				confEstado.getProximosEstados().add(eAceptado);
+				ci.getProximosEstados().put(eCreado, confEstado);
+				
+				ConfiguracionEstado confEstado2 = new ConfiguracionEstado();
+				confEstado2.setConfiguracionItem(ci);
+				confEstado2.setEstado(eAceptado);
+				confEstado2.getProximosEstados().add(eDesarrollo);
+				ci.getProximosEstados().put(eAceptado, confEstado2);
+				
+				ConfiguracionEstado confEstado3 = new ConfiguracionEstado();
+				confEstado3.setConfiguracionItem(ci);
+				confEstado3.setEstado(eDesarrollo);
+				confEstado3.getProximosEstados().add(eTerminado);
+				ci.getProximosEstados().put(eDesarrollo, confEstado3);
 				
 				ConfiguracionItem ci2 = new ConfiguracionItem();
 				ConfiguracionEstado ce2 = new ConfiguracionEstado();
 				ce2.setConfiguracionItem(ci2);
-				ce2.setEstado(e);
-				ce2.getProximosEstados().add(e2);
-				ci2.getProximosEstados().put(e, ce2);
+				ce2.setEstado(eAceptado);
+				ce2.getProximosEstados().add(eDesarrollo);
+				ci2.getProximosEstados().put(eAceptado, ce2);
+				
+				confEstado2 = new ConfiguracionEstado();
+				confEstado2.setConfiguracionItem(ci2);
+				confEstado2.setEstado(eAceptado);
+				confEstado2.getProximosEstados().add(eDesarrollo);
+				ci2.getProximosEstados().put(eAceptado, confEstado2);
+				
+				confEstado3 = new ConfiguracionEstado();
+				confEstado3.setConfiguracionItem(ci2);
+				confEstado3.setEstado(eDesarrollo);
+				confEstado3.getProximosEstados().add(eTerminado);
+				ci2.getProximosEstados().put(eDesarrollo, confEstado3);
 				
 				Proyecto p = new Proyecto();
 				p.setLider(lider);
@@ -193,7 +217,7 @@ public class DataSourceLocator
 				ii.setResponsable(lider);
 				ii.setTitulo("ss");
 				ii.setTipoItem(ti);
-				ii.setEstado(ex);
+				ii.setEstado(eCreado);
 				ii.setProyecto(p);
 				dataSource.getItemService().save(ii);
 				

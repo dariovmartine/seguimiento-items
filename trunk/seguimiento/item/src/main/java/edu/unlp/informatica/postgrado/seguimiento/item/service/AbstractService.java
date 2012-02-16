@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.hibernate.collection.PersistentBag;
-import org.hibernate.collection.PersistentMap;
+import org.hibernate.proxy.AbstractLazyInitializer;
 import org.hibernate.proxy.HibernateProxyHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
@@ -26,9 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import sun.reflect.ReflectionFactory;
 import edu.unlp.informatica.postgrado.seguimiento.item.ServiceException;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.ConfiguracionItem;
 import edu.unlp.informatica.postgrado.seguimiento.item.model.Numerable;
-import edu.unlp.informatica.postgrado.seguimiento.item.model.Proyecto;
 import edu.unlp.informatica.postgrado.seguimiento.item.repository.AbstractRepository;
 
 public abstract class AbstractService<E extends Numerable, R extends AbstractRepository<E, ? extends Serializable>> {
@@ -222,11 +219,30 @@ public abstract class AbstractService<E extends Numerable, R extends AbstractRep
 	  	        				
 	        					tooF.set(original, newValue);
 	  	        			} catch (Exception e) {
-	  	        			
-	  	        				if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
-									writeMethod.setAccessible(true);
-								}
-								writeMethod.invoke(original, newValue);
+	  	        				
+	  	        				try {
+	  	        					
+	  	        					Field fz = original.getClass().getDeclaredField("handler");
+	  	        					if (! fz.isAccessible()) {
+	  	        						fz.setAccessible(true);
+	  	        					}
+	  	        					AbstractLazyInitializer a = (AbstractLazyInitializer) fz.get(original);
+	  	        					
+	  	        					Numerable numerable = (Numerable) a.getImplementation();
+	  	        					Field tooF =  numerable.getClass().getDeclaredField(name);
+	  	        				
+	  	        					if (! tooF.isAccessible()) {
+	  	        						tooF.setAccessible(true);
+	  	        					}
+	  	        				
+	  	        					tooF.set(numerable, newValue);
+	  	        				} catch (Exception e2) {
+	  	        					
+	  	        					if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
+	  	        						writeMethod.setAccessible(true);
+	  	        					}
+	  	        					writeMethod.invoke(original, newValue);
+	  	        				}
 	  	        			}
 							
 							

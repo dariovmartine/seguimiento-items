@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +32,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
  * @author  dariovmartine
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "CONFIG_ITEM")
 public class ConfiguracionItem  implements Serializable, Numerable {
 
@@ -173,18 +176,18 @@ public class ConfiguracionItem  implements Serializable, Numerable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (! (obj instanceof ConfiguracionItem))
 			return false;
 		ConfiguracionItem other = (ConfiguracionItem) obj;
 		if (proximosEstados == null) {
-			if (other.proximosEstados != null)
+			if (other.getProximosEstados() != null)
 				return false;
-		} else if (!proximosEstados.equals(other.proximosEstados))
+		} else if (!proximosEstados.equals(other.getProximosEstados()))
 			return false;
 		if (tipoItem == null) {
-			if (other.tipoItem != null)
+			if (other.getTipoItem() != null)
 				return false;
-		} else if (!tipoItem.equals(other.tipoItem))
+		} else if (!tipoItem.equals(other.getTipoItem()))
 			return false;
 		return true;
 	}

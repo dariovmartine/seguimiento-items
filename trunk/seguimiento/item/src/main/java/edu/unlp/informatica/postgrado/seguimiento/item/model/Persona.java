@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -23,6 +25,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.model.security.Rol;
 import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "users")
 public class Persona  implements Serializable, Numerable {
 
@@ -97,13 +100,13 @@ public class Persona  implements Serializable, Numerable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (! (obj instanceof Persona))
 			return false;
 		Persona other = (Persona) obj;
 		if (nombre == null) {
-			if (other.nombre != null)
+			if (other.getNombre() != null)
 				return false;
-		} else if (!nombre.equals(other.nombre))
+		} else if (!nombre.equals(other.getNombre()))
 			return false;
 		return true;
 	}

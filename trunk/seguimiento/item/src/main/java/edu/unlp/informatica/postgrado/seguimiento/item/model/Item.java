@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +26,7 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 import edu.unlp.informatica.postgrado.seguimiento.item.validators.ValidUserName;
 
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "ITEM")
 public class Item implements Serializable, Numerable {
 
@@ -241,13 +244,13 @@ public class Item implements Serializable, Numerable {
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (! (obj instanceof Item ))
 			return false;
 		Item other = (Item) obj;
 		if (descripcion == null) {
-			if (other.descripcion != null)
+			if (other.getDescripcion() != null)
 				return false;
-		} else if (!descripcion.equals(other.descripcion))
+		} else if (!descripcion.equals(other.getDescripcion()))
 			return false;
 //		if (estado == null) {      <<<<<----  no tiene sentido, dos item en distinto estado "son iguales"
 //			if (other.estado != null)
@@ -255,29 +258,29 @@ public class Item implements Serializable, Numerable {
 //		} else if (!estado.equals(other.estado))
 //			return false;
 		if (prioridad == null) {
-			if (other.prioridad != null)
+			if (other.getPrioridad() != null)
 				return false;
-		} else if (!prioridad.equals(other.prioridad))
+		} else if (!prioridad.equals(other.getPrioridad()))
 			return false;
 		if (proyecto == null) {
-			if (other.proyecto != null)
+			if (other.getProyecto() != null)
 				return false;
-		} else if (!proyecto.equals(other.proyecto))
+		} else if (!proyecto.equals(other.getProyecto()))
 			return false;
 		if (responsable == null) {
-			if (other.responsable != null)
+			if (other.getResponsable() != null)
 				return false;
-		} else if (!responsable.equals(other.responsable))
+		} else if (!responsable.equals(other.getResponsable()))
 			return false;
 		if (tipoItem == null) {
-			if (other.tipoItem != null)
+			if (other.getTipoItem() != null)
 				return false;
-		} else if (!tipoItem.equals(other.tipoItem))
+		} else if (!tipoItem.equals(other.getTipoItem()))
 			return false;
 		if (titulo == null) {
-			if (other.titulo != null)
+			if (other.getTitulo() != null)
 				return false;
-		} else if (!titulo.equals(other.titulo))
+		} else if (!titulo.equals(other.getTitulo()))
 			return false;
 		return true;
 	}
