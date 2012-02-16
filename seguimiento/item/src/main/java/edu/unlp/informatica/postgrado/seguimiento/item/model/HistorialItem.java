@@ -6,6 +6,8 @@ package edu.unlp.informatica.postgrado.seguimiento.item.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Access;
+import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.lang.time.DateUtils;
-
 import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
 
 
@@ -28,8 +28,8 @@ import edu.unlp.informatica.postgrado.seguimiento.item.service.MappingOptions;
  *
  */
 @Entity
+@Access(AccessType.FIELD)
 @Table(name = "HISTORIAL_ITEM")
-	
 public class HistorialItem implements Serializable, Numerable{
 
 	private static final long serialVersionUID = -5069221919900164546L;
@@ -165,7 +165,7 @@ public class HistorialItem implements Serializable, Numerable{
 			return true;
 		if (obj == null)
 			return false;
-		if (getClass() != obj.getClass())
+		if (! (obj instanceof HistorialItem))
 			return false;
 		HistorialItem other = (HistorialItem) obj;
 //		if (comentario == null) {
@@ -174,9 +174,9 @@ public class HistorialItem implements Serializable, Numerable{
 //		} else if (!comentario.equals(other.comentario))
 //			return false;
 		if (estado == null) {
-			if (other.estado != null)
+			if (other.getEstado() != null)
 				return false;
-		} else if (!estado.equals(other.estado))
+		} else if (!estado.equals(other.getEstado()))
 			return false;
 		//  --------- >fechas raras
 //		if (fechaFin == null) {
@@ -190,14 +190,14 @@ public class HistorialItem implements Serializable, Numerable{
 //		} else if (other.fechaInicio != null && !DateUtils.isSameDay(fechaInicio,other.fechaInicio))
 //			return false;
 		if (item == null) {
-			if (other.item != null)
+			if (other.getItem() != null)
 				return false;
-		} else if (!item.equals(other.item))
+		} else if (!item.equals(other.getItem()))
 			return false;
 		if (responsable == null) {
-			if (other.responsable != null)
+			if (other.getResponsable() != null)
 				return false;
-		} else if (!responsable.equals(other.responsable))
+		} else if (!responsable.equals(other.getResponsable()))
 			return false;
 		return true;
 	}
