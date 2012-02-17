@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:wicket="http://wicket.apache.org">
-<head>
-    <link rel="stylesheet" type="text/css" href="style.css" />
-</head>
-<body>
-    <span wicket:id="mainNavigation"/>
-	<form wicket:id="loginform">
-		<table align="center">
-			<tr>
-				<td><h3>Usuario:</h3>
-				</td>
-				<td><input wicket:id="username" type="text" />(test)
-				</td>
-			</tr>
-			<tr>
-				<td><h3>Clave:</h3>
-				</td>
-				<td><input wicket:id="password" type="password" />(test)
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" value="Login" /></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><div wicket:id="feedback"></div>
-				</td>
-			</tr>
-		</table>
-	</form>
-</body>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+        <span wicket:id="mainNavigation"/>
+        <form wicket:id="loginform">
+            <table align="center">
+                <tr>
+                    <td><h3>Usuario:</h3>
+                    </td>
+				    <td><input wicket:id="username" type="text" />
+				    </td>
+                </tr>
+                <tr>
+                    <td><h3>Clave:</h3>
+                    </td>
+                    <td><input wicket:id="password" type="password" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Login" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><div wicket:id="feedback"></div>
+                    </td>
+                </tr>
+		  </table>
+        </form>		
+        <p>Usuarios de prueba:</p>
+	      Roles:
+           <ul>
+               <li><em>Administrador</em>: admin/admin</li>
+               <li><em>Desarrollador</em>: desa/desa</li>
+               <li><em>Lider de Proyecto</em>: lider/lider</li> 
+               <li><em>Usuario</em>: user/user</li>
+           </ul>
+    </body>
 </html>

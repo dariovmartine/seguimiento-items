@@ -79,7 +79,7 @@ public class DataSourceLocator
 			if (dataSource.getPersonaService().find().size() == 0) {
 				
 				Persona admin = new Persona();
-				admin.setNombre("Jefe");
+				admin.setNombre("Administrador");
 				admin.setHabilitado(true);
 				admin.setUserName("admin");
 				admin.setPassword("admin");
@@ -87,7 +87,7 @@ public class DataSourceLocator
 				dataSource.getPersonaService().save(admin);
 				
 				Persona lider = new Persona();
-				lider.setNombre("Lujan");
+				lider.setNombre("Lider de proyecto");
 				lider.setHabilitado(true);
 				lider.setUserName("lider");
 				lider.setPassword("lider");
@@ -95,7 +95,7 @@ public class DataSourceLocator
 				dataSource.getPersonaService().save(lider);
 				
 				Persona i = new Persona();
-				i.setNombre("Dario");				
+				i.setNombre("Desarrollador");
 				i.setHabilitado(true);
 				i.setUserName("desa");
 				i.setPassword("desa");
@@ -103,7 +103,7 @@ public class DataSourceLocator
 				dataSource.getPersonaService().save(i);
 				
 				i = new Persona();
-				i.setNombre("Juan");
+				i.setNombre("Usuario");
 				i.setHabilitado(true);
 				i.setUserName("user");
 				i.setPassword("user");
