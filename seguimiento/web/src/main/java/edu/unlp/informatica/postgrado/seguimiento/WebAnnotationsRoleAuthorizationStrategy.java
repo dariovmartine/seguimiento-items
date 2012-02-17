@@ -20,11 +20,10 @@ public class WebAnnotationsRoleAuthorizationStrategy extends
 	}
 
 	@Override
-	public <T extends IRequestableComponent> boolean isInstantiationAuthorized(
-			Class<T> componentClass) {
+	public <T extends IRequestableComponent> boolean isInstantiationAuthorized(Class<T> componentClass) {
 		// We are authorized unless we are found not to be
 		boolean authorized = true;
-
+		
 		// Check class annotation first because it is more specific than package annotation
 		final WebAuthorizeInstantiation classAnnotation = componentClass.getAnnotation(WebAuthorizeInstantiation.class);
 		if (classAnnotation != null)
@@ -33,6 +32,7 @@ public class WebAnnotationsRoleAuthorizationStrategy extends
 			for (Rol rol : classAnnotation.value()) {
 				roles.add(rol.toString());
 			}
+		
 			authorized = hasAny(roles);
 		}
 		else
@@ -52,10 +52,7 @@ public class WebAnnotationsRoleAuthorizationStrategy extends
 				}
 			}
 		}
-
+		
 		return authorized;
-
-	}
-
-	
+	}	
 }

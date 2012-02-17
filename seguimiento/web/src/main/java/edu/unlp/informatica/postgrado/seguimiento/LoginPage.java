@@ -30,6 +30,7 @@ public final class LoginPage extends WebPage {
         add(new LoginForm("loginform"));
         add(new HeaderPage("mainNavigation","Seguimiento de items", this));
         DataSourceLocator.getInstance();       
+        SpringWicketWebSession.getSpringWicketWebSession().signOut();
     }
 
     class LoginForm extends Form {

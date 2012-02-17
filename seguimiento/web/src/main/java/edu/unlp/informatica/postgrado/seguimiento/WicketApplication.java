@@ -1,10 +1,10 @@
 package edu.unlp.informatica.postgrado.seguimiento;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.authorization.strategies.CompoundAuthorizationStrategy;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.IRoleCheckingStrategy;
-import org.apache.wicket.authroles.authorization.strategies.role.RoleAuthorizationStrategy;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
@@ -47,13 +47,13 @@ public class WicketApplication extends AuthenticatedWebApplication {
 		return LoginPage.class;
 	}
 
-	public static class WebRoleAuthorizationStrategy extends RoleAuthorizationStrategy {
+	public static class WebRoleAuthorizationStrategy extends CompoundAuthorizationStrategy {
 		
 		private WebAnnotationsRoleAuthorizationStrategy webAnnotationsRoleAuthorizationStrategy;
 		
 		public WebRoleAuthorizationStrategy(final IRoleCheckingStrategy roleCheckingStrategy)
 		{
-			super(roleCheckingStrategy);
+			super();
 			webAnnotationsRoleAuthorizationStrategy = 
 				new WebAnnotationsRoleAuthorizationStrategy(roleCheckingStrategy);
 			add(webAnnotationsRoleAuthorizationStrategy);
