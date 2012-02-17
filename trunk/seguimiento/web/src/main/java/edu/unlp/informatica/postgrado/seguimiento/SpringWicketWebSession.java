@@ -51,11 +51,13 @@ public class SpringWicketWebSession extends AuthenticatedWebSession {
         Injector.get().inject(this);
     }
 
+    private Authentication authentication ;
+    
     @Override
     public boolean authenticate(String username, String password) {
         boolean authenticated = false;
         try {
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             authenticated = authentication.isAuthenticated();
         } catch (AuthenticationException e) {
@@ -73,6 +75,7 @@ public class SpringWicketWebSession extends AuthenticatedWebSession {
     }
 
     private void getRolesIfSignedIn(Roles roles) {
+
         if (isSignedIn()) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             addRolesFromAuthentication(roles, authentication);
@@ -80,14 +83,15 @@ public class SpringWicketWebSession extends AuthenticatedWebSession {
     }
 
     private void addRolesFromAuthentication(Roles roles, Authentication authentication) {
-    	if (authentication != null) {
-    		for (GrantedAuthority authority : authentication.getAuthorities()) {
-        		roles.add(authority.getAuthority());
-        	}
+
+    	if (authentication == null) {
+    		logger.warn("El token de autentificacion se perdió!");    		
+    		authentication = this.authentication;
     	}
+   		for (GrantedAuthority authority : authentication.getAuthorities()) {
+   			System.out.println("addRolesFromAuthentication: " + authority.getAuthority());		
+       		roles.add(authority.getAuthority());
+       	}
     }
-
-    
-
 }
 

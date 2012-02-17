@@ -57,7 +57,7 @@ public final class HeaderPage extends Panel
 		add(new Label("exampleTitle", exampleTitle));
 		if (SpringWicketWebSession.getSpringWicketWebSession().isSignedIn()) {
 			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			if (authentication.isAuthenticated()) {
+			if (authentication != null && authentication.isAuthenticated()) {
 				add(new Label("usuario", "Usuario: " + authentication.getName()));
 				add(new Label("nombre", "Nombre: " + getNombre(authentication.getName())));
 				add(new LogoutLink("logout", true));
